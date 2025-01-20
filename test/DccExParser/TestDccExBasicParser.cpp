@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "DccExParser.hpp"
+#include "DccExBasicParser.hpp"
 
 #include<string>
 #include<vector>
@@ -45,7 +45,7 @@ TEST_CASE("Test DCC command parser")
     {
         std::vector<std::string> result_values = {};
         TestCallbackParser testCallbackParser(result_values);
-        Parser parser(testCallbackParser);
+        DCCBasicParser parser(testCallbackParser);
         
         parser.read_stream("<m 20 34 10>");
         REQUIRE( result_values.size() == 4);
@@ -59,7 +59,7 @@ TEST_CASE("Test DCC command parser")
     {
         std::vector<std::string> result_values = {};
         TestCallbackParser testCallbackParser(result_values);
-        Parser parser(testCallbackParser);
+        DCCBasicParser parser(testCallbackParser);
         
         parser.read_stream("10 23 43<m 20 34 10> 58 69");
         REQUIRE( result_values.size() == 4);
@@ -73,7 +73,7 @@ TEST_CASE("Test DCC command parser")
     {
         std::vector<std::string> result_values = {};
         TestAppendCallbackParser testCallbackParser(result_values);
-        Parser parser(testCallbackParser);
+        DCCBasicParser parser(testCallbackParser);
          
         parser.read_stream("10 23 43<m 20 34 10> 58 69 <j 10 15 5>526 59");
         REQUIRE( result_values.size() == 8);

@@ -2,12 +2,19 @@
 
 namespace DccExParser
 {
-    DccExCommandConverter::DccExCommandConverter(Common::CommandManager& manager):
-        _manager(manager)
+    DccExCommandParser::DccExCommandParser(Common::CommandManager& manager, response_function& send_response):
+        _manager(manager),
+        _send_response(send_response)
     {}
 
-    void DccExCommandConverter::parsed_values(const std::vector<std::string>& parsed_values)
+    void DccExCommandParser::parsed_values(const std::vector<std::string>& parsed_values)
     {
+
+
+
+
+
+
 
     }
 }

@@ -1,24 +1,26 @@
 #ifndef __DCC_EX_COMMAND_CONVERTER_HPP__
 #define __DCC_EX_COMMAND_CONVERTER_HPP__
 
-#include "DccExParser.hpp"
+#include "DccExBasicParser.hpp"
 #include "Common/CommandManager.hpp"
+
 #include <vector>
+#include <functional>
 
 namespace DccExParser
 {
-    class DccExCommandConverter : public CallbackParser
+    typedef std::function<void(const std::string&)> response_function;
+
+    class DccExCommandParser : public CallbackParser
     {
-    public:
-        DccExCommandConverter(Common::CommandManager& manager);
+        public:
+            DccExCommandParser(Common::CommandManager& _command_manager, response_function& send_response);
+            virtual ~DccExCommandParser(){}
 
-        virtual ~DccExCommandConverter()
-        {}
-        
-        private:
             void parsed_values(const std::vector<std::string>& parsed_values);
-
-        Common::CommandManager& _manager;
+        private:
+            Common::CommandManager& _manager;
+            response_function& _send_response;
     };
 }
 

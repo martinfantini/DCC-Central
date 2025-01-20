@@ -1,7 +1,7 @@
 find_package(Catch2 REQUIRED)
 
 add_executable(${TEST_DCC_EX_PARSER}
-    TestDccExParser.cpp
+    TestDccExBasicParser.cpp
 )
 
 target_include_directories(${TEST_DCC_EX_PARSER} PRIVATE ${INCLUDE_DIRECTORIES}/DccExParser)

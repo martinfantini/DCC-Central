@@ -1,12 +1,12 @@
-#include "DccExParser.hpp"
+#include "DccExBasicParser.hpp"
 
 namespace DccExParser
 {
-    Parser::Parser(CallbackParser& parse_result):
+    DCCBasicParser::DCCBasicParser(CallbackParser& parse_result):
         _parse_result(parse_result)
     {}
 
-    void Parser::read_stream(const std::string& input_stream)
+    void DCCBasicParser::read_stream(const std::string& input_stream)
     {
         static enum parsingState {
             FIND_START = 0,

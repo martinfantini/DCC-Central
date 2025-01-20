@@ -10,14 +10,14 @@ namespace DccExParser
 {
     class CallbackParser
     {
-        private:
+        public:
             virtual void parsed_values(const std::vector<std::string>& parsed_values) = 0;
     };
 
-    class Parser
+    class DCCBasicParser
     {
         public:
-            Parser(CallbackParser& parse_result);
+            DCCBasicParser(CallbackParser& parse_result);
             void read_stream(const std::string& input_stream);
 
         private:

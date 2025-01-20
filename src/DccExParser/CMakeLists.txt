@@ -1,6 +1,6 @@
 
 add_library(${LIB_DCC_EX_PARSER}
-    DccExParser.cpp
+    DccExBasicParser.cpp
     DccExCommandConverter.cpp
 )
 
