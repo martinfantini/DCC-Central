@@ -1,0 +1,14 @@
+<Interfaces>
+    <DCCPlus>
+        <IP>123.253.10.20</IP>
+        <Port>1515</Port>
+    </DCCPlus>
+    <ApiRest>
+        <IP>127.0.0.1</IP>
+        <Port>1616</Port>
+    </ApiRest>
+</Interfaces>
+<Logger>
+    <Level>INFO</Level>
+    <Folder>/home/rmfantini/Projects/Ralf_Platine/DCC-Central/log</Folder>
+</Logger>
