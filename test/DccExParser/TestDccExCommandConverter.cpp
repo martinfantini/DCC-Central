@@ -58,6 +58,7 @@ TEST_CASE("Test DCC implemented commands")
 
     SECTION("Test empty case")
     {
-
+        dccBasicParser.read_stream("< >\n");
+        CHECK(commandResult == "<X>\n");
     }
 }
