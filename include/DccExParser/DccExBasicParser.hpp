@@ -1,4 +1,3 @@
-
 #ifndef __DCC_EX_PARSER_HPP__
 #define __DCC_EX_PARSER_HPP__
 
@@ -11,7 +10,7 @@ namespace DccExParser
     class CallbackParser
     {
         public:
-            virtual void parsed_values(const std::vector<std::string>& parsed_values) = 0;
+            virtual void parsed_values(const char command, const std::vector<std::string>& parameters) = 0;
     };
 
     class DCCBasicParser

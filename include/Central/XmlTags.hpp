@@ -1,6 +1,6 @@
 
-#ifndef __XML_TAGS_HPP__
-#define __XML_TAGS_HPP__
+#ifndef __CENTRAL_XML_TAGS_HPP__
+#define __CENTRAL_XML_TAGS_HPP__
 
 namespace XmlTags
 {

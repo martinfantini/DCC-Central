@@ -1,5 +1,5 @@
-#ifndef __COMMAND_OPTIONS_HPP__
-#define __COMMAND_OPTIONS_HPP__
+#ifndef __CENTRAL_COMMAND_OPTIONS_HPP__
+#define __CENTRAL_COMMAND_OPTIONS_HPP__
 
 #include<utility>
 #include<string>

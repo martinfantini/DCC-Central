@@ -1,6 +1,6 @@
 
-#ifndef __HELPERS_HPP__
-#define __HELPERS_HPP__
+#ifndef __CENTRAL_HELPERS_HPP__
+#define __CENTRAL_HELPERS_HPP__
 
 #include "Address.hpp"
 #include <iostream>

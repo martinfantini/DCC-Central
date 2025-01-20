@@ -11,11 +11,13 @@ namespace DccExParser
         static enum parsingState {
             FIND_START = 0,
             PARSE_COMMAND,
+            PARSE_PARAMETERS,
             PARSING_COMPLETE,
         } parsing_state = FIND_START;
 
-        std::string parameter;
-        std::vector<std::string> parameters_data;
+        std::string current_parsing;
+        std::vector<std::string> parameters;
+        char command;
 
         for(std::string::size_type i = 0; i < input_stream.size(); ++i) 
         {
@@ -23,36 +25,49 @@ namespace DccExParser
             {
                 if (input_stream[i] == '<')
                 {
-                    parameter.clear();
-                    parameters_data.clear();
+                    current_parsing.clear();
+                    parameters.clear();
+                    command = ' ';
                     parsing_state = PARSE_COMMAND;
                 }
                 continue;
             }
-            
+
             if (parsing_state == PARSE_COMMAND)
+            {
+                command = input_stream[i];
+                current_parsing.clear();
+                parsing_state = PARSE_PARAMETERS;
+                continue;
+            }
+
+            if (parsing_state == PARSE_PARAMETERS)
             {
                 if (input_stream[i] == ' ')
                 {
-                    parameters_data.push_back(parameter);
-                    parameter.clear();
+                    if (!current_parsing.empty())
+                        parameters.push_back(current_parsing);
+                    current_parsing.clear();
                 }
                 else if (input_stream[i] == '>')
                 {
-                    parameters_data.push_back(parameter);
-                    parameter.clear();                    
+                    if (!current_parsing.empty())
+                        parameters.push_back(current_parsing);
+                    current_parsing.clear();
                     parsing_state = PARSING_COMPLETE;
                 }
                 else
                 {
-                   parameter.push_back(input_stream[i]);
+                   current_parsing.push_back(input_stream[i]);
                 }
             }
 
             if (parsing_state == PARSING_COMPLETE)
             {
-                _parse_result.parsed_values(parameters_data);
-                parameters_data.clear();
+                _parse_result.parsed_values(command, parameters);
+                current_parsing.clear();
+                parameters.clear();
+                command = ' ';
                 parsing_state = FIND_START;
             }
         }

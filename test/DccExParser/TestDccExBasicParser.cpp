@@ -12,80 +12,87 @@ TEST_CASE("Test DCC command parser")
     class TestCallbackParser : public CallbackParser
     {
         public:
-            TestCallbackParser(std::vector<std::string>& result_values):
-                _result_values(result_values)
-            {}
-
-        private: 
-            void parsed_values(const std::vector<std::string>& parsed_values)
+            void parsed_values(const char command, const std::vector<std::string>& parameters)
             {
-                _result_values = parsed_values;
+                _command = command;
+                _result_values = parameters;
             }
-        
-            std::vector<std::string>& _result_values;
+
+            char _command;
+            std::vector<std::string> _result_values;
     };
 
     class TestAppendCallbackParser : public CallbackParser
     {
         public:
-            TestAppendCallbackParser(std::vector<std::string>& result_values):
-                _result_values(result_values)
-            {}
-
-        private: 
-            void parsed_values(const std::vector<std::string>& parsed_values)
+            void parsed_values(const char command, const std::vector<std::string>& parameters)
             {
-                _result_values.insert(_result_values.end(), parsed_values.begin(), parsed_values.end());
+                if (_is_first_command)
+                {
+                    _first_command = command;
+                    _first_result_values = parameters;
+                    _is_first_command = false;
+                }
+                else
+                {
+                    _second_command = command;
+                    _second_result_values = parameters;
+
+                }
             }
         
-            std::vector<std::string>& _result_values;
+            bool _is_first_command = true;
+
+            char _first_command;
+            std::vector<std::string> _first_result_values;
+
+            char _second_command;
+            std::vector<std::string> _second_result_values;
     };
 
     SECTION("Basic test parser")
     {
-        std::vector<std::string> result_values = {};
-        TestCallbackParser testCallbackParser(result_values);
+        TestCallbackParser testCallbackParser;
         DCCBasicParser parser(testCallbackParser);
-        
+
         parser.read_stream("<m 20 34 10>");
-        REQUIRE( result_values.size() == 4);
-        REQUIRE( result_values[0] == "m");
-        REQUIRE( result_values[1] == "20");
-        REQUIRE( result_values[2] == "34");
-        REQUIRE( result_values[3] == "10");
+        REQUIRE( testCallbackParser._command == 'm');
+        REQUIRE( testCallbackParser._result_values.size() == 3);
+        REQUIRE( testCallbackParser._result_values[0] == "20");
+        REQUIRE( testCallbackParser._result_values[1] == "34");
+        REQUIRE( testCallbackParser._result_values[2] == "10");
     }
 
     SECTION("Middle command")
     {
-        std::vector<std::string> result_values = {};
-        TestCallbackParser testCallbackParser(result_values);
+        TestCallbackParser testCallbackParser;
         DCCBasicParser parser(testCallbackParser);
-        
+
         parser.read_stream("10 23 43<m 20 34 10> 58 69");
-        REQUIRE( result_values.size() == 4);
-        REQUIRE( result_values[0] == "m");
-        REQUIRE( result_values[1] == "20");
-        REQUIRE( result_values[2] == "34");
-        REQUIRE( result_values[3] == "10");
+        REQUIRE( testCallbackParser._command == 'm');
+        REQUIRE( testCallbackParser._result_values.size() == 3);
+        REQUIRE( testCallbackParser._result_values[0] == "20");
+        REQUIRE( testCallbackParser._result_values[1] == "34");
+        REQUIRE( testCallbackParser._result_values[2] == "10");
     }
 
     SECTION("Two commands")
     {
-        std::vector<std::string> result_values = {};
-        TestAppendCallbackParser testCallbackParser(result_values);
+        TestAppendCallbackParser testCallbackParser;
         DCCBasicParser parser(testCallbackParser);
          
         parser.read_stream("10 23 43<m 20 34 10> 58 69 <j 10 15 5>526 59");
-        REQUIRE( result_values.size() == 8);
 
-        REQUIRE( result_values[0] == "m");
-        REQUIRE( result_values[1] == "20");
-        REQUIRE( result_values[2] == "34");
-        REQUIRE( result_values[3] == "10");
+        REQUIRE( testCallbackParser._first_command == 'm');
+        REQUIRE( testCallbackParser._first_result_values.size() == 3);
+        REQUIRE( testCallbackParser._first_result_values[0] == "20");
+        REQUIRE( testCallbackParser._first_result_values[1] == "34");
+        REQUIRE( testCallbackParser._first_result_values[2] == "10");
 
-        REQUIRE( result_values[4] == "j");
-        REQUIRE( result_values[5] == "10");
-        REQUIRE( result_values[6] == "15");
-        REQUIRE( result_values[7] == "5");
-    }     
+        REQUIRE( testCallbackParser._second_command == 'j');
+        REQUIRE( testCallbackParser._second_result_values.size() == 3);
+        REQUIRE( testCallbackParser._second_result_values[0] == "10");
+        REQUIRE( testCallbackParser._second_result_values[1] == "15");
+        REQUIRE( testCallbackParser._second_result_values[2] == "5");
+    }
 }

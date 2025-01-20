@@ -1,5 +1,5 @@
-#ifndef __ADDRESS_HPP__
-#define __ADDRESS_HPP__
+#ifndef __CENTRAL_ADDRESS_HPP__
+#define __CENTRAL_ADDRESS_HPP__
 
 #include<string>
 #include<iostream>

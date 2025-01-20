@@ -1,5 +1,5 @@
-#ifndef __CONFIGURATION_HPP__
-#define __CONFIGURATION_HPP__
+#ifndef __CENTRAL_CONFIGURATION_HPP__
+#define __CENTRAL_CONFIGURATION_HPP__
 
 #include <string>
 

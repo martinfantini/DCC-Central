@@ -1,5 +1,5 @@
-#ifndef __XML_HELPERS_HPP__
-#define __XML_HELPERS_HPP__
+#ifndef __CENTRAL_XML_HELPERS_HPP__
+#define __CENTRAL_XML_HELPERS_HPP__
 
 #include <string>
 #include <utility> 

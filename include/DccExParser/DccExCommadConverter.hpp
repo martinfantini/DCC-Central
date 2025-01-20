@@ -9,18 +9,20 @@
 
 namespace DccExParser
 {
-    typedef std::function<void(const std::string&)> response_function;
+    typedef std::function<void(const std::string&)> string_function;
 
     class DccExCommandParser : public CallbackParser
     {
         public:
-            DccExCommandParser(Common::CommandManager& _command_manager, response_function& send_response);
+            DccExCommandParser(Common::CommandManager& _command_manager, string_function& send_response, string_function& logger);
             virtual ~DccExCommandParser(){}
 
-            void parsed_values(const std::vector<std::string>& parsed_values);
+            void parsed_values(const char command, const std::vector<std::string>& parameters);
+
         private:
             Common::CommandManager& _manager;
-            response_function& _send_response;
+            string_function& _send_response;
+            string_function& _logger;
     };
 }
 
