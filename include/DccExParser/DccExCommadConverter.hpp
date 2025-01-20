@@ -20,6 +20,10 @@ namespace DccExParser
             void parsed_values(const char command, const std::vector<std::string>& parameters);
 
         private:
+
+            bool parse_f(int params, const std::vector<std::string>& parameters);
+            bool funcmap(int16_t cab, char value, int fstart, int fstop);
+
             Common::CommandManager& _manager;
             string_function& _send_response;
             string_function& _logger;
