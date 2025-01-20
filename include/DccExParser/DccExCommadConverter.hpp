@@ -2,7 +2,7 @@
 #define __DCC_EX_COMMAND_CONVERTER_HPP__
 
 #include "DccExBasicParser.hpp"
-#include "Common/CommandManager.hpp"
+#include "CommandManager.hpp"
 
 #include <vector>
 #include <functional>

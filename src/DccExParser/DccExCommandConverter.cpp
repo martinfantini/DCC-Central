@@ -88,9 +88,16 @@ namespace DccExParser
                 }
             }
             case 'f': // FUNCTION <f CAB BYTE1 [BYTE2]>
+            {
                 if (parse_f(params, parameters))
                     return;
                 break;
+            }
+            case '#':
+            {
+                _send_response("<# " + std::to_string(_manager.getMaxLocos()) +">\n");
+                return;
+            }
         }
 
         // Send default response

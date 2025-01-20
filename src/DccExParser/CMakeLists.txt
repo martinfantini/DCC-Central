@@ -6,5 +6,5 @@ add_library(${LIB_DCC_EX_PARSER}
 
 target_include_directories(${LIB_DCC_EX_PARSER} 
     PRIVATE ${INCLUDE_DIRECTORIES}/DccExParser
-    PRIVATE ${INCLUDE_DIRECTORIES}
+    PRIVATE ${INCLUDE_DIRECTORIES}/Common
 )

@@ -76,6 +76,20 @@ TEST_CASE("Test DCC command parser")
         REQUIRE( testCallbackParser._result_values[2] == "10");
     }
 
+    SECTION("Basic test parser with two parameters")
+    {
+        TestCallbackParser testCallbackParser;
+        DCCBasicParser parser(testCallbackParser);
+
+        parser.read_stream("<mi 20 34 10>");
+        REQUIRE( testCallbackParser._command == 'm');
+        REQUIRE( testCallbackParser._result_values.size() == 4);
+        REQUIRE( testCallbackParser._result_values[0] == "i");
+        REQUIRE( testCallbackParser._result_values[1] == "20");
+        REQUIRE( testCallbackParser._result_values[2] == "34");
+        REQUIRE( testCallbackParser._result_values[3] == "10");
+    }
+
     SECTION("Two commands")
     {
         TestAppendCallbackParser testCallbackParser;
