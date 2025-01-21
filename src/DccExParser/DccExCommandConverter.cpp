@@ -1,9 +1,11 @@
 #include "DccExCommadConverter.hpp"
+#include "LocoInterface.hpp"
+#include "Helpers.hpp"
 
 namespace DccExParser
 {
-    DccExCommandParser::DccExCommandParser(Common::CommandManager& manager, string_function& send_response, string_function& logger):
-        _manager(manager),
+    DccExCommandParser::DccExCommandParser(CommandInterface& _command_interface, string_function& send_response, string_function& logger):
+        _command_interface(_command_interface),
         _send_response(send_response),
         _logger(logger)
     {}
@@ -19,6 +21,112 @@ namespace DccExParser
         {
             case '\0':
                 return; // filterCallback asked us to ignore
+
+            case '0': // 0, Track power off
+            {
+                if (params > 1) 
+                    break;
+                TrackInterface& trackInterface = _command_interface.getTrackInterface();
+                if (params==0) 
+                {
+                    trackInterface.turnOffTrack(TrackInterface::eMain);
+                    trackInterface.turnOffTrack(TrackInterface::eProg);
+                }
+                else if (parameters[0] == "MAIN")
+                {
+                    trackInterface.turnOffTrack(TrackInterface::eMain);
+                }
+                else if (parameters[0] == "JOIN")
+                {
+                    trackInterface.turnOffTrack(TrackInterface::eMain);
+                    trackInterface.turnOffTrack(TrackInterface::eProg);
+                    trackInterface.turnOffTrack(TrackInterface::eJoin);                    
+                }
+                else if (parameters[0] == "PROG")
+                {
+                    trackInterface.turnOffTrack(TrackInterface::eProg);
+                }
+                else 
+                {
+                    break;
+                }
+                _send_response(Helpers::DccTrackStatus(trackInterface));
+                return;
+        	}
+            case '1':  // 1, Track power on
+            {
+                if (params > 1) break;
+                TrackInterface& trackInterface = _command_interface.getTrackInterface();
+                if (params==0) 
+                {
+                    trackInterface.turnOnTrack(TrackInterface::eMain);
+                    trackInterface.turnOnTrack(TrackInterface::eProg);
+                }
+                else if (parameters[0] == "MAIN")
+                {
+                    trackInterface.turnOnTrack(TrackInterface::eMain);
+                }
+                else if (parameters[0] == "JOIN")
+                {
+                    trackInterface.turnOnTrack(TrackInterface::eMain);
+                    trackInterface.turnOnTrack(TrackInterface::eProg);
+                    trackInterface.turnOnTrack(TrackInterface::eJoin);                    
+                }
+                else if (parameters[0] == "PROG")
+                {
+                    trackInterface.turnOnTrack(TrackInterface::eProg);
+                }
+                else 
+                {
+                    break;
+                }
+                _send_response(Helpers::DccTrackStatus(trackInterface));
+                return;
+            }
+            case '!': // ESTOP ALL  <!>
+            {
+                TrackInterface& trackInterface = _command_interface.getTrackInterface();
+                Helpers::emergencyStop(trackInterface);
+                break;
+            }
+            case '#':
+            {
+                _send_response("<# " + std::to_string(_command_interface.getLocosInfo().getMaxLocos()) +">\n");
+                return;
+            }
+            case '-': // Forget Loco <- [cab]>
+            {
+                if (params > 1) break;
+                auto locoId = atoi(parameters[0].c_str());
+                if (locoId < 0)
+                    return;
+
+                if (locoId == 0)
+                {
+                    _command_interface.getLocosInfo().removeAllLocos();
+                }
+                else
+                {
+                    _command_interface.getLocosInfo().removeLoco(locoId);
+                }
+                return;
+            }
+            case 'F': // New command to call the new Loco Function API <F cab func 1|0>
+            {
+                if(params!=3) 
+                    break; 
+                auto locoId = atoi(parameters[0].c_str());
+                auto function = atoi(parameters[1].c_str());
+                auto status = atoi(parameters[2].c_str());
+                _command_interface.getLocosInfo().setFunction(locoId, function, status == 1);
+                break;
+            }
+
+
+
+
+    /*
+
 
             case 't':   // THROTTLE <t [REGISTER] CAB SPEED DIRECTION>
             {
@@ -92,25 +200,21 @@ namespace DccExParser
                 if (parse_f(params, parameters))
                     return;
                 break;
-            }
-            case '#':
-            {
-                _send_response("<# " + std::to_string(_manager.getMaxLocos()) +">\n");
-                return;
-            }
+            }*/
+           
         }
 
         // Send default response
-        _send_response("<X>\n");
+        _send_response("<X>");
     }
 
     bool DccExCommandParser::funcmap(int16_t cab, char value, int fstart, int fstop)
     {
-        for (int16_t i = fstart; i <= fstop; i++)
+        /*for (int16_t i = fstart; i <= fstop; i++)
         {
             if (! _manager.setFunction(cab, i, value & 1)) return false;
             value >>= 1;
-        }
+        }*/
         return true;
     }
 

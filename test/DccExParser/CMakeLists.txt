@@ -2,7 +2,8 @@ find_package(Catch2 REQUIRED)
 
 add_executable(${TEST_DCC_EX_PARSER}
     TestDccExBasicParser.cpp
-    TestDccExCommandConverter.cpp
+    TestDccExTrackCommands.cpp
+    TestDccExLocoCommands.cpp
 )
 
 target_include_directories(${TEST_DCC_EX_PARSER}
