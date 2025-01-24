@@ -3,6 +3,9 @@
 
 #include "LocoInterface.hpp"
 #include "TrackInterface.hpp"
+#include "InfoInterface.hpp"
+#include "SensorsInterface.hpp"
+#include "TurnoutInterface.hpp"
 
 namespace DccExParser
 {
@@ -11,6 +14,9 @@ namespace DccExParser
         public:
             virtual LocoInterface& getLocosInfo() = 0;
             virtual TrackInterface& getTrackInterface() = 0;
+            virtual SensorsInterface& getSensors() = 0;
+            virtual TurnoutInterface& getTurnout() = 0;
+            virtual InfoInterface& getInfo() = 0;
     };
 }
 

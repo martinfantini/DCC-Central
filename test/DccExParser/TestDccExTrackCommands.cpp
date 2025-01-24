@@ -46,17 +46,32 @@ TEST_CASE("Test DCC track implemented commands")
             }
     };
 
-    TestTrackInterface _testTrackInterface;
-    TestMockLocoInterface _testLocoInterface;
+    static bool _emergencyStop = false;
 
-    TestMockCommandManager commandTester(_testLocoInterface, _testTrackInterface);
-    DccExCommandParser dccParser(commandTester, commandFunction, loggerFunction);
+    class TestLocoInterface : public TestMockLocoInterface
+    {
+        virtual void emergencyStop()
+        {
+            _emergencyStop = true;
+        }   
+    };
+
+    // Create the basic variables to testing.
+    TestLocoInterface  _TestMockLocoInterface;
+    TestTrackInterface _testTrackInterface;
+    TestMockSensorsInterface _TestMockSensorsInterface;
+    TestMockTurnoutInterface _TestMockTurnoutInterface;
+    TestMockInfoInterface _TestMockInfoInterface;
+
+    TestMockCommandManager _TestMockCommandManager(_TestMockLocoInterface, _testTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface);
+
+    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction, loggerFunction);
     DCCBasicParser dccBasicParser(dccParser);
 
     SECTION("Test empty case")
     {
         dccBasicParser.read_stream("< >\n");
-        CHECK(commandResult == "<X>");
+        CHECK(commandResult == "<X>\n");
     }
 
     SECTION("Test trun all off")
@@ -67,7 +82,7 @@ TEST_CASE("Test DCC track implemented commands")
         CHECK(!_status[0]);
         CHECK(!_status[1]);
         CHECK(!_status[2]);
-        CHECK(commandResult == "<p0>");
+        CHECK(commandResult == "<p0>\n");
     }
 
     SECTION("Test trun all on")
@@ -78,7 +93,7 @@ TEST_CASE("Test DCC track implemented commands")
         CHECK(_status[0]);
         CHECK(_status[1]);
         CHECK(!_status[2]);
-        CHECK(commandResult == "<p1>");
+        CHECK(commandResult == "<p1>\n");
     }
 
     SECTION("Test trun on Main")
@@ -89,7 +104,7 @@ TEST_CASE("Test DCC track implemented commands")
         CHECK(_status[0]);
         CHECK(!_status[1]);
         CHECK(!_status[2]);
-        CHECK(commandResult == "<p1 MAIN>");
+        CHECK(commandResult == "<p1 MAIN>\n");
     }
 
     SECTION("Test trun off Main")
@@ -100,7 +115,7 @@ TEST_CASE("Test DCC track implemented commands")
         CHECK(!_status[0]);
         CHECK(!_status[1]);
         CHECK(!_status[2]);
-        CHECK(commandResult == "<p0>");
+        CHECK(commandResult == "<p0>\n");
     }
 
     SECTION("emergency Stop")
@@ -111,6 +126,7 @@ TEST_CASE("Test DCC track implemented commands")
         CHECK(!_status[0]);
         CHECK(!_status[1]);
         CHECK(!_status[2]);
-        CHECK(commandResult == "<X>");
+        CHECK(_emergencyStop);
+        CHECK(commandResult == "<X>\n");
     }    
 }

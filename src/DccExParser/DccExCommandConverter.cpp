@@ -50,7 +50,7 @@ namespace DccExParser
                 {
                     break;
                 }
-                _send_response(Helpers::DccTrackStatus(trackInterface));
+                _send_response(Helpers::print_DccTrackStatus(trackInterface));
                 return;
         	}
             case '1':  // 1, Track power on
@@ -80,13 +80,14 @@ namespace DccExParser
                 {
                     break;
                 }
-                _send_response(Helpers::DccTrackStatus(trackInterface));
+                _send_response(Helpers::print_DccTrackStatus(trackInterface));
                 return;
             }
             case '!': // ESTOP ALL  <!>
             {
                 TrackInterface& trackInterface = _command_interface.getTrackInterface();
                 Helpers::emergencyStop(trackInterface);
+                _command_interface.getLocosInfo().emergencyStop();
                 break;
             }
             case '#':
@@ -96,7 +97,8 @@ namespace DccExParser
             }
             case '-': // Forget Loco <- [cab]>
             {
-                if (params > 1) break;
+                if (params != 1) break;
+
                 auto locoId = atoi(parameters[0].c_str());
                 if (locoId < 0)
                     return;
@@ -109,21 +111,69 @@ namespace DccExParser
                 {
                     _command_interface.getLocosInfo().removeLoco(locoId);
                 }
-                return;
+                break;
             }
             case 'F': // New command to call the new Loco Function API <F cab func 1|0>
             {
-                if(params!=3) 
-                    break; 
+                if (params != 3) 
+                    break;
+
                 auto locoId = atoi(parameters[0].c_str());
                 auto function = atoi(parameters[1].c_str());
                 auto status = atoi(parameters[2].c_str());
                 _command_interface.getLocosInfo().setFunction(locoId, function, status == 1);
                 break;
             }
-
-
-
+            case 'Q': // SENSORS <Q>
+            {
+                _send_response(Helpers::print_DccSensorStatus(_command_interface.getSensors()));
+                return;
+            }
+            case 's': // <s>
+            {
+                _send_response(Helpers::print_DccInfo(_command_interface.getInfo()));
+                _send_response(Helpers::print_DccTrackStatus(_command_interface.getTrackInterface()));
+                _send_response(Helpers::print_DCCTurnout(_command_interface.getTurnout()));
+                _send_response(Helpers::print_DccSensorStatus(_command_interface.getSensors()));
+                return;
+            }
+            case 'S':
+            {
+                switch (params)
+                {
+                    case 3: // <S id pin pullup>  create sensor. pullUp indicator (0=LOW/1=HIGH)
+                    {
+                        auto sensorId = atoi(parameters[0].c_str());
+                        auto virtualPin = atoi(parameters[1].c_str());
+                        auto isPullUp = atoi(parameters[2].c_str()) == 1;
+                        _command_interface.getSensors().addSensor(sensorId, virtualPin, isPullUp);
+                        _send_response("<O>\n");
+                        return;
+                    }
+                    case 1:
+                    {
+                        auto sensorId = atoi(parameters[0].c_str());
+                        _command_interface.getSensors().removeSensor(sensorId);
+                        _send_response("<O>\n");
+                        return;
+                    }
+                    case 0:
+                    {
+                        _send_response(Helpers::print_DCCSensorConfiguration(_command_interface.getSensors()));
+                        return;
+                    }
+                }
+                break;
+            }
+            case 'H':
+            {
+                _send_response(Helpers::print_DCCTurnout(_command_interface.getTurnout()));
+                return;
+            }
+            case 'T':
+            {
+                
+            }
 
     /*
 
@@ -205,7 +255,7 @@ namespace DccExParser
         }
 
         // Send default response
-        _send_response("<X>");
+        _send_response("<X>\n");
     }
 
     bool DccExCommandParser::funcmap(int16_t cab, char value, int fstart, int fstop)

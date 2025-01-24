@@ -19,6 +19,8 @@ namespace DccExParser
             virtual bool isTrackOn(TackType eTrack) = 0;
             virtual void turnOnTrack(TackType eTrack) = 0;
             virtual void turnOffTrack(TackType eTrack) = 0;
+
+            virtual ~TrackInterface(){}
     };
 }
 
