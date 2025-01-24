@@ -14,6 +14,7 @@ namespace DccExParser
             virtual void removeAllLocos() = 0;
             virtual void emergencyStopLoco(int locoId) = 0;
             virtual void emergencyStop() = 0;
+            virtual ~LocoInterface(){}
     };
 }
 #endif

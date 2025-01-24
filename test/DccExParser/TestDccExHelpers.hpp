@@ -133,20 +133,19 @@ class TestMockSensorsInterface : public SensorsInterface
     {
         return true;
     }
-    
+
     virtual void setStatusSensor(int sensorId, bool Status)
     {}
-    
+
     virtual const std::unordered_map<int, bool> getStatusSensors()
     {
         return {};
     }
-    
+
     virtual const std::unordered_map<int, std::pair<int, bool>> getConfigurationSensors()
     {
         return {};
     }
-
 };
 
 class TestMockTurnoutInterface : public TurnoutInterface

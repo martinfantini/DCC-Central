@@ -88,6 +88,7 @@ namespace DccExParser
                 TrackInterface& trackInterface = _command_interface.getTrackInterface();
                 Helpers::emergencyStop(trackInterface);
                 _command_interface.getLocosInfo().emergencyStop();
+                _send_response("<O>\n");
                 break;
             }
             case '#':
@@ -106,12 +107,14 @@ namespace DccExParser
                 if (locoId == 0)
                 {
                     _command_interface.getLocosInfo().removeAllLocos();
+                    _send_response("<O>\n");
                 }
                 else
                 {
                     _command_interface.getLocosInfo().removeLoco(locoId);
+                    _send_response("<O>\n");
                 }
-                break;
+                return;
             }
             case 'F': // New command to call the new Loco Function API <F cab func 1|0>
             {

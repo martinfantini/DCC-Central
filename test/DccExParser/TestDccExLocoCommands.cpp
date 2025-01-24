@@ -102,7 +102,7 @@ TEST_CASE("Test DCC loco implemented commands")
         CHECK(!_removeAllLocos);
         dccBasicParser.read_stream("<- 0>\n");
         CHECK(_removeAllLocos);
-        CHECK(commandResult == "<X>\n");
+        CHECK(commandResult == "<O>\n");
     }
 
     SECTION("Forget loco")
@@ -112,7 +112,7 @@ TEST_CASE("Test DCC loco implemented commands")
         int loco_id = 10;
         dccBasicParser.read_stream("<- " + std::to_string(loco_id) + ">\n");
         CHECK(_removeLoco_locoId == loco_id);
-        CHECK(commandResult == "<X>\n");
+        CHECK(commandResult == "<O>\n");
     }
 
     SECTION("Function loco on")

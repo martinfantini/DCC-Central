@@ -1,4 +1,5 @@
 #include "Helpers.hpp"
+#include <iostream>
 
 namespace DccExParser::Helpers
 {
@@ -34,7 +35,10 @@ namespace DccExParser::Helpers
         std::string result;
         for (auto sensorStatus : _sensors.getStatusSensors())
         {
-            result += "<" + (sensorStatus.second ? 'Q' : 'q') + ' '  + std::to_string(sensorStatus.first) + ">\n";
+            result += "<";
+            result += (sensorStatus.second ? "Q" : "q");
+            result +=  + " ";
+            result += std::to_string(sensorStatus.first) + ">\n";
         }
         return result;
     }
@@ -59,7 +63,13 @@ namespace DccExParser::Helpers
         std::string result;
         for (auto sensorConfig : _sensors.getConfigurationSensors())
         {
-            result += "<Q " + std::to_string(sensorConfig.first) + ' '  +  std::to_string(sensorConfig.second.first) + ' ' +  std::to_string(sensorConfig.second.second) + ">\n";
+            result += "<Q ";
+            result += std::to_string(sensorConfig.first);
+            result += " ";
+            result += std::to_string(sensorConfig.second.first);
+            result += " ";
+            result += (sensorConfig.second.second?"1":"0");
+            result += ">\n";
         }
         return result;
     }
