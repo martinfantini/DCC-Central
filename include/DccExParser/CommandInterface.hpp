@@ -6,17 +6,23 @@
 #include "InfoInterface.hpp"
 #include "SensorsInterface.hpp"
 #include "TurnoutInterface.hpp"
+#include "AccessoryInterface.hpp"
+#include "DccTrackInterface.hpp"
 
 namespace DccExParser
 {
     class CommandInterface
     {
         public:
-            virtual LocoInterface& getLocosInfo() = 0;
-            virtual TrackInterface& getTrackInterface() = 0;
-            virtual SensorsInterface& getSensors() = 0;
-            virtual TurnoutInterface& getTurnout() = 0;
-            virtual InfoInterface& getInfo() = 0;
+            virtual LocoInterface&      getLocosInterface()     = 0;
+            virtual TrackInterface&     getTrackInterface()     = 0;
+            virtual SensorsInterface&   getSensorsInterface()   = 0;
+            virtual TurnoutInterface&   getTurnoutInterface()   = 0;
+            virtual InfoInterface&      getInfoInterface()      = 0;
+            virtual AccessoryInterface& getAccessoryInterface() = 0;
+            virtual DccTrackInterface&  getDccTrackInterface()  = 0;
+
+            virtual ~CommandInterface(){}
     };
 }
 

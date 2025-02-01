@@ -8,12 +8,6 @@ TEST_CASE("Test DCC loco implemented commands")
 {
     using namespace DccExParser;
 
-    std::string logger;
-    DccExParser::string_function loggerFunction = [&logger](const std::string& logger_parser)
-    {
-        logger = logger_parser;
-    };
-
     std::string commandResult;
     DccExParser::string_function commandFunction = [&commandResult](const std::string& command_result)
     {
@@ -31,24 +25,32 @@ TEST_CASE("Test DCC loco implemented commands")
     static int _createLoco_locoId = 0;
     static int _removeLoco_locoId = 0;
 
-   class TestLocoInterface : public TestMockLocoInterface
+    class TestLocoInterface : public TestMockLocoInterface
     {
         public:
             int getMaxLocos()
             {
                 return max_locos;
             }
-            void setFunction(int lok_id, int function_number, bool on)
+
+            bool setFunction(int lok_id, int function_number, bool on)
             {
                 _fuction_lok_id = lok_id;
                 _fuction_function_number = function_number;
                 _fuction_on = on;
-                return;
+                return true;
             }
-            int lookupLoco(int locoId)
+
+            virtual void updateFunction(int lok_id, int function_number)
+            {
+                _fuction_lok_id = lok_id;
+                _fuction_function_number = function_number;
+            }
+
+            int searchLoco(int locoId)
             {
                 _lookupLoco_locoId = locoId;
-                return 0;
+                return locoId;
             }
             
             bool createLoco(int locoId)
@@ -70,17 +72,33 @@ TEST_CASE("Test DCC loco implemented commands")
             {
                 _emergencyStopLocoId = _id;
             }
+
+            void emergencyStop()
+            {}
+
+            bool setLoco(int cab, int tspeed, bool forwardDirection)
+            {
+                return true;
+            }
+
+            bool getLoco(int cab, int& locoId ,int& tspeed, long& functions)
+            {
+                return true;
+            }
     };
+
     // Create the basic variables to testing.
     TestLocoInterface _testLocoInterface;
     TestMockTrackInterface _TestMockTrackInterface;
     TestMockSensorsInterface _TestMockSensorsInterface;
     TestMockTurnoutInterface _TestMockTurnoutInterface;
     TestMockInfoInterface _TestMockInfoInterface;
+    TestMockAccessoryInterface _TestMockAccessoryInterface;
+    TestMockDccTrackInterface _TestMockDccTrackInterface;
 
-    TestMockCommandManager _TestMockCommandManager(_testLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface);
+    TestMockCommandManager _TestMockCommandManager(_testLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface, _TestMockAccessoryInterface, _TestMockDccTrackInterface);
 
-    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction, loggerFunction);
+    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction);
     DCCBasicParser dccBasicParser(dccParser);
 
     SECTION("Test # case")

@@ -21,6 +21,7 @@ namespace DccExParser
             virtual const std::unordered_map<int, bool> getStatusSensors() = 0;
             // returns id, vpin, pullUp
             virtual const std::unordered_map<int, std::pair<int, bool>> getConfigurationSensors() = 0;
+
             virtual ~SensorsInterface(){}
     };
 }

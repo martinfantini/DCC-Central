@@ -3,13 +3,16 @@
 
 #include <cstddef>
 
-struct Loco
+namespace Common
 {
-    int locoId;
-    int loco;
-    char speedCode = 128; // 128
-    char groupFlags = 0;
-    unsigned long functions = 0;
-};
+    struct Loco
+    {
+        int locoId;
+        int loco;
+        char speedCode = 128; // 128
+        char groupFlags = 0;
+        unsigned long functions = 0;
+    };
+}
 
 #endif

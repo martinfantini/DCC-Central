@@ -9,11 +9,6 @@ TEST_CASE("Test DCC Info implemented commands")
     using namespace DccExParser;
 
     static std::string info_string;
-    std::string logger;
-    DccExParser::string_function loggerFunction = [&logger](const std::string& logger_parser)
-    {
-        logger = logger_parser;
-    };
 
     std::string commandResult;
     DccExParser::string_function commandFunction = [&commandResult](const std::string& command_result)
@@ -35,10 +30,12 @@ TEST_CASE("Test DCC Info implemented commands")
     TestMockSensorsInterface _TestMockSensorsInterface;
     TestMockTurnoutInterface _TestMockTurnoutInterface;
     TestInfoInterface _TestMockInfoInterface;
+    TestMockAccessoryInterface _TestMockAccessoryInterface;
+    TestMockDccTrackInterface _TestMockDccTrackInterface;
 
-    TestMockCommandManager _TestMockCommandManager(_TestMockLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface);
+    TestMockCommandManager _TestMockCommandManager(_TestMockLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface, _TestMockAccessoryInterface, _TestMockDccTrackInterface);
 
-    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction, loggerFunction);
+    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction);
     DCCBasicParser dccBasicParser(dccParser);
 
     SECTION("Test empty case")
