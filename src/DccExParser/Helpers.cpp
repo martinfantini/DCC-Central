@@ -194,6 +194,7 @@ namespace DccExParser::Helpers
         result += parameters[1] + " ";
         result += (result_dcc_Data == 1) ? parameters[2] : "-1";
         result += ">\n";
+        return result;
     }
 
     std::string print_DCC_Read_CV(int result_dcc_Data, const std::vector<std::string>& parameters)
@@ -209,6 +210,7 @@ namespace DccExParser::Helpers
         result += parameters[0] + " ";
         result += std::to_string(result_dcc_Data);
         result += ">\n";
+        return result;
     }
 
     std::string print_DCC_Write_write_CV_Byte_4(int result_dcc_Data, const std::vector<std::string>& parameters)
