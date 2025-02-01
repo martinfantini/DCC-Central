@@ -9,6 +9,8 @@ namespace DccExParser
             virtual void setAccessory(int address, bool activate) = 0;
             virtual void setAccessory(int address, int subaddress, bool activate) = 0;
             virtual void setAccessory(int address, int subaddress, bool activate, bool onOff) = 0;
+
+            virtual ~AccessoryInterface(){}
     };
 }
 
