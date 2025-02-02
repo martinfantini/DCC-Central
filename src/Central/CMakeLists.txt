@@ -17,6 +17,11 @@ target_include_directories(${EXECUTABLE_CENTRAL_NAME}
     PRIVATE ${INCLUDE_DIRECTORIES}  
 )
 
+target_compile_definitions(${EXECUTABLE_CENTRAL_NAME} 
+    PRIVATE EXECUTABLE_CENTRAL_VERSION_HI=${EXECUTABLE_CENTRAL_VERSION_HI}
+    PRIVATE EXECUTABLE_CENTRAL_VERSION_LO=${EXECUTABLE_CENTRAL_VERSION_LO}
+)
+
 # Link against library
 target_link_libraries(${EXECUTABLE_CENTRAL_NAME} PRIVATE Boost::program_options Boost::filesystem Boost::system)
 target_link_libraries(${EXECUTABLE_CENTRAL_NAME} PRIVATE pugixml::shared)

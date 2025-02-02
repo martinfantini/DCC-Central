@@ -11,16 +11,10 @@ namespace DccExParser
         public:
             const std::string& getDCCVersion()
             {
-                static const std::string strVersion = std::string("DCC Protocol: Version: '") 
-                    + \
-                    std::to_string(DCC_PROTOCOL_VERSION_1) + \
-                    "." + \
-                    std::to_string(DCC_PROTOCOL_VERSION_2) + \
-                    "." + \
-                    std::to_string(DCC_PROTOCOL_VERSION_3) + \
-                    "." + \
-                    std::to_string(DCC_PROTOCOL_VERSION_4) + \
-                    "'";
+                static const std::string strVersion = \
+                    std::string("DCC Protocol: Version: '")
+                    + std::to_string(LIB_DCC_EX_VERSION_HI) + "."
+                    + std::to_string(LIB_DCC_EX_VERSION_LO) + "'";;
                 return strVersion;
             }
 
