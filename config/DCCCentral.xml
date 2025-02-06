@@ -12,3 +12,15 @@
     <Level>INFO</Level>
     <Folder>/home/rmfantini/Projects/Ralf_Platine/DCC-Central/log</Folder>
 </Logger>
+<Tracks>
+    <Main>
+        <PowerPin></PowerPin>
+        <SignalPin></SignalPin>
+        <EnablePin></EnablePin>
+    </Main>
+    <Programing>
+        <PowerPin></PowerPin>
+        <SignalPin></SignalPin>
+        <EnablePin></EnablePin>
+    </Programing>
+</Tracks>

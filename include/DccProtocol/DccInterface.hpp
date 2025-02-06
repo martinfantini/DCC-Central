@@ -11,19 +11,20 @@ namespace DccProtocol
      */
     class DccInterface
     {
-        /**
-         * @brief Electrical part to send in the protocol
-         * 
-         * @param buffer to be send n the wire
-         */
-        virtual void SendToDCC(std::vector<char> buffer, bool deliverAnswer = false) = 0;
-        /**
-         * @brief to receive ddata from the DCC protocol. This method is to be called, if the current command 
-         * has set the deliverAnswer in true.
-         * 
-         * @return int value with the command. Because the int are 4 bytes, is it the best to deliver an output
-         */
-        virtual int ReceiveFromDCC() = 0;
+        public:
+            /**
+             * @brief Electrical part to send in the protocol
+             * 
+             * @param buffer to be send n the wire
+             */
+            virtual void SendToDCC(const std::vector<char>& buffer, int RepeatCommand = 0, bool DeliverAnAnswer = false) = 0;
+            /**
+             * @brief to receive ddata from the DCC protocol. This method is to be called, if the current command 
+             * has set the deliverAnswer in true.
+             * 
+             * @return int value with the command. Because the int are 4 bytes, is it the best to deliver an output
+             */
+            virtual int ReceiveFromDCC() = 0;
     };
 }
 

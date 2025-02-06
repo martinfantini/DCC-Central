@@ -32,6 +32,8 @@ namespace XmlHelpers
         bool ReadInterfaces(const pugi::xml_node& node);
         std::pair<bool, Helpers::RestApi> ReadRestApi(const pugi::xml_node& node);
         std::pair<bool, Helpers::DCCPlus> ReadDccPlus(const pugi::xml_node& node);
+        bool ReadTrack(const pugi::xml_node& node);
+        std::pair<bool, Helpers::Track> ReadOneTrack(const pugi::xml_node& node);
 
         bool ReadLogger(const pugi::xml_node& node);
 

@@ -3,6 +3,7 @@
 #define TEST_XML_HELPERS
 
 #include "XmlHelpers.hpp"
+#include "XmlTags.hpp"
 
 TEST_CASE("Test XMLReader class")
 {
@@ -14,10 +15,10 @@ TEST_CASE("Test XMLReader class")
         int port = 1258;
 
         pugi::xml_document doc;
-        pugi::xml_node node_dcc = doc.append_child("DCCPlus");
+        pugi::xml_node node_dcc = doc.append_child(XmlTags::Interface::DccPlus);
         {
-            node_dcc.append_child("IP").text().set(ip_value.c_str());
-            node_dcc.append_child("Port").text().set(std::to_string(port).c_str());
+            node_dcc.append_child(XmlTags::IpV4::Ip).text().set(ip_value.c_str());
+            node_dcc.append_child(XmlTags::IpV4::Port).text().set(std::to_string(port).c_str());
         }
        
         XMLReader xml("any");
@@ -35,10 +36,10 @@ TEST_CASE("Test XMLReader class")
         int port = 1258;
 
         pugi::xml_document doc;
-        pugi::xml_node node_rest_api = doc.append_child("ApiRest");
+        pugi::xml_node node_rest_api = doc.append_child(XmlTags::Interface::ApiRest);
         {
-            node_rest_api.append_child("IP").text().set(ip_value.c_str());
-            node_rest_api.append_child("Port").text().set(std::to_string(port).c_str());
+            node_rest_api.append_child(XmlTags::IpV4::Ip).text().set(ip_value.c_str());
+            node_rest_api.append_child(XmlTags::IpV4::Port).text().set(std::to_string(port).c_str());
         }
        
         XMLReader xml("any");
@@ -59,18 +60,18 @@ TEST_CASE("Test XMLReader class")
         int port_rest = 1258;
 
         pugi::xml_document doc;
-        pugi::xml_node node_interfaces = doc.append_child("Interfaces");
+        pugi::xml_node node_interfaces = doc.append_child(XmlTags::Interface::Interfaces);
 
         {
-            pugi::xml_node node_dcc = node_interfaces.append_child("DCCPlus");
-            node_dcc.append_child("IP").text().set(ip_value_dcc.c_str());
-            node_dcc.append_child("Port").text().set(std::to_string(port_dcc).c_str());
+            pugi::xml_node node_dcc = node_interfaces.append_child(XmlTags::Interface::DccPlus);
+            node_dcc.append_child(XmlTags::IpV4::Ip).text().set(ip_value_dcc.c_str());
+            node_dcc.append_child(XmlTags::IpV4::Port).text().set(std::to_string(port_dcc).c_str());
         }        
         
         {
-            pugi::xml_node node_rest_api = node_interfaces.append_child("ApiRest");
-            node_rest_api.append_child("IP").text().set(ip_value_rest.c_str());
-            node_rest_api.append_child("Port").text().set(std::to_string(port_rest).c_str());
+            pugi::xml_node node_rest_api = node_interfaces.append_child(XmlTags::Interface::ApiRest);
+            node_rest_api.append_child(XmlTags::IpV4::Ip).text().set(ip_value_rest.c_str());
+            node_rest_api.append_child(XmlTags::IpV4::Port).text().set(std::to_string(port_rest).c_str());
         }
 
         XMLReader xml("any");
@@ -89,10 +90,10 @@ TEST_CASE("Test XMLReader class")
         std::string strPath = "/home/rmfantini/Projects/Ralf_Platine/DCC-Central/log/";
 
         pugi::xml_document doc;
-        pugi::xml_node node_logger = doc.append_child("Logger");
+        pugi::xml_node node_logger = doc.append_child(XmlTags::Logger::Logger);
         {
-            node_logger.append_child("Level").text().set("warning");
-            node_logger.append_child("Folder").text().set(strPath.c_str());
+            node_logger.append_child(XmlTags::Logger::Level).text().set("warning");
+            node_logger.append_child(XmlTags::Logger::Folder).text().set(strPath.c_str());
         }
 
         XMLReader xml("any");

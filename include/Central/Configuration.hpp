@@ -60,6 +60,28 @@ namespace Configuration
         {
             return _logger.enabled;
         }
+
+        // <!----- Tracks Config ----->
+
+        void setProgramingTrack(const Helpers::Track& programingTack)
+        {
+            _programingTrack = programingTack;
+        }
+
+        const Helpers::Track& getProgramingTrack()
+        {
+            return _programingTrack;
+        }
+
+        void setMainTrack(const Helpers::Track& mainTack)
+        {
+            _mainTrack = mainTack;
+        }
+
+        const Helpers::Track& getMainTrack()
+        {
+            return _mainTrack;
+        }
         
         friend std::ostream& operator<<(std::ostream& os, const Configuration::Config& config);
 
@@ -67,6 +89,8 @@ namespace Configuration
         Helpers::DCCPlus _dccPlus;
         Helpers::RestApi _restApi;
         Helpers::Logger _logger;
+        Helpers::Track  _mainTrack;
+        Helpers::Track  _programingTrack;
     };
 } // namespace Configuration
 

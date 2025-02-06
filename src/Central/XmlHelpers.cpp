@@ -22,7 +22,7 @@ namespace XmlHelpers
             return false;
         }
         ReadInterfaces(_doc.child(XmlTags::Interface::Interfaces));
-        ReadLogger(_doc.child(XmlTags::logger::Logger));
+        ReadLogger(_doc.child(XmlTags::Logger::Logger));
         return true;
     }
 
@@ -54,13 +54,13 @@ namespace XmlHelpers
         
     bool XMLReader::ReadLogger(const pugi::xml_node& node)
     {
-        if(strcmp(XmlTags::logger::Logger, node.name()) != 0)
+        if(strcmp(XmlTags::Logger::Logger, node.name()) != 0)
             return false;
 
         Helpers::Logger _logger;
         {
             int level = 0;
-            std::string _level = node.child_value(XmlTags::logger::Level);
+            std::string _level = node.child_value(XmlTags::Logger::Level);
             if (!_level.empty())
             {  
                 std::transform(_level.begin(), _level.end(), _level.begin(),
@@ -75,7 +75,7 @@ namespace XmlHelpers
             _logger.level = level;
         }
         {
-            std::string logPath = node.child_value(XmlTags::logger::Folder);
+            std::string logPath = node.child_value(XmlTags::Logger::Folder);
             if (logPath.empty())
             {
                 std::cout << "Logger does not have set the path.\n";
@@ -103,7 +103,7 @@ namespace XmlHelpers
         if(strcmp(XmlTags::Interface::Interfaces, node.name()) != 0)
             return false;
 
-        // check for the dcc configuration        
+        // check for the dcc configuration
         {
             pugi::xml_node child = node.child(XmlTags::Interface::DccPlus);
             if (child)
@@ -150,5 +150,89 @@ namespace XmlHelpers
         _dccPlus.enabled = true;
         _dccPlus.ipPort = ipPort.second;
         return {true, _dccPlus};
+    }
+
+    std::pair<bool, Helpers::Track> XMLReader::ReadOneTrack(const pugi::xml_node& node)
+    {
+        Helpers::Track _track;
+
+        {
+            std::string _pin = node.child_value(XmlTags::Track::PowerPin);
+            if (!_pin.empty())
+            {
+                _track.PowerPin = atoi(_pin.c_str());
+            }
+        }
+
+        {
+            std::string _pin = node.child_value(XmlTags::Track::SignalPin);
+            if (!_pin.empty())
+            {
+                _track.SignalPin = atoi(_pin.c_str());
+            }
+        }
+
+        {
+            std::string _pin = node.child_value(XmlTags::Track::EnablePin);
+            if (!_pin.empty())
+            {
+                _track.EnablePin = atoi(_pin.c_str());
+            }
+        }
+
+        {
+            std::string _pin = node.child_value(XmlTags::Track::SenseFactor);
+            if (!_pin.empty())
+            {
+                _track.SenseFactor = std::stof(_pin.c_str());
+            }
+        }
+
+        {
+            std::string _pin = node.child_value(XmlTags::Track::TripMilliamps);
+            if (!_pin.empty())
+            {
+                _track.SenseFactor = atoi(_pin.c_str());
+            }
+        }
+
+        return {true, _track};
+    }
+
+    bool XMLReader::ReadTrack(const pugi::xml_node& node)
+    {
+        if(strcmp(XmlTags::Track::Track, node.name()) != 0)
+            return false;
+
+        // check the main configuration
+        {
+            pugi::xml_node child = node.child(XmlTags::Track::Main);
+            if (child)
+            {
+                auto result = ReadOneTrack(child);
+                if(result.first)
+                {
+                    result.second.isMain = true;
+                    _config.setMainTrack(result.second);
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        {
+            pugi::xml_node child = node.child(XmlTags::Track::Programing);
+            if (child)
+            {
+                auto result = ReadOneTrack(child);
+                if(result.first)
+                {
+                    _config.setProgramingTrack(result.second);
+                }
+            }
+        }
+        return true;
     }
 }

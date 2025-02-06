@@ -6,23 +6,35 @@ namespace XmlTags
 {
     namespace IpV4
     {
-        const char* Ip = "IP";
-        const char* Port = "Port";
+        inline static const char* Ip = "IP";
+        inline static const char* Port = "Port";
     }
 
     namespace Interface
     {
-        const char* Interfaces = "Interfaces";
-        const char* DccPlus = "DCCPlus";
-        const char* ApiRest = "ApiRest";
+        inline static const char* Interfaces = "Interfaces";
+        inline static const char* DccPlus = "DCCPlus";
+        inline static const char* ApiRest = "ApiRest";
     }
 
-    namespace logger
+    namespace Logger
     {
-        const char* Logger = "Logger";
-        const char* Level = "Level";
-        const char* Format = "Format";
-        const char* Folder = "Folder";
+        inline static const char* Logger = "Logger";
+        inline static const char* Level = "Level";
+        inline static const char* Format = "Format";
+        inline static const char* Folder = "Folder";
+    }
+
+    namespace Track
+    {
+        inline static const char* Track          = "Track";
+        inline static const char* Main           = "Main";
+        inline static const char* Programing     = "Programing";
+        inline static const char* PowerPin       = "PowerPin";
+        inline static const char* SignalPin      = "SignalPin";
+        inline static const char* EnablePin      = "EnablePin";
+        inline static const char* SenseFactor    = "SenseFactor";
+        inline static const char* TripMilliamps  = "TripMilliamps";
     }
 }
 #endif

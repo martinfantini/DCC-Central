@@ -30,4 +30,15 @@ namespace Helpers
         return os;
     }
 
+    std::ostream& operator<<(std::ostream& os, const Track& _track)
+    {
+        os << "Track Configuration:\n";
+        os << "    Type: " << std::string(_track.isMain ? "Main" :"Progaming") << "\n";
+        os << "    Power Pin: " << std::to_string(_track.PowerPin) << "\n";
+        os << "    Signal Pin: " << std::to_string(_track.SignalPin) << "\n";
+        os << "    Enable Pin: " << std::to_string(_track.EnablePin) << "\n";
+        os << "    Sense Factor: " << std::to_string(_track.SenseFactor) << "\n";
+        os << "    Trip Miliamps: " << std::to_string(_track.TripMilliamps) << "\n";
+        return os;
+    }
 }
