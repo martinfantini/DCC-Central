@@ -10,10 +10,9 @@ namespace Common::AddresDecoderInformation
     {
         int Address;
         int SubAddress;
-        bool isActive;
-        bool isOn;
+        bool isActive =  false;
+        bool isOn = false;
     };
-
 }
 
 #endif

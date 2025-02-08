@@ -6,7 +6,7 @@
 
 namespace Common::LocoInformation
 {
-    struct LocoFunctionsGroup
+    enum LocoFunctionsGroup
     {
         F1_F4 = 0,
         F5_F12,
