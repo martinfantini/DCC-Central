@@ -15,16 +15,18 @@ namespace DccProtocol
             /**
              * @brief Electrical part to send in the protocol
              * 
-             * @param buffer to be send n the wire
+             * @param buffer to be send to the wire.
              */
-            virtual void SendToDCC(const std::vector<unsigned char>& buffer, int RepeatCommand = 0, bool DeliverAnAnswer = false) = 0;
+            virtual void SendToDCC(const std::vector<unsigned char>& buffer, int RepeatCommand = 0) = 0;
             /**
-             * @brief to receive ddata from the DCC protocol. This method is to be called, if the current command 
-             * has set the deliverAnswer in true.
-             * 
-             * @return int value with the command. Because the int are 4 bytes, is it the best to deliver an output
+             * @brief to send a CV with the corresponding ACK answer from the wire.
+             *      With this command the instruction will be repeat.
+             *
+             * @param buffer Send the buffer to read.
+             * @return unsigned char with the read bit. It can return a 1 or 0,
+             *      depending on the read bit.
              */
-            virtual int ReceiveFromDCC() = 0;
+            virtual unsigned char SendToDCCWithAck(const std::vector<unsigned char>& buffer, bool isWriteCommand) = 0;
     };
 }
 

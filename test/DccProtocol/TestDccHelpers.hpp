@@ -6,22 +6,27 @@
 class TestMockDccInterface : public DccProtocol::DccInterface
 {
     public:
-        void SendToDCC(const std::vector<unsigned char>& buffer, int repeatCommand = 0, bool deliverAnswer = false)
+        void SendToDCC(const std::vector<unsigned char>& buffer, int repeatCommand = 0)
         {
             _internal_buffer = buffer;
-            _repeatCommand = repeatCommand;
-            _deliverAnswer = deliverAnswer;
+            _repeat = repeatCommand;
         }
 
-        int ReceiveFromDCC()
+        unsigned char SendToDCCWithAck(const std::vector<unsigned char>& buffer, bool isWriteCommand)
         {
+            _internal_buffer = buffer;
+            _isWriteCommand = isWriteCommand;
             return _result;
         }
 
-        std::vector<unsigned char> _internal_buffer;
-        int _repeatCommand;
-        bool _deliverAnswer;        
-        int _result;
-};
+        void SetResult(unsigned char commandResult)
+        {
+            _result = commandResult;
+        }
 
+        std::vector<unsigned char> _internal_buffer;
+        int _repeat = 0;
+        bool _isWriteCommand;
+        unsigned char _result;
+};
 #endif

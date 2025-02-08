@@ -111,12 +111,12 @@ namespace DccProtocol
         SendInternalDCC(instruction);
     }
 
-    void DccCommandGenerator::SendInternalDCC(std::vector<unsigned char>& instruction, int RepeatCommand, bool DeliverAnAnswer)
+    void DccCommandGenerator::SendInternalDCC(std::vector<unsigned char>& instruction, int RepeatCommand)
     {
         // Generate the checksum
         CalculateCheckSum(instruction);
         // Send the instruction
-        _DccInterface.SendToDCC(instruction, RepeatCommand, DeliverAnAnswer);
+        _DccInterface.SendToDCC(instruction, RepeatCommand);
     }
 
     void DccCommandGenerator::SetTimeCommand(int hour, int minutes, int weekOfDay, int accelerationFactor, bool Update)

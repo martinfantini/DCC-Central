@@ -98,7 +98,7 @@ namespace DccProtocol
         void AddressEncoding(int cab, std::vector<unsigned char>& instructions);
         unsigned char HighByte(int cab);
         unsigned char LowByte(int cab);
-        void SendInternalDCC(std::vector<unsigned char>& instructions, int RepeatCommand = 0, bool DeliverAnAnswer = false);
+        void SendInternalDCC(std::vector<unsigned char>& instructions, int RepeatCommand = 0);
 
         int getGlobalSpeedSteps() const
         {
