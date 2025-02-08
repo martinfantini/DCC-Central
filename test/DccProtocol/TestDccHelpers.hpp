@@ -6,7 +6,7 @@
 class TestMockDccInterface : public DccProtocol::DccInterface
 {
     public:
-        void SendToDCC(const std::vector<char>& buffer, int repeatCommand = 0, bool deliverAnswer = false)
+        void SendToDCC(const std::vector<unsigned char>& buffer, int repeatCommand = 0, bool deliverAnswer = false)
         {
             _internal_buffer = buffer;
             _repeatCommand = repeatCommand;
@@ -18,7 +18,7 @@ class TestMockDccInterface : public DccProtocol::DccInterface
             return _result;
         }
 
-        std::vector<char> _internal_buffer;
+        std::vector<unsigned char> _internal_buffer;
         int _repeatCommand;
         bool _deliverAnswer;        
         int _result;

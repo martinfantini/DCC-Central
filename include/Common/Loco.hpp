@@ -14,7 +14,7 @@ namespace Common::LocoInformation
         F21_F28,
     };
 
-    struct LocoInfo
+    struct Loco
     {
         // This is optional.
         int LocoId = 0;
@@ -25,10 +25,11 @@ namespace Common::LocoInformation
         // indictor of the group
         LocoFunctionsGroup functionIndicator;
         // current group value
-        std::vector<char> functionStatus;
+        std::vector<unsigned char> functionStatus;
     };
 
-    typedef std::unordered_map<Address, LocoInfo> loco_map_type;
+    // This map stores Address with Loco
+    typedef std::unordered_map<int, Loco> loco_map_type;
     loco_map_type LocoMap;
 }
 

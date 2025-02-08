@@ -9,6 +9,7 @@ add_executable(${TEST_EXECUTABLE_CENTRAL_NAME}
     # Tests
     TestConfiguration.cpp
     TestXmlHelpers.cpp
+    TestAccessory.cpp
 )
 
 target_compile_definitions(${TEST_EXECUTABLE_CENTRAL_NAME} 
@@ -16,7 +17,10 @@ target_compile_definitions(${TEST_EXECUTABLE_CENTRAL_NAME}
     PRIVATE EXECUTABLE_CENTRAL_VERSION_LO=${EXECUTABLE_CENTRAL_VERSION_LO}
 )
 
-target_include_directories(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE ${INCLUDE_DIRECTORIES}/Central)
+target_include_directories(${TEST_EXECUTABLE_CENTRAL_NAME}
+    PRIVATE ${INCLUDE_DIRECTORIES}/Central
+    PRIVATE ${INCLUDE_DIRECTORIES}/Common
+)
 
 target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE pugixml::shared)

@@ -17,7 +17,7 @@ namespace DccProtocol
              * 
              * @param buffer to be send n the wire
              */
-            virtual void SendToDCC(const std::vector<char>& buffer, int RepeatCommand = 0, bool DeliverAnAnswer = false) = 0;
+            virtual void SendToDCC(const std::vector<unsigned char>& buffer, int RepeatCommand = 0, bool DeliverAnAnswer = false) = 0;
             /**
              * @brief to receive ddata from the DCC protocol. This method is to be called, if the current command 
              * has set the deliverAnswer in true.

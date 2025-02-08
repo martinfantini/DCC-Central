@@ -50,7 +50,7 @@ namespace DccProtocol
          * @param function
          * @param status
          */
-        void SetLocoFunction(int cab, int function, bool status);
+        void SetLocoFunction(int cab, int function, bool status, std::vector<unsigned char>& status_vector);
 
         /**
          * @brief To set direct the values in the Loco
@@ -71,7 +71,7 @@ namespace DccProtocol
          * @brief Set the Time Command object
          *
          */
-        void SetTimeCommand(int dayInMonth, int month, int year);
+        void SetTimeYearCommand(int dayInMonth, int month, int year);
 
         /**
          * @brief Set the Emergency Strop object
@@ -94,21 +94,21 @@ namespace DccProtocol
     private:
 #endif
 
-        bool CalculateCheckSum(std::vector<char>& instructions);
-        void AddressEncoding(int cab, std::vector<char>& instructions);
-        char HighByte(int cab);
-        char LowByte(int cab);
-        void SendInternalDCC(std::vector<char>& instructions, int RepeatCommand = 0, bool DeliverAnAnswer = false);
+        bool CalculateCheckSum(std::vector<unsigned char>& instructions);
+        void AddressEncoding(int cab, std::vector<unsigned char>& instructions);
+        unsigned char HighByte(int cab);
+        unsigned char LowByte(int cab);
+        void SendInternalDCC(std::vector<unsigned char>& instructions, int RepeatCommand = 0, bool DeliverAnAnswer = false);
 
         int getGlobalSpeedSteps() const
         {
             return _globalSpeedsteps;
         }
 
-        void SetFunction_F1_F4(int number, bool status, std::vector<char>& instruction, char& _status_F1_F4);
-        void SetFunction_F5_F12(int number, bool status, std::vector<char>& instruction, char& _status_F5_F12);
-        void SetFunction_F13_F20(int number, bool status, std::vector<char>& instruction, char& _status_F13_F20);
-        void SetFunction_F21_F28(int number, bool status, std::vector<char>& instruction, char& _status_F21_F28);
+        void SetFunction_F1_F4(int number, bool status, std::vector<unsigned char>& instruction, unsigned char& _status_F1_F4);
+        void SetFunction_F5_F12(int number, bool status, std::vector<unsigned char>& instruction, unsigned char& _status_F5_F12);
+        void SetFunction_F13_F20(int number, bool status, std::vector<unsigned char>& instruction, unsigned char& _status_F13_F20);
+        void SetFunction_F21_F28(int number, bool status, std::vector<unsigned char>& instruction, unsigned char& _status_F21_F28);
 
         // Internal variables.
         DccInterface& _DccInterface;

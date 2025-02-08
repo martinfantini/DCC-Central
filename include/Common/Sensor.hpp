@@ -1,6 +1,8 @@
 #ifndef __COMMON_SENSORS_INFORMATION_HPP__
 #define __COMMON_SENSORS_INFORMATION_HPP__
 
+#include <unordered_map>
+
 namespace Common::SensorInformation
 {
     enum StatusInformation
@@ -10,13 +12,13 @@ namespace Common::SensorInformation
         Free,
     };
 
-    class Sensor
+    struct Sensor
     {
-        int VirtualPin;
         StatusInformation StatusInformation = StatusInformation::None;
     };
 
-    typedef std::unordered_map<VirtualPin, Sensor> sensor_map_type;
+    // This map stores VirtualPin and Sensor
+    typedef std::unordered_map<int, Sensor> sensor_map_type;
     sensor_map_type SensorMap;
 }
 
