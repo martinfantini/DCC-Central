@@ -202,19 +202,69 @@ namespace DccProtocol
 
     void DccCommandGenerator::SetLocoFunction(int cab, int function, bool status)
     {
+        if (function > 28 || function < 1)
+        {
+            // Not manage for now in the central
+            return;
+        }
 
+        std::vector<char> instruction;
+        AddressEncoding(cab, instruction);
 
+        if (function > 0 && function < 5)
+        {
+            SetFunction_F1_F4(function, status, instruction);
+        }
+        else if (function > 4 && function < 13)
+        {
+            SetFunction_F5_F12(function, status, instruction);
+        }
+        else if (function > 12 && function < 21)
+        {
+            SetFunction_F13_F20(function, status, instruction);
+        }
+        else if (function > 20 && function < 29)
+        {
+            SetFunction_F21_F28(function, status, instruction);
+        }
+        SendInternalDCC(instruction);
     }
 
-    void DccCommandGenerator::SetFunction_F1_F4(int number, bool status, std::vector<char>& instruction)
-    {}
+    void DccCommandGenerator::SetFunction_F1_F4(int number, bool status, std::vector<char>& instruction, char& _status_F1_F4)
+    {
+        if (number == 0)
+            return;
+        _status_F1_F4 = 0x10 | _status_F1_F4 | ((status?1:0) << number - 1);
+        instruction.push_back(_status_F1_F4);
+    }
 
-    void DccCommandGenerator::SetFunction_F5_F12(int number, bool status, std::vector<char>& instruction)
-    {}
+    void DccCommandGenerator::SetFunction_F5_F12(int number, bool status, std::vector<char>& instruction, char& _status_F5_F12)
+    {
+        char _send_comand = 0x00;
+        if (number > 4 && number < 9)
+        {
+            _status_F5_F12 =  _status_F5_F12 | ((status?1:0) << number - 4);
+            _send_comand = 0xA0 | (_status_F5_F12 & 0x0F) | ((status?1:0) << number - 4);
+        }
+        else (number > 8 && number < 12)
+        {
+            _status_F5_F12 =  _status_F5_F12 | (((status?1:0) << number - 4) << 4);
+            _send_comand = 0xB0 |
+        }
+        instruction.push_back(_send_comand);
+    }
 
-    void DccCommandGenerator::SetFunction_F13_F20(int number, bool status, std::vector<char>& instruction)
-    {}
+    void DccCommandGenerator::SetFunction_F13_F20(int number, bool status, std::vector<char>& instruction, char& _status_F13_F20)
+    {
+        instruction.push_back(0xDE);
+        _status_F13_F20 = _status_F13_F20 & (((status?1:0) << number - 13) | 0xFF);
+        instruction.push_back(_status_F13_F20);
+    }
 
-    void DccCommandGenerator::SetFunction_F21_F28(int number, bool status, std::vector<char>& instruction)
-    {}
+    void DccCommandGenerator::SetFunction_F21_F28(int number, bool status, std::vector<char>& instruction, char& _status_F21_F28)
+    {
+        instruction.push_back(0xD8);
+        _status_F21_F28 = _status_F21_F28 & (((status?1:0) << number - 13) | 0xFF);
+        instruction.push_back(_status_F21_F28);
+    }
 }

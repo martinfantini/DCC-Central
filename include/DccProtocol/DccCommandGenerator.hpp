@@ -105,13 +105,15 @@ namespace DccProtocol
             return _globalSpeedsteps;
         }
 
-        void SetFunction_F1_F4(int number, bool status, std::vector<char>& instruction);
-        void SetFunction_F5_F12(int number, bool status, std::vector<char>& instruction);
-        void SetFunction_F13_F20(int number, bool status, std::vector<char>& instruction);
-        void SetFunction_F21_F28(int number, bool status, std::vector<char>& instruction);
+        void SetFunction_F1_F4(int number, bool status, std::vector<char>& instruction, char& _status_F1_F4);
+        void SetFunction_F5_F12(int number, bool status, std::vector<char>& instruction, char& _status_F5_F12);
+        void SetFunction_F13_F20(int number, bool status, std::vector<char>& instruction, char& _status_F13_F20);
+        void SetFunction_F21_F28(int number, bool status, std::vector<char>& instruction, char& _status_F21_F28);
 
         // Internal variables.
         DccInterface& _DccInterface;
+
+        // to set the global variable loco steps
         int _globalSpeedsteps = 128;
     };
 }
