@@ -1,11 +1,11 @@
 #ifndef __COMMON_SENSORS_INFORMATION_HPP__
 #define __COMMON_SENSORS_INFORMATION_HPP__
 
-#include <unordered_map>
+#include <unordered_set>
 
 namespace Common::SensorInformation
 {
-    enum StatusInformation
+    enum StatusStatusEnum
     {
         None = 0,
         Busy,
@@ -14,12 +14,24 @@ namespace Common::SensorInformation
 
     struct Sensor
     {
-        StatusInformation StatusInformation = StatusInformation::None;
+        int Pin;
+        StatusStatusEnum StatusStatus = StatusStatusEnum::None;
+
+        bool operator==(const Sensor &other) const
+        {
+            return (this->Pin == other.Pin);
+        }
     };
 
-    // This map stores VirtualPin and Sensor
-    typedef std::unordered_map<int, Sensor> sensor_map_type;
-    sensor_map_type SensorMap;
+    struct KeyHasherSensor
+    { 
+        std::size_t operator()(const Sensor& key) const
+        {
+            return std::hash<int>()(key.Pin);
+        }
+    };
+
+    typedef std::unordered_set<Sensor, KeyHasherSensor> sensor_set_type;
 }
 
 #endif

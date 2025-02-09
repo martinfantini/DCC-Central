@@ -1,9 +1,6 @@
 #ifndef __COMMON_LOCO_INFORMATION_HPP__
 #define __COMMON_LOCO_INFORMATION_HPP__
 
-#include <vector>
-#include <unordered_map>
-
 namespace Common::LocoInformation
 {
     enum LocoFunctionsGroup
@@ -16,8 +13,10 @@ namespace Common::LocoInformation
 
     struct Loco
     {
-        // This is optional.
-        int LocoId = 0;
+        // 
+        int Address = 0;
+        // 
+        int Id = 0;
         // store the actual current
         int currentSpeed = 0;
         // store the current direction
@@ -27,10 +26,6 @@ namespace Common::LocoInformation
         // current group value
         std::vector<unsigned char> functionStatus;
     };
-
-    // This map stores Address with Loco
-    typedef std::unordered_map<int, Loco> loco_map_type;
-    loco_map_type LocoMap;
 }
 
 #endif

@@ -13,7 +13,8 @@ namespace DccProtocol
     {
         public:
             /**
-             * @brief Electrical part to send in the protocol
+             * @brief Electrical part to send in the protocol.
+             *  IMPORTANT: All this commands are done in the main track.
              * 
              * @param buffer to be send to the wire.
              */
@@ -21,6 +22,7 @@ namespace DccProtocol
             /**
              * @brief to send a CV with the corresponding ACK answer from the wire.
              *      With this command the instruction will be repeat.
+             *  IMPORTANT: All this commands are done in Programming Track.
              *
              * @param buffer Send the buffer to read.
              * @return unsigned char with the read bit. It can return a 1 or 0,

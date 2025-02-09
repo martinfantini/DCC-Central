@@ -9,7 +9,6 @@ add_executable(${TEST_EXECUTABLE_CENTRAL_NAME}
     # Tests
     TestConfiguration.cpp
     TestXmlHelpers.cpp
-    TestAccessory.cpp
 )
 
 target_compile_definitions(${TEST_EXECUTABLE_CENTRAL_NAME} 

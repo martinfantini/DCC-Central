@@ -14,13 +14,10 @@ namespace Common::TurnoutInformation
 
     struct Turnout
     {
-        int VirtualPin;
+        int Address;
+        int Pin;
         StatusTurnout Status = StatusTurnout::None;
     };
-
-    // this map stores Address and Turnout
-    typedef std::unordered_map<int, Turnout> turnout_map_type;
-    turnout_map_type TurnoutMap;
 }
 
 #endif

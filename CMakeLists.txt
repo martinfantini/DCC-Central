@@ -27,5 +27,7 @@ generate_version(LIB_DCC_PROTOCOL_VERSION LIB_DCC_PROTOCOL_VERSION 0.0 0.1)
 message("The library " ${LIB_DCC_PROTOCOL} " version is " ${LIB_DCC_PROTOCOL_VERSION_HI} "." ${LIB_DCC_PROTOCOL_VERSION_LO})
 set(TEST_LIB_DCC_PROTOCOL TestLibDccProtocol)
 
+set(TEST_LIB_CENTRAL_COMMON TestCentralCommon)
+
 add_subdirectory(src)
 add_subdirectory(test)

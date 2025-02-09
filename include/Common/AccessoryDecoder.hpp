@@ -27,8 +27,7 @@ namespace Common::AddresDecoderInformation
         }
     };
 
-    typedef std::unordered_set<Accessory, KeyHasherAccessory> accessory_map_type;
-    accessory_map_type AccessoryMap;
+    typedef std::unordered_set<Accessory, KeyHasherAccessory> accessory_set_type;
 }
 
 #endif
