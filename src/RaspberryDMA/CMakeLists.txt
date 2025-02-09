@@ -1,0 +1,14 @@
+add_library(${LIB_RASPBEERY_DMA}
+    MainTrack.cpp
+    ProgrammingTrack.cpp
+)
+
+target_include_directories(${LIB_RASPBEERY_DMA} 
+    PRIVATE ${INCLUDE_DIRECTORIES}/DccProtocol
+    PRIVATE ${INCLUDE_DIRECTORIES}/RaspberryDMA
+)
+
+target_compile_definitions(${LIB_RASPBEERY_DMA} 
+    PRIVATE LIB_RASPBEERY_DMA_VERSION_HI=${LIB_RASPBEERY_DMA_VERSION_HI}
+    PRIVATE LIB_RASPBEERY_DMA_VERSION_LO=${LIB_RASPBEERY_DMA_VERSION_LO}
+)

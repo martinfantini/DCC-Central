@@ -22,6 +22,8 @@ namespace DccProtocol
              *      depending on the read bit.
              */
             virtual unsigned char SendToDCCWithAck(const std::vector<unsigned char>& buffer, bool isWriteCommand) = 0;
+
+            virtual ~DccProgrammingInterface(){}
     };
 }
 

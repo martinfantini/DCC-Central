@@ -8,6 +8,8 @@ include(${CMAKE_CURRENT_LIST_DIR}/cmake/version.cmake)
 set(INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/include)
 set(SRC_DIRECTORIES ${CMAKE_SOURCE_DIR}/src)
 
+list(APPEND CMAKE_MESSAGE_CONTEXT "Main")
+
 # Information about the Central Binary
 set(EXECUTABLE_CENTRAL_NAME DCC-Central)
 set(EXECUTABLE_CENTRAL_NAME DCC-Central)
@@ -27,7 +29,17 @@ generate_version(LIB_DCC_PROTOCOL_VERSION LIB_DCC_PROTOCOL_VERSION 0.0 0.1)
 message("The library " ${LIB_DCC_PROTOCOL} " version is " ${LIB_DCC_PROTOCOL_VERSION_HI} "." ${LIB_DCC_PROTOCOL_VERSION_LO})
 set(TEST_LIB_DCC_PROTOCOL TestLibDccProtocol)
 
+# Information about Test common data
 set(TEST_LIB_CENTRAL_COMMON TestCentralCommon)
+
+# Information about the lib raspberry
+set(LIB_RASPBEERY_DMA libRaspberryDMA)
+generate_version(LIB_RASPBEERY_DMA_VERSION LIB_RASPBEERY_DMA_VERSION 0.0 0.1)
+message("The library " ${LIB_RASPBEERY_DMA} " version is " ${LIB_RASPBEERY_DMA_VERSION_HI} "." ${LIB_RASPBEERY_DMA_VERSION_LO})
+
+message("System Processoor: ${CMAKE_SYSTEM_PROCESSOR}")
+message("Os Name: ${CMAKE_SYSTEM_NAME}")
+message("System Version: ${CMAKE_SYSTEM_VERSION}")
 
 add_subdirectory(src)
 add_subdirectory(test)

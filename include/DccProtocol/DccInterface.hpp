@@ -19,6 +19,8 @@ namespace DccProtocol
              * @param buffer to be send to the wire.
              */
             virtual void SendToDCC(const std::vector<unsigned char>& buffer, int RepeatCommand = 0) = 0;
+
+            virtual ~DccInterface(){}
     };
 }
 
