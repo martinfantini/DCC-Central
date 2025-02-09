@@ -14,13 +14,13 @@ namespace DccProtocol
     class DccCommandGenerator
     {
     public:
-        DccCommandGenerator(DccInterface& _DccInterface):
-            _DccInterface(_DccInterface)
+        DccCommandGenerator(DccInterface& DccInterface):
+            m_DccInterface(DccInterface)
         {}
 
         void GlobalSpeedSteps(int globalSpeedsteps)
         {
-            _globalSpeedsteps = globalSpeedsteps;
+            m_globalSpeedsteps = globalSpeedsteps;
         }
 
         /**
@@ -102,7 +102,7 @@ namespace DccProtocol
 
         int getGlobalSpeedSteps() const
         {
-            return _globalSpeedsteps;
+            return m_globalSpeedsteps;
         }
 
         void SetFunction_F1_F4(int number, bool status, std::vector<unsigned char>& instruction, unsigned char& _status_F1_F4);
@@ -111,10 +111,10 @@ namespace DccProtocol
         void SetFunction_F21_F28(int number, bool status, std::vector<unsigned char>& instruction, unsigned char& _status_F21_F28);
 
         // Internal variables.
-        DccInterface& _DccInterface;
+        DccInterface& m_DccInterface;
 
         // to set the global variable loco steps
-        int _globalSpeedsteps = 128;
+        int m_globalSpeedsteps = 128;
     };
 }
 

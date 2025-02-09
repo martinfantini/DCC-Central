@@ -14,12 +14,20 @@ namespace DccProtocol
     class DccProgrammingCommandGenerator
     {
     public:
-        DccProgrammingCommandGenerator(DccProgrammingInterface& _DccProgrammingInterface):
-            _DccProgrammingInterface(_DccProgrammingInterface)
+        DccProgrammingCommandGenerator(DccProgrammingInterface& DccProgrammingInterface):
+            m_DccProgrammingInterface(DccProgrammingInterface)
         {}
 
+        std::pair<bool, unsigned char> ReadCV(unsigned int CV);
+        std::pair<bool, unsigned char> WriteCV(unsigned int CV, unsigned char Value);
+
+        std::pair<bool, unsigned char> ReadCVBit(unsigned int CV, unsigned int BitPosition);
+        std::pair<bool, unsigned char> WriteCVBit(unsigned int CV,  unsigned int BitPosition, unsigned char Value);
+
+        bool WriteAddress(unsigned int Address);
+
     private:
-        DccProgrammingInterface& _DccProgrammingInterface;
+        DccProgrammingInterface& m_DccProgrammingInterface;
     };
 }
 

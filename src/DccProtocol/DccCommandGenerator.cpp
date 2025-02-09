@@ -2,8 +2,6 @@
 #include "DccCommandGenerator.hpp"
 #include "DccConstants.hpp"
 
-#include <iostream>
-
 namespace DccProtocol
 {
     using namespace DccProtocol::DccConstants;
@@ -55,8 +53,9 @@ namespace DccProtocol
         // For the 128 Steps.
         if (_SpeedSteps >= 128)
         {
+            constexpr unsigned char set_speed = 0x3f;
             // 128-step speed control byte
-            instruction.push_back(SET_SPEED);
+            instruction.push_back(set_speed);
             instruction.push_back(SpeedCode);
         }
         // For the 28 Steps.
@@ -116,7 +115,7 @@ namespace DccProtocol
         // Generate the checksum
         CalculateCheckSum(instruction);
         // Send the instruction
-        _DccInterface.SendToDCC(instruction, RepeatCommand);
+        m_DccInterface.SendToDCC(instruction, RepeatCommand);
     }
 
     void DccCommandGenerator::SetTimeCommand(int hour, int minutes, int weekOfDay, int accelerationFactor, bool Update)

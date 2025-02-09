@@ -1,5 +1,6 @@
 add_library(${LIB_DCC_PROTOCOL}
     DccCommandGenerator.cpp
+    DccProgrammingCommandGenerator.cpp
 )
 
 target_include_directories(${LIB_DCC_PROTOCOL} 
