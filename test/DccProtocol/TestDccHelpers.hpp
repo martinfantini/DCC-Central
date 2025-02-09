@@ -12,21 +12,7 @@ class TestMockDccInterface : public DccProtocol::DccInterface
             _repeat = repeatCommand;
         }
 
-        unsigned char SendToDCCWithAck(const std::vector<unsigned char>& buffer, bool isWriteCommand)
-        {
-            _internal_buffer = buffer;
-            _isWriteCommand = isWriteCommand;
-            return _result;
-        }
-
-        void SetResult(unsigned char commandResult)
-        {
-            _result = commandResult;
-        }
-
         std::vector<unsigned char> _internal_buffer;
         int _repeat = 0;
-        bool _isWriteCommand;
-        unsigned char _result;
 };
 #endif

@@ -3,8 +3,10 @@ find_package(Catch2 REQUIRED)
 
 add_executable(${TEST_LIB_DCC_PROTOCOL}
     ${SRC_DIRECTORIES}/DccProtocol/DccCommandGenerator.cpp
+    ${SRC_DIRECTORIES}/DccProtocol/DccProgrammingCommandGenerator.cpp
     # Tests
     TestDccCommandGenerator.cpp
+    TestDccProgrammingGenerator.cpp
 )
 
 target_compile_definitions(${TEST_LIB_DCC_PROTOCOL} 
