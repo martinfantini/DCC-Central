@@ -35,5 +35,12 @@ TEST_CASE("Test Loco Map")
         auto found = m_locoCache.GetLocoById(2);
         REQUIRE(found != nullptr);
         REQUIRE(found->Address == 256);
-    }    
+    }
+
+    SECTION("Test Search by Addres and Id")
+    {
+        auto found = m_locoCache.GetLocoByIdAddress(3, 128);
+        REQUIRE(found != nullptr);
+        REQUIRE(found->currentSpeed == 10);
+    }
 }

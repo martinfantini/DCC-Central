@@ -3,14 +3,16 @@
 
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/hashed_index.hpp>
+#include <boost/multi_index/composite_key.hpp>
 #include <boost/multi_index/member.hpp>
 
 #include "Loco.hpp"
 
 namespace Common::LocoInformation
 {
-    struct IndexById {};
-    struct IndexByAddress {};
+    struct IndexById{};
+    struct IndexByAddress{};
+    struct IndexByIdAndAddress{};
 
     typedef 
 	    boost::multi_index_container<
@@ -23,6 +25,14 @@ namespace Common::LocoInformation
                     boost::multi_index::hashed_unique<
                         boost::multi_index::tag<IndexByAddress>,
                         boost::multi_index::member<Loco, int, &Loco::Address>
+			    >,
+                    boost::multi_index::hashed_unique<
+                        boost::multi_index::tag<IndexByIdAndAddress>,
+                        boost::multi_index::composite_key<
+                            Loco,
+                            boost::multi_index::member<Loco, int, &Loco::Id>,
+                            boost::multi_index::member<Loco, int, &Loco::Address>
+                        >
 			    >
             >
         > LocoMap;
@@ -55,6 +65,15 @@ namespace Common::LocoInformation
     	        auto& indexById = m_LocoMap.get<IndexById>();
     	        auto iter = indexById.find(id);
     	        if (iter != indexById.end()) return &iter.get_node()->value();
+    
+    	        return nullptr;
+            }
+
+            Loco* GetLocoByIdAddress(int Id, int Address) const
+            {
+    	        auto& indexByIdAddress = m_LocoMap.get<IndexByIdAndAddress>();
+    	        auto iter = indexByIdAddress.find(std::make_tuple(Id, Address));
+    	        if (iter != indexByIdAddress.end()) return &iter.get_node()->value();
     
     	        return nullptr;
             }
