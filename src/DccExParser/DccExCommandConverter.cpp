@@ -1,4 +1,4 @@
-#include "DccExCommadConverter.hpp"
+#include "DccExCommandConverter.hpp"
 #include "LocoInterface.hpp"
 #include "Helpers.hpp"
 

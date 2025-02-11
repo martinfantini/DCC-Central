@@ -36,8 +36,10 @@ int main(int argc, char *argv[])
     Logger::InitializeLogger(_config.getLogger());
 
     // Log the configuration
-    LOG(INFO) << "Actaul configuration is: \n";
+    LOG(INFO) << "Actual configuration is: \n";
     LOG(INFO) <<  _config;
+
+
 
 
 
