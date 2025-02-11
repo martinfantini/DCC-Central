@@ -1,5 +1,3 @@
-find_package(Catch2 REQUIRED)
-
 add_executable(${TEST_LIB_CENTRAL_COMMON}
     # Tests
     TestAccessory.cpp
@@ -14,3 +12,6 @@ target_include_directories(${TEST_LIB_CENTRAL_COMMON}
 
 target_link_libraries(${TEST_LIB_CENTRAL_COMMON} PRIVATE Catch2::Catch2WithMain)
 
+include(CTest)
+include(Catch)
+catch_discover_tests(${TEST_LIB_CENTRAL_COMMON})
