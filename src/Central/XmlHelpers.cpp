@@ -7,7 +7,7 @@
 
 #include "XmlTags.hpp"
 
-namespace XmlHelpers
+namespace Central::XmlHelpers
 {
     XMLReader::XMLReader(const std::string& path_to_xml):
         _path_to_xml(path_to_xml)

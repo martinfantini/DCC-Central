@@ -5,7 +5,7 @@
 
 #include "Helpers.hpp"
 
-namespace Configuration
+namespace Central::Configuration
 {
     class Config
     {
@@ -16,7 +16,7 @@ namespace Configuration
             return _dccPlus;
         }
 
-        void setDCC(const ::Helpers::DCCPlus& dccPlus)
+        void setDCC(const Helpers::DCCPlus& dccPlus)
         {
             _dccPlus = dccPlus;
             _dccPlus.enabled = true;            
@@ -63,14 +63,14 @@ namespace Configuration
 
         // <!----- Tracks Config ----->
 
-        void setProgramingTrack(const Helpers::Track& programingTack)
+        void setProgramingTrack(const Helpers::Track& programmingTack)
         {
-            _programingTrack = programingTack;
+            _programmingTrack = programmingTack;
         }
 
         const Helpers::Track& getProgramingTrack()
         {
-            return _programingTrack;
+            return _programmingTrack;
         }
 
         void setMainTrack(const Helpers::Track& mainTack)
@@ -90,7 +90,7 @@ namespace Configuration
         Helpers::RestApi _restApi;
         Helpers::Logger _logger;
         Helpers::Track  _mainTrack;
-        Helpers::Track  _programingTrack;
+        Helpers::Track  _programmingTrack;
     };
 } // namespace Configuration
 

@@ -2,7 +2,7 @@
 #ifndef __CENTRAL_XML_TAGS_HPP__
 #define __CENTRAL_XML_TAGS_HPP__
 
-namespace XmlTags
+namespace Central::XmlTags
 {
     namespace IpV4
     {

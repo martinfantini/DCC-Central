@@ -5,7 +5,7 @@
 #include "Address.hpp"
 #include <iostream>
 
-namespace Helpers
+namespace Central::Helpers
 {   
     struct DCCPlus
     {

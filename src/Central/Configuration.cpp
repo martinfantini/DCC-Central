@@ -1,9 +1,10 @@
 #include "Configuration.hpp"
 
 #include <iostream>
-namespace Configuration
+
+namespace Central::Configuration
 {
-    using namespace Helpers;
+    using namespace Central::Helpers;
 
     std::ostream& operator<<(std::ostream& os, const Configuration::Config& config)
     {

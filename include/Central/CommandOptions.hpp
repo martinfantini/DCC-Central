@@ -4,7 +4,7 @@
 #include<utility>
 #include<string>
 
-namespace CommandOptions
+namespace Central::CommandOptions
 {
     struct CommandParameters
     {

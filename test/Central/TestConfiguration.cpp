@@ -4,7 +4,7 @@
 
 TEST_CASE("Test global Configuration class")
 {
-    using namespace Configuration;
+    using namespace Central::Configuration;
     SECTION("Test default configuration")
     {
         Config _config;

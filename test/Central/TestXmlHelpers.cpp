@@ -7,6 +7,7 @@
 
 TEST_CASE("Test XMLReader class")
 {
+    using namespace Central;
     using namespace XmlHelpers;
 
     SECTION("Test DCC configuration")

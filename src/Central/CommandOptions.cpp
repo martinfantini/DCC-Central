@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 
-namespace CommandOptions
+namespace Central::CommandOptions
 {
     namespace po = boost::program_options;
 

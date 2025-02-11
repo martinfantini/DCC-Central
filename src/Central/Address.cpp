@@ -1,6 +1,6 @@
 #include "Address.hpp"
 
-namespace Address
+namespace Central::Address
 {
     std::ostream& operator<<(std::ostream& os, const Address::IpV4IpPort& ipV4IpPort)
     {

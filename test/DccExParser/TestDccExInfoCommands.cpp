@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "TestDccExHelpers.hpp"
-#include "DccExCommadConverter.hpp"
+#include "DccExCommandConverter.hpp"
 #include "CommandInterface.hpp"
 
 TEST_CASE("Test DCC Info implemented commands")

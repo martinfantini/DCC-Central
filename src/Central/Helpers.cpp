@@ -1,9 +1,9 @@
 #include "Helpers.hpp"
 #include<ios>
 
-namespace Helpers
+namespace Central::Helpers
 {
-    using namespace Address;
+    using namespace Central::Address;
 
     std::ostream& operator<<(std::ostream& os, const DCCPlus& _dccPlus)
     {

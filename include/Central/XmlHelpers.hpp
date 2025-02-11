@@ -10,7 +10,7 @@
 
 #include "pugixml.hpp"
 
-namespace XmlHelpers
+namespace Central::XmlHelpers
 {
     class XMLReader
     {
@@ -19,7 +19,7 @@ namespace XmlHelpers
 
         bool Parse();
 
-        const ::Configuration::Config& GetConfiguration()
+        const Configuration::Config& GetConfiguration()
         {
             return _config;
         };
@@ -38,7 +38,7 @@ namespace XmlHelpers
         bool ReadLogger(const pugi::xml_node& node);
 
     private:
-        ::Configuration::Config _config;
+        Configuration::Config _config;
         std::string _path_to_xml;
         pugi::xml_document _doc;
     };

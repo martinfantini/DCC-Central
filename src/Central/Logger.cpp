@@ -3,7 +3,7 @@
 #include <glog/logging.h>
 #include "Helpers.hpp"
 
-namespace Logger
+namespace Central::Logger
 {
     void InitializeLogger(Helpers::Logger _logger)
     {

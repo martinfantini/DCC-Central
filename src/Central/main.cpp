@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+using namespace Central;
+
 int main(int argc, char *argv[]) 
 {
     auto parseCommand = CommandOptions::ParseCommandOptions(argc, argv);
@@ -39,6 +41,7 @@ int main(int argc, char *argv[])
     LOG(INFO) << "Actual configuration is: \n";
     LOG(INFO) <<  _config;
 
+    // Start the thread to receive messages from DCC protocol
 
 
 
