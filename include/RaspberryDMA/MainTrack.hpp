@@ -1,21 +1,24 @@
-#ifndef __RASPBERRY_MAIN_TRACK_HPP__
-#define __RASPBERRY_MAIN_TRACK_HPP__
+#ifndef __RASPBERRY_DMA_MAIN_TRACK_HPP__
+#define __RASPBERRY_DMA_MAIN_TRACK_HPP__
 
 #include <DccInterface.hpp>
 
-class MainTrack : public DccInterface
+namespace RaspberryDMA
 {
-    public:
-        MainTrack(int PowerPin, int EnablePin, int SignalPin):
-            m_PowerPin(PowerPin), m_EnablePin(EnablePin), m_SignalPin(SignalPin)
-        {}
+    class MainTrack : public DccInterface
+    {
+        public:
+            MainTrack(int PowerPin, int EnablePin, int SignalPin):
+                m_PowerPin(PowerPin), m_EnablePin(EnablePin), m_SignalPin(SignalPin)
+            {}
 
-    private:
-        virtual void SendToDCC(const std::vector<unsigned char>& buffer, int RepeatCommand = 0);
+        private:
+            virtual void SendToDCC(const std::vector<unsigned char>& buffer, int RepeatCommand = 0);
 
-        int m_PowerPin;
-        int m_EnablePin;
-        int m_SignalPin;
-};
+            int m_PowerPin;
+            int m_EnablePin;
+            int m_SignalPin;
+    };
+}
 
 #endif

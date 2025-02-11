@@ -1,0 +1,4 @@
+#ifndef __RASPBERRY_DMA_ADC_CONTROL_HPP__
+#define __RASPBERRY_DMA_ADC_CONTROL_HPP__
+
+#endif
