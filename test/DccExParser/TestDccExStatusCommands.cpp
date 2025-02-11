@@ -9,7 +9,7 @@ TEST_CASE("Test DCC Status commands")
     using namespace DccExParser;
 
     std::string commandResult;
-    DccExParser::string_function commandFunction = [&commandResult](const std::string& command_result)
+    DccExParser::string_function_type commandFunction = [&commandResult](const std::string& command_result)
     {
         commandResult += command_result;
     };

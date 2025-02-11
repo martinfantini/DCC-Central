@@ -70,7 +70,7 @@ namespace
 
 namespace DccExParser
 {
-    DccExCommandParser::DccExCommandParser(CommandInterface& _command_interface, string_function& send_response):
+    DccExCommandParser::DccExCommandParser(CommandInterface& _command_interface, string_function_type& send_response):
         _command_interface(_command_interface),
         _send_response(send_response)
     {}
