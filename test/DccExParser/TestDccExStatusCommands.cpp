@@ -8,12 +8,6 @@ TEST_CASE("Test DCC Status commands")
 {
     using namespace DccExParser;
 
-    std::string commandResult;
-    DccExParser::string_function_type commandFunction = [&commandResult](const std::string& command_result)
-    {
-        commandResult += command_result;
-    };
-
     // test information
     static std::unordered_map<int, bool> _getStatusSensors_map = {{125, false},{100, true} };
     static std::string                   _info_string = "Test";
@@ -61,7 +55,9 @@ TEST_CASE("Test DCC Status commands")
 
     TestMockCommandManager _TestMockCommandManager(_TestMockLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface, _TestMockAccessoryInterface, _TestMockDccTrackInterface);
 
-    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction);
+    DccExCommandParser dccParser(_TestMockCommandManager);
+    std::string commandResult;
+    dccParser.set_response_callback(std::make_shared<DccExResponse>(DccExResponse(commandResult, true)));
     DCCBasicParser dccBasicParser(dccParser);
 
     SECTION("Test Status")

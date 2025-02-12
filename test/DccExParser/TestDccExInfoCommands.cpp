@@ -10,13 +10,7 @@ TEST_CASE("Test DCC Info implemented commands")
 
     static std::string info_string;
 
-    std::string commandResult;
-    DccExParser::string_function_type commandFunction = [&commandResult](const std::string& command_result)
-    {
-        commandResult = command_result;
-    };
-
-   class TestInfoInterface : public InfoInterface
+    class TestInfoInterface : public InfoInterface
     {
         public:
             const std::string& getAdditionVersionInfo()
@@ -35,7 +29,9 @@ TEST_CASE("Test DCC Info implemented commands")
 
     TestMockCommandManager _TestMockCommandManager(_TestMockLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface, _TestMockAccessoryInterface, _TestMockDccTrackInterface);
 
-    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction);
+    DccExCommandParser dccParser(_TestMockCommandManager);
+    std::string commandResult;
+    dccParser.set_response_callback(std::make_shared<DccExResponse>(DccExResponse(commandResult)));
     DCCBasicParser dccBasicParser(dccParser);
 
     SECTION("Test empty case")

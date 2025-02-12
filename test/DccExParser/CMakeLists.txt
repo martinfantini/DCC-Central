@@ -5,6 +5,7 @@ add_executable(${TEST_DCC_EX_PARSER}
     TestDccExSensorsCommands.cpp
     TestDccExStatusCommands.cpp
     TestDccExTrackCommands.cpp
+    TestDccExCommandConverter.cpp
 )
 
 target_include_directories(${TEST_DCC_EX_PARSER}

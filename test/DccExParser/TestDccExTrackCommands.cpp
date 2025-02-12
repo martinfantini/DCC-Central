@@ -8,12 +8,6 @@ TEST_CASE("Test DCC track implemented commands")
 {
     using namespace DccExParser;
 
-    std::string commandResult;
-    DccExParser::string_function_type commandFunction = [&commandResult](const std::string& command_result)
-    {
-        commandResult = command_result;
-    };
-
     static std::vector<bool> _status = {false, false, false};
     static std::vector<bool> _enabled = {false, false, false};
 
@@ -61,7 +55,9 @@ TEST_CASE("Test DCC track implemented commands")
 
     TestMockCommandManager _TestMockCommandManager(_TestMockLocoInterface, _testTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface, _TestMockAccessoryInterface, _TestMockDccTrackInterface);
 
-    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction);
+    DccExCommandParser dccParser(_TestMockCommandManager);
+    std::string commandResult;
+    dccParser.set_response_callback(std::make_shared<DccExResponse>(DccExResponse(commandResult)));
     DCCBasicParser dccBasicParser(dccParser);
 
     SECTION("Test empty case")

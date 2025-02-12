@@ -10,12 +10,6 @@ TEST_CASE("Test DCC Sensor commands")
 
     static std::string info_string;
 
-    std::string commandResult;
-    DccExParser::string_function_type commandFunction = [&commandResult](const std::string& command_result)
-    {
-        commandResult = command_result;
-    };
-
     // helper variables to to tests sensors
     static int _countSensors_num = 0;
     static int _addSensor_sensorId = 0;
@@ -82,7 +76,9 @@ TEST_CASE("Test DCC Sensor commands")
 
     TestMockCommandManager _TestMockCommandManager(_TestMockLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface, _TestMockAccessoryInterface, _TestMockDccTrackInterface);
 
-    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction);
+    DccExCommandParser dccParser(_TestMockCommandManager);
+    std::string commandResult;
+    dccParser.set_response_callback(std::make_shared<DccExResponse>(DccExResponse(commandResult)));
     DCCBasicParser dccBasicParser(dccParser);
 
     SECTION("Test Sensors Status")

@@ -1,60 +1,28 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "DccExCommadConverter.hpp"
-#include "CommandManager.hpp"
+#include "TestDccExHelpers.hpp"
+#include "DccExCommandConverter.hpp"
+#include "CommandInterface.hpp"
 
 TEST_CASE("Test DCC implemented commands")
 {
-    using namespace Common;
     using namespace DccExParser;
 
-    // general data to test
-    static int max_locos;
+    // Create the basic variables to testing.
+    TestMockLocoInterface  _TestMockLocoInterface;
+    TestMockTrackInterface _TestMockTrackInterface;
+    TestMockSensorsInterface _TestMockSensorsInterface;
+    TestMockTurnoutInterface _TestMockTurnoutInterface;
+    TestMockInfoInterface _TestMockInfoInterface;
+    TestMockAccessoryInterface _TestMockAccessoryInterface;
+    TestMockDccTrackInterface _TestMockDccTrackInterface;
 
-    class CommandManagerTester: public CommandManager
-    {
-        public:
-            
-            std::pair<bool, Loco> lookupLocos(int locoId, bool autoCreate = false)
-            {
-                return {true, {} };
-            }
-            void setThrottle(int cab, int tspeed, int direction)
-            {}
-            
-            bool setFunction(int cab, int functionNumber, bool on)
-            {
-                return true;
-            }
-            
-            int getMaxLocos()
-            {
-                return max_locos;
-            }
-    };
+    TestMockCommandManager _TestMockCommandManager(_TestMockLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface, _TestMockAccessoryInterface, _TestMockDccTrackInterface);
 
-    std::string logger;
-    DccExParser::string_function loggerFunction = [&logger](const std::string& logger_parser)
-    {
-        logger = logger_parser;
-    };
-
+    DccExCommandParser dccParser(_TestMockCommandManager);
     std::string commandResult;
-    DccExParser::string_function commandFunction = [&commandResult](const std::string& command_result)
-    {
-        commandResult = command_result;
-    };
-
-    CommandManagerTester commandTester;
-    DccExCommandParser dccParser(commandTester, commandFunction, loggerFunction);
+    dccParser.set_response_callback(std::make_shared<DccExResponse>(DccExResponse(commandResult)));
     DCCBasicParser dccBasicParser(dccParser);
-
-    SECTION("Test # case")
-    {
-        max_locos = 20;
-        dccBasicParser.read_stream("<#>\n");
-        CHECK(commandResult == "<# " + std::to_string(max_locos) +">\n");
-    }
 
     SECTION("Test empty case")
     {

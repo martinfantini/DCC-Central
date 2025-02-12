@@ -2,6 +2,7 @@
 #define __DCC_EX_TEST_CLASSES_HELPERS_HPP__
 
 #include "CommandInterface.hpp"
+#include "DccExCommandConverter.hpp"
 
 using namespace DccExParser;
 
@@ -288,4 +289,24 @@ class TestMockAccessoryInterface : public AccessoryInterface
         {}
 };
 
+class DccExResponse : public DccExCommandResponse
+{
+    public:
+        DccExResponse(std::string& response, bool append = false):
+            commandResult(response),
+            append(append)
+        {}
+
+        virtual void send_response(const std::string& response)
+        {
+            if (append)
+                commandResult += response;
+            else
+                commandResult = response;
+        }
+
+    private:
+        std::string& commandResult;
+        bool append = false;
+};
 #endif

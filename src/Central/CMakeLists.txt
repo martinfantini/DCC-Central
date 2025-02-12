@@ -13,8 +13,8 @@ add_executable(${EXECUTABLE_CENTRAL_NAME}
 )
 
 target_include_directories(${EXECUTABLE_CENTRAL_NAME} 
+    PRIVATE ${INCLUDE_DIRECTORIES}
     PRIVATE ${INCLUDE_DIRECTORIES}/Central
-    PRIVATE ${INCLUDE_DIRECTORIES}  
 )
 
 target_compile_definitions(${EXECUTABLE_CENTRAL_NAME} 

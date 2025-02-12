@@ -70,9 +70,8 @@ namespace
 
 namespace DccExParser
 {
-    DccExCommandParser::DccExCommandParser(CommandInterface& _command_interface, string_function_type& send_response):
-        _command_interface(_command_interface),
-        _send_response(send_response)
+    DccExCommandParser::DccExCommandParser(CommandInterface& _command_interface):
+        _command_interface(_command_interface)
     {}
 
     void DccExCommandParser::parsed_values(const char command, const std::vector<std::string>& parameters)
@@ -115,7 +114,11 @@ namespace DccExParser
                 {
                     break;
                 }
-                _send_response(Helpers::print_DCC_Track_Status(trackInterface));
+
+                if (response_ptr)
+                {
+                    response_ptr->send_response(Helpers::print_DCC_Track_Status(trackInterface));
+                }
                 return;
         	}
             case '1':  // 1, Track power on
@@ -145,7 +148,11 @@ namespace DccExParser
                 {
                     break;
                 }
-                _send_response(Helpers::print_DCC_Track_Status(trackInterface));
+
+                if (response_ptr)
+                {
+                    response_ptr->send_response(Helpers::print_DCC_Track_Status(trackInterface));
+                }
                 return;
             }
             case '!': // ESTOP ALL  <!>
@@ -153,12 +160,18 @@ namespace DccExParser
                 TrackInterface& trackInterface = _command_interface.getTrackInterface();
                 Helpers::emergencyStop(trackInterface);
                 _command_interface.getLocosInterface().emergencyStop();
-                _send_response("<O>\n");
+                if (response_ptr)
+                {
+                    response_ptr->send_response("<O>\n");
+                }
                 break;
             }
             case '#':
             {
-                _send_response("<# " + std::to_string(_command_interface.getLocosInterface().getMaxLocos()) +">\n");
+                if (response_ptr)
+                {
+                    response_ptr->send_response("<# " + std::to_string(_command_interface.getLocosInterface().getMaxLocos()) +">\n");
+                }
                 return;
             }
             case '-': // Forget Loco <- [cab]>
@@ -172,12 +185,18 @@ namespace DccExParser
                 if (locoId == 0)
                 {
                     _command_interface.getLocosInterface().removeAllLocos();
-                    _send_response("<O>\n");
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response("<O>\n");
+                    }
                 }
                 else
                 {
                     _command_interface.getLocosInterface().removeLoco(locoId);
-                    _send_response("<O>\n");
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response("<O>\n");
+                    }
                 }
                 return;
             }
@@ -194,15 +213,21 @@ namespace DccExParser
             }
             case 'Q': // SENSORS <Q>
             {
-                _send_response(Helpers::print_DCC_Sensor_Status(_command_interface.getSensorsInterface()));
+                if (response_ptr)
+                {
+                    response_ptr->send_response(Helpers::print_DCC_Sensor_Status(_command_interface.getSensorsInterface()));
+                }
                 return;
             }
             case 's': // <s>
             {
-                _send_response(Helpers::print_DCC_Info(_command_interface.getInfoInterface()));
-                _send_response(Helpers::print_DCC_Track_Status(_command_interface.getTrackInterface()));
-                _send_response(Helpers::print_DCC_Turnout(_command_interface.getTurnoutInterface()));
-                _send_response(Helpers::print_DCC_Sensor_Status(_command_interface.getSensorsInterface()));
+                if (response_ptr)
+                {
+                    response_ptr->send_response(Helpers::print_DCC_Info(_command_interface.getInfoInterface()));
+                    response_ptr->send_response(Helpers::print_DCC_Track_Status(_command_interface.getTrackInterface()));
+                    response_ptr->send_response(Helpers::print_DCC_Turnout(_command_interface.getTurnoutInterface()));
+                    response_ptr->send_response(Helpers::print_DCC_Sensor_Status(_command_interface.getSensorsInterface()));
+                }
                 return;
             }
             case 'S':
@@ -215,19 +240,28 @@ namespace DccExParser
                         auto virtualPin = atoi(parameters[1].c_str());
                         auto isPullUp = atoi(parameters[2].c_str()) == 1;
                         _command_interface.getSensorsInterface().addSensor(sensorId, virtualPin, isPullUp);
-                        _send_response("<O>\n");
+                        if (response_ptr)
+                        {
+                            response_ptr->send_response("<O>\n");
+                        }
                         return;
                     }
                     case 1:
                     {
                         auto sensorId = atoi(parameters[0].c_str());
                         _command_interface.getSensorsInterface().removeSensor(sensorId);
-                        _send_response("<O>\n");
+                        if (response_ptr)
+                        {
+                            response_ptr->send_response("<O>\n");
+                        }
                         return;
                     }
                     case 0:
                     {
-                        _send_response(Helpers::print_DCC_Sensor_Configuration(_command_interface.getSensorsInterface()));
+                        if (response_ptr)
+                        {
+                            response_ptr->send_response(Helpers::print_DCC_Sensor_Configuration(_command_interface.getSensorsInterface()));
+                        }
                         return;
                     }
                 }
@@ -235,7 +269,10 @@ namespace DccExParser
             }
             case 'H':
             {
-                _send_response(Helpers::print_DCC_Turnout(_command_interface.getTurnoutInterface()));
+                if (response_ptr)
+                {
+                    response_ptr->send_response(Helpers::print_DCC_Turnout(_command_interface.getTurnoutInterface()));
+                }
                 return;
             }
             case 'T':
@@ -244,14 +281,20 @@ namespace DccExParser
                 {
                     case 0: // <T>  list turnout definitions
                     {
-                        _send_response(Helpers::print_DCC_Turnout(_command_interface.getTurnoutInterface()));
+                        if (response_ptr)
+                        {
+                            response_ptr->send_response(Helpers::print_DCC_Turnout(_command_interface.getTurnoutInterface()));
+                        }
                         return;
                     }
                     case 1: // <T id>  delete turnout
                     {
                         int turnoutId = atoi(parameters[0].c_str());
                         _command_interface.getTurnoutInterface().removeTurnout(turnoutId);
-                        _send_response("<O>\n");
+                        if (response_ptr)
+                        {
+                            response_ptr->send_response("<O>\n");
+                        }
                         return;
                     }
                     case 2: // <T id 0|1|T|C>
@@ -340,7 +383,10 @@ namespace DccExParser
                             _tspeed = 128;
                             _functions = 0;
                         }
-                        _send_response(Helpers::print_DCC_Loco_Info(_cab, _locoId, _tspeed, _functions));
+                        if (response_ptr)
+                        {
+                            response_ptr->send_response(Helpers::print_DCC_Loco_Info(_cab, _locoId, _tspeed, _functions));
+                        }
                         return;
                     }
                     case 4: // <t REGISTER CAB SPEED DIRECTION>
@@ -350,7 +396,10 @@ namespace DccExParser
                         _direction = atoi(parameters[3].c_str()) == 1;
                         if (!_command_interface.getLocosInterface().setLoco(_cab, _tspeed, _direction));
                             break;
-                        _send_response(Helpers::print_DCC_Loco_Status(parameters));
+                        if (response_ptr)
+                        {
+                            response_ptr->send_response(Helpers::print_DCC_Loco_Status(parameters));
+                        }
                         return;
                     }
                     case 3: // <t CAB SPEED DIRECTION>
@@ -372,7 +421,10 @@ namespace DccExParser
             }
             case 'c':
             {
-                _send_response(Helpers::print_DCC_Current_On_Main(_command_interface.getDccTrackInterface()));
+                if (response_ptr)
+                {
+                    response_ptr->send_response(Helpers::print_DCC_Current_On_Main(_command_interface.getDccTrackInterface()));
+                }
                 return;
             }
             case 'J':
@@ -384,20 +436,29 @@ namespace DccExParser
                 {
                     case 'I':
                     {
-                        _send_response(Helpers::print_Throttle_DCC_Current(_command_interface.getDccTrackInterface()));
+                        if (response_ptr)
+                        {
+                            response_ptr->send_response(Helpers::print_Throttle_DCC_Current(_command_interface.getDccTrackInterface()));
+                        }
                         return;
                     }
                     case 'T':
                     {
                         if (params == 1) // <JT>
                         {
-                            _send_response(Helpers::print_Throttle_DCC_Turnout_List(_command_interface.getTurnoutInterface()));
+                            if (response_ptr)
+                            {
+                                response_ptr->send_response(Helpers::print_Throttle_DCC_Turnout_List(_command_interface.getTurnoutInterface()));
+                            }
                             return;
                         }
                         else if (params == 2) // <JT id>
                         {
                             int _turnoutId = atoi(parameters[1].c_str());
-                            _send_response(Helpers::print_Throttle_DCC_Turnout_Info(_turnoutId, _command_interface.getTurnoutInterface()));
+                            if (response_ptr)
+                            {
+                                response_ptr->send_response(Helpers::print_Throttle_DCC_Turnout_Info(_turnoutId, _command_interface.getTurnoutInterface()));
+                            }
                             return;
                         }
                         return;
@@ -439,7 +500,10 @@ namespace DccExParser
                 if (params == 1)
                 {  // <W id> Write new loco id (clearing consist and managing short/long)
                     auto _result = _command_interface.getDccTrackInterface().setLocoId(_cv);
-                    _send_response(print_DCC_Write_LocoId(_result, parameters));
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response(print_DCC_Write_LocoId(_result, parameters));
+                    }
                     return;
                 }
 
@@ -451,12 +515,18 @@ namespace DccExParser
                 if (params == 4)
                 { // <W CV VALUE [CALLBACKNUM] [CALLBACKSUB]>
                     auto _result = _command_interface.getDccTrackInterface().writeCVByte(_cv, _value);
-                    _send_response(print_DCC_Write_write_CV_Byte_4(_result, parameters));
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response(print_DCC_Write_write_CV_Byte_4(_result, parameters));
+                    }
                 }
                 else
                 { // <W CV VALUE>
                     auto _result = _command_interface.getDccTrackInterface().writeCVByte(_cv, _value);
-                    _send_response(print_DCC_Write_write_CV_Byte(_result, parameters));
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response(print_DCC_Write_write_CV_Byte(_result, parameters));
+                    }
                 }
                 return;
             }
@@ -468,7 +538,10 @@ namespace DccExParser
                     char _value = parameters[1].at(0);
 
                     auto _result = _command_interface.getDccTrackInterface().verifyCVByte(_cv, _value);
-                    _send_response(print_DCC_Read_Byte(_result, parameters));
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response(print_DCC_Read_Byte(_result, parameters));
+                    }
                     return;
                 }
                 if (params == 3)
@@ -480,7 +553,10 @@ namespace DccExParser
                     bool _value = atoi(parameters[2].c_str()) == 1;
 
                     auto _result = _command_interface.getDccTrackInterface().verifyCVBit(_cv, _position, _value);
-                    _send_response(print_DCC_Read_Bit(_result, parameters));
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response(print_DCC_Read_Bit(_result, parameters));
+                    }
                     return;
                 }
                 break;
@@ -493,8 +569,10 @@ namespace DccExParser
                 int _position = atoi(parameters[1].c_str());
                 bool _value = (atoi(parameters[2].c_str())) == 1;
                 auto _result = _command_interface.getDccTrackInterface().writeCVBit(_cv, _position, _value);
-
-                _send_response(print_DCC_Write_Bit(_result, parameters));
+                if (response_ptr)
+                {
+                    response_ptr->send_response(print_DCC_Write_Bit(_result, parameters));
+                }
                 return;
             }
             case 'R': // READ CV ON PROG
@@ -502,7 +580,10 @@ namespace DccExParser
                 if (params == 0)
                 { // <R> New read loco id
                     auto _result = _command_interface.getDccTrackInterface().getLocoId();
-                    _send_response(print_DCC_Read_LocoId(_result));
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response(print_DCC_Read_LocoId(_result));
+                    }
                     return;
                 }
 
@@ -514,13 +595,19 @@ namespace DccExParser
                 if (params == 1)
                 { // <R CV> -- uses verify callback
                     auto _result = _command_interface.getDccTrackInterface().verifyCVByte(_cv, 0);
-                    _send_response(print_DCC_Read_Byte(_result, parameters));
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response(print_DCC_Read_Byte(_result, parameters));
+                    }
                     return;
                 }
                 if (params == 3)
                 { // <R CV CALLBACKNUM CALLBACKSUB>
                     auto _result = _command_interface.getDccTrackInterface().readCV(_cv);
-                    _send_response(print_DCC_Read_CV(_result, parameters));
+                    if (response_ptr)
+                    {
+                        response_ptr->send_response(print_DCC_Read_CV(_result, parameters));
+                    }
                     return;
                 }
                 break;
@@ -549,6 +636,9 @@ namespace DccExParser
         }
 
         // Send default response
-        _send_response("<X>\n");
+        if (response_ptr)
+        {
+            response_ptr->send_response("<X>\n");
+        }
     }
 }

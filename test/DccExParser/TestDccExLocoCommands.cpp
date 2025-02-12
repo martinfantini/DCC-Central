@@ -8,12 +8,6 @@ TEST_CASE("Test DCC loco implemented commands")
 {
     using namespace DccExParser;
 
-    std::string commandResult;
-    DccExParser::string_function_type commandFunction = [&commandResult](const std::string& command_result)
-    {
-        commandResult = command_result;
-    };
-
     // Helper variables
     static int max_locos = 20;
     static bool _removeAllLocos = false;
@@ -98,7 +92,9 @@ TEST_CASE("Test DCC loco implemented commands")
 
     TestMockCommandManager _TestMockCommandManager(_testLocoInterface, _TestMockTrackInterface, _TestMockSensorsInterface, _TestMockTurnoutInterface, _TestMockInfoInterface, _TestMockAccessoryInterface, _TestMockDccTrackInterface);
 
-    DccExCommandParser dccParser(_TestMockCommandManager, commandFunction);
+    DccExCommandParser dccParser(_TestMockCommandManager);
+    std::string commandResult;
+    dccParser.set_response_callback(std::make_shared<DccExResponse>(DccExResponse(commandResult)));
     DCCBasicParser dccBasicParser(dccParser);
 
     SECTION("Test # case")
