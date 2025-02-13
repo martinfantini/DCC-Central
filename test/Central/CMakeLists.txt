@@ -23,6 +23,4 @@ target_include_directories(${TEST_EXECUTABLE_CENTRAL_NAME}
 target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE pugixml::shared)
 
-include(CTest)
-include(Catch)
 catch_discover_tests(${TEST_EXECUTABLE_CENTRAL_NAME})

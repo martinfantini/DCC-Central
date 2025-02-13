@@ -18,6 +18,4 @@ target_include_directories(${TEST_LIB_DCC_PROTOCOL} PRIVATE ${INCLUDE_DIRECTORIE
 
 target_link_libraries(${TEST_LIB_DCC_PROTOCOL} PRIVATE Catch2::Catch2WithMain)
 
-include(CTest)
-include(Catch)
 catch_discover_tests(${TEST_LIB_DCC_PROTOCOL})

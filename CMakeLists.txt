@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.25)
 
 project(DCC-Central LANGUAGES CXX VERSION 1.0.0.0)
 
-include(${CMAKE_CURRENT_LIST_DIR}/cmake/version.cmake)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+include(Version)
 
 # Ser environment variables for all modules
 set(INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/include)
@@ -32,6 +33,9 @@ set(TEST_LIB_DCC_PROTOCOL TestLibDccProtocol)
 # Information about Test common data
 set(TEST_LIB_CENTRAL_COMMON TestCentralCommon)
 
+# Information about Test common data
+set(TEST_COVERAGE TestCoverage)
+
 # Information about the lib raspberry
 set(LIB_RASPBEERY_DMA libRaspberryDMA)
 generate_version(LIB_RASPBEERY_DMA_VERSION LIB_RASPBEERY_DMA_VERSION 0.0 0.1)
@@ -41,5 +45,22 @@ message("System Processoor: ${CMAKE_SYSTEM_PROCESSOR}")
 message("Os Name: ${CMAKE_SYSTEM_NAME}")
 message("System Version: ${CMAKE_SYSTEM_VERSION}")
 
+if(BUILD_TESTING)
+    Include(FetchContent)
+    FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v3.8.0 # or a later release
+    )
+
+    FetchContent_MakeAvailable(Catch2)
+
+    list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+
+    enable_testing()
+
+    add_subdirectory(test)
+endif()
+
 add_subdirectory(src)
-add_subdirectory(test)
+

@@ -20,6 +20,4 @@ target_compile_definitions(${TEST_DCC_EX_PARSER}
     PRIVATE LIB_DCC_EX_VERSION_LO=${LIB_DCC_EX_VERSION_LO}
 )
 
-include(CTest)
-include(Catch)
 catch_discover_tests(${TEST_DCC_EX_PARSER})
