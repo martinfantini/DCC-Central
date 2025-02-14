@@ -58,8 +58,16 @@ if(BUILD_TESTING)
     list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 
     enable_testing()
-
     add_subdirectory(test)
+
+    if(CODE_COVERAGE)
+        include(CodeCoverage)
+        append_coverage_compiler_flags()
+
+        # we need to turn off optimization for non-skewed coverage reports
+        set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -O0")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0")
+    endif()
 endif()
 
 add_subdirectory(src)

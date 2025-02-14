@@ -21,3 +21,11 @@ target_compile_definitions(${TEST_DCC_EX_PARSER}
 )
 
 catch_discover_tests(${TEST_DCC_EX_PARSER})
+
+if(CODE_COVERAGE)
+    target_link_libraries(${TEST_DCC_EX_PARSER} PRIVATE gcov)
+    include(CodeCoverage)
+    setup_target_for_coverage_gcovr_html(
+        NAME Coverage-${TEST_DCC_EX_PARSER}
+        EXECUTABLE ${TEST_DCC_EX_PARSER})
+endif()

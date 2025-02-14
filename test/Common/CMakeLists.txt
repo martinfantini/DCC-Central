@@ -13,3 +13,10 @@ target_include_directories(${TEST_LIB_CENTRAL_COMMON}
 target_link_libraries(${TEST_LIB_CENTRAL_COMMON} PRIVATE Catch2::Catch2WithMain)
 
 catch_discover_tests(${TEST_LIB_CENTRAL_COMMON})
+
+if(CODE_COVERAGE)
+    include(CodeCoverage)
+    setup_target_for_coverage_gcovr_html(
+        NAME Coverage-${TEST_LIB_CENTRAL_COMMON}
+        EXECUTABLE ${TEST_LIB_CENTRAL_COMMON})
+endif()

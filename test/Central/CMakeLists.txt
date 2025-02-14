@@ -24,3 +24,10 @@ target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE Catch2::Catch2With
 target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE pugixml::shared)
 
 catch_discover_tests(${TEST_EXECUTABLE_CENTRAL_NAME})
+
+if(CODE_COVERAGE)
+    include(CodeCoverage)
+    setup_target_for_coverage_gcovr_html(
+        NAME Coverage-${TEST_EXECUTABLE_CENTRAL_NAME}
+        EXECUTABLE ${TEST_EXECUTABLE_CENTRAL_NAME})
+endif()
