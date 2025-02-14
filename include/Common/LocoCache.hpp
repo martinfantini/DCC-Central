@@ -7,15 +7,12 @@
 #include <boost/multi_index/member.hpp>
 
 #include "Loco.hpp"
+#include "IndexHelper.hpp"
 
-namespace Common::LocoInformation
+namespace Common
 {
-    struct IndexById{};
-    struct IndexByAddress{};
-    struct IndexByIdAndAddress{};
-
     typedef 
-	    boost::multi_index_container<
+        boost::multi_index_container<
             Loco, //The data type stored
                 boost::multi_index::indexed_by<
                     boost::multi_index::hashed_unique<
@@ -25,7 +22,7 @@ namespace Common::LocoInformation
                     boost::multi_index::hashed_unique<
                         boost::multi_index::tag<IndexByAddress>,
                         boost::multi_index::member<Loco, int, &Loco::Address>
-			    >,
+                >,
                     boost::multi_index::hashed_unique<
                         boost::multi_index::tag<IndexByIdAndAddress>,
                         boost::multi_index::composite_key<
@@ -33,52 +30,49 @@ namespace Common::LocoInformation
                             boost::multi_index::member<Loco, int, &Loco::Id>,
                             boost::multi_index::member<Loco, int, &Loco::Address>
                         >
-			    >
+                >
             >
         > LocoMap;
 
     class LocoCache
     {
         private:
-	        LocoMap m_LocoMap;
+            LocoMap m_LocoMap;
 
         public:
-        	LocoCache() {}
-	        ~LocoCache() {}
+            LocoCache() {}
+            ~LocoCache() {}
 
             bool IsEmpty() const
             {
-    	        return m_LocoMap.empty();
+                return m_LocoMap.empty();
             }
-    
+
             Loco* GetLocoByAddress(int Address) const
             {
-    	        auto& indexByAddress = m_LocoMap.get<IndexByAddress>();
-    	        auto iter = indexByAddress.find(Address);
-    	        if (iter != indexByAddress.end()) return &iter.get_node()->value();
-    	
-    	        return nullptr;
+                auto& indexByAddress = m_LocoMap.get<IndexByAddress>();
+                auto iter = indexByAddress.find(Address);
+                if (iter != indexByAddress.end()) return &iter.get_node()->value();
+                return nullptr;
             }
-    
+
             Loco* GetLocoById(const int id) const
             {
-    	        auto& indexById = m_LocoMap.get<IndexById>();
-    	        auto iter = indexById.find(id);
-    	        if (iter != indexById.end()) return &iter.get_node()->value();
-    
-    	        return nullptr;
+                auto& indexById = m_LocoMap.get<IndexById>();
+                auto iter = indexById.find(id);
+                if (iter != indexById.end()) return &iter.get_node()->value();
+                return nullptr;
             }
 
             Loco* GetLocoByIdAddress(int Id, int Address) const
             {
-    	        auto& indexByIdAddress = m_LocoMap.get<IndexByIdAndAddress>();
-    	        auto iter = indexByIdAddress.find(std::make_tuple(Id, Address));
-    	        if (iter != indexByIdAddress.end()) return &iter.get_node()->value();
-    
-    	        return nullptr;
+                auto& indexByIdAddress = m_LocoMap.get<IndexByIdAndAddress>();
+                auto iter = indexByIdAddress.find(std::make_tuple(Id, Address));
+                if (iter != indexByIdAddress.end()) return &iter.get_node()->value();
+                return nullptr;
             }
 
-            void insert(Loco Loco)
+            void Insert(Loco Loco)
             {
                 m_LocoMap.insert(Loco);
             }

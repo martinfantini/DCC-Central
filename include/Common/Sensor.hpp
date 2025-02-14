@@ -3,35 +3,21 @@
 
 #include <unordered_set>
 
-namespace Common::SensorInformation
+namespace Common
 {
-    enum StatusStatusEnum
+    enum SensorStatusEnum
     {
-        None = 0,
+        SensorStatusEnum_None = 0,
         Busy,
         Free,
     };
 
     struct Sensor
     {
+        int Id;
         int Pin;
-        StatusStatusEnum StatusStatus = StatusStatusEnum::None;
-
-        bool operator==(const Sensor &other) const
-        {
-            return (this->Pin == other.Pin);
-        }
+        SensorStatusEnum Status = SensorStatusEnum::SensorStatusEnum_None;
     };
-
-    struct KeyHasherSensor
-    { 
-        std::size_t operator()(const Sensor& key) const
-        {
-            return std::hash<int>()(key.Pin);
-        }
-    };
-
-    typedef std::unordered_set<Sensor, KeyHasherSensor> sensor_set_type;
 }
 
 #endif

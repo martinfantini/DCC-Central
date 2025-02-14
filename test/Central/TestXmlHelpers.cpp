@@ -21,7 +21,7 @@ TEST_CASE("Test XMLReader class")
             node_dcc.append_child(XmlTags::IpV4::Ip).text().set(ip_value.c_str());
             node_dcc.append_child(XmlTags::IpV4::Port).text().set(std::to_string(port).c_str());
         }
-       
+
         XMLReader xml("any");
         auto result = xml.ReadDccPlus(node_dcc);
 
@@ -42,7 +42,7 @@ TEST_CASE("Test XMLReader class")
             node_rest_api.append_child(XmlTags::IpV4::Ip).text().set(ip_value.c_str());
             node_rest_api.append_child(XmlTags::IpV4::Port).text().set(std::to_string(port).c_str());
         }
-       
+
         XMLReader xml("any");
         auto result = xml.ReadRestApi(node_rest_api);
 

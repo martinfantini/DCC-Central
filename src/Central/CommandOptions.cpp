@@ -19,7 +19,6 @@ namespace Central::CommandOptions
             ("version,v", "Version 0.1")
             ("config,c", po::value<std::string>(), "configuration file, it has to be an xml configuration file");
 
-
         po::variables_map vm;
         po::store(po::parse_command_line(argc, argv, desc), vm);
         po::notify(vm);

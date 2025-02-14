@@ -1,11 +1,11 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "AccessoryDecoder.hpp"
+#include "Accessory.hpp"
 
 TEST_CASE("Test Accessory Decoder Set")
 {
-    using namespace Common::AddresDecoderInformation;
-    accessory_set_type AccessorySet;
+    using namespace Common;
+    Accessory_Set_Type AccessorySet;
 
     SECTION("Test one insertion")
     {
@@ -28,7 +28,7 @@ TEST_CASE("Test Accessory Decoder Set")
         {
             Accessory value = { .Address=123, .SubAddress=0, .isActive=true, .isOn=true };
             AccessorySet.emplace(std::move(value));
-        }      
+        }
 
         {
             Accessory value = { .Address=124, .SubAddress=4, .isActive=true, .isOn=true };

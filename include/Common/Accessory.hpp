@@ -1,10 +1,10 @@
-#ifndef __COMMON_ADDRESS_DECODER_INFORMATION_HPP__
-#define __COMMON_ADDRESS_DECODER_INFORMATION_HPP__
+#ifndef __COMMON_ADDRESS_INFORMATION_HPP__
+#define __COMMON_ADDRESS_INFORMATION_HPP__
 
 #include <unordered_set>
 #include <string>
 
-namespace Common::AddresDecoderInformation
+namespace Common
 {
     struct Accessory
     {
@@ -18,7 +18,7 @@ namespace Common::AddresDecoderInformation
             return (this->Address == other.Address && this->SubAddress == other.SubAddress);
         }
     };
-   
+
     struct KeyHasherAccessory
     { 
         std::size_t operator()(const Accessory& key) const
@@ -27,7 +27,7 @@ namespace Common::AddresDecoderInformation
         }
     };
 
-    typedef std::unordered_set<Accessory, KeyHasherAccessory> accessory_set_type;
+    typedef std::unordered_set<Accessory, KeyHasherAccessory> Accessory_Set_Type;
 }
 
 #endif

@@ -120,5 +120,5 @@ TEST_CASE("Test DCC track implemented commands")
         CHECK(!_status[2]);
         CHECK(_emergencyStop);
         CHECK(commandResult == "<X>\n");
-    }    
+    }
 }

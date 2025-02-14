@@ -30,11 +30,14 @@ generate_version(LIB_DCC_PROTOCOL_VERSION LIB_DCC_PROTOCOL_VERSION 0.0 0.1)
 message("The library " ${LIB_DCC_PROTOCOL} " version is " ${LIB_DCC_PROTOCOL_VERSION_HI} "." ${LIB_DCC_PROTOCOL_VERSION_LO})
 set(TEST_LIB_DCC_PROTOCOL TestLibDccProtocol)
 
-# Information about Test common data
-set(TEST_LIB_CENTRAL_COMMON TestCentralCommon)
+# Information about the lib RestApi
+set(LIB_REST_API libRestApi)
+generate_version(LIB_REST_API_VERSION LIB_REST_API_VERSION 0.0 0.1)
+message("The library " ${LIB_REST_API} " version is " ${LIB_REST_API_VERSION_HI} "." ${LIB_REST_API_VERSION_LO})
+set(TEST_LIB_REST_API TestLibRestApi)
 
 # Information about Test common data
-set(TEST_COVERAGE TestCoverage)
+set(TEST_LIB_CENTRAL_COMMON TestCentralCommon)
 
 # Information about the lib raspberry
 set(LIB_RASPBEERY_DMA libRaspberryDMA)

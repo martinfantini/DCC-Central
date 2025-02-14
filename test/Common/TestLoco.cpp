@@ -4,23 +4,23 @@
 
 TEST_CASE("Test Loco Map")
 {
-    using namespace Common::LocoInformation;
+    using namespace Common;
 
     LocoCache m_locoCache;
 
     {
-        Loco value = { .Address = 123, .Id = 1, .currentSpeed = 10, .currentDirection = false, .functionIndicator = LocoFunctionsGroup::F5_F12,  .functionStatus = {} };
-        m_locoCache.insert(std::move(value));
+        Loco value = { .Id = 1, .Address = 123,  .Speed = 10, .Direction = false, .FunctionIndicator = LocoFunctionsGroup::F5_F12,  .FunctionStatus = {} };
+        m_locoCache.Insert(std::move(value));
     }
     
     {
-        Loco value = { .Address = 128, .Id = 3, .currentSpeed = 10, .currentDirection = true, .functionIndicator = LocoFunctionsGroup::F13_F20,  .functionStatus = {} };
-        m_locoCache.insert(std::move(value));
+        Loco value = { .Id = 3, .Address = 128, .Speed = 10, .Direction = true, .FunctionIndicator = LocoFunctionsGroup::F13_F20,  .FunctionStatus = {} };
+        m_locoCache.Insert(std::move(value));
     }
 
     {
-        Loco value = { .Address = 256, .Id = 2, .currentSpeed = 10, .currentDirection = false, .functionIndicator = LocoFunctionsGroup::F21_F28,  .functionStatus = {} };
-        m_locoCache.insert(std::move(value));
+        Loco value = { .Id = 2, .Address = 256, .Speed = 10, .Direction = false, .FunctionIndicator = LocoFunctionsGroup::F21_F28,  .FunctionStatus = {} };
+        m_locoCache.Insert(std::move(value));
     }
 
     SECTION("Test Search by Address")
@@ -41,6 +41,6 @@ TEST_CASE("Test Loco Map")
     {
         auto found = m_locoCache.GetLocoByIdAddress(3, 128);
         REQUIRE(found != nullptr);
-        REQUIRE(found->currentSpeed == 10);
+        REQUIRE(found->Speed == 10);
     }
 }

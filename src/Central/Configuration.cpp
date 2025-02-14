@@ -17,5 +17,3 @@ namespace Central::Configuration
         return os;
     }
 }
-
-   

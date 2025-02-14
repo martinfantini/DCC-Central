@@ -3,6 +3,7 @@ add_library(${LIB_DCC_EX_PARSER}
     DccExBasicParser.cpp
     DccExCommandConverter.cpp
     Helpers.cpp
+    InfoInterface.cpp
 )
 
 target_include_directories(${LIB_DCC_EX_PARSER} 

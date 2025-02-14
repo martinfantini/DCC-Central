@@ -152,7 +152,7 @@ TEST_CASE("Test Function F1 to F4")
         CHECK(instruction.size() == 1);
         CHECK(function == static_cast<unsigned char>(0x0D));
         CHECK(instruction[0] == static_cast<unsigned char>(0x1D));
-    
+
         instruction.clear();
         _DccCommandGenerator.SetFunction_F1_F4(3, false, instruction, function);
         CHECK(instruction.size() == 1);

@@ -3,20 +3,21 @@
 
 #include <unordered_map>
 
-namespace Common::TurnoutInformation
+namespace Common
 {
     enum StatusTurnout
     {
-      None = 0,
+      StatusTurnout_None = 0,
       Close,
       Throw,
     };
 
     struct Turnout
     {
+        int Id;
         int Address;
         int Pin;
-        StatusTurnout Status = StatusTurnout::None;
+        StatusTurnout Status = StatusTurnout::StatusTurnout_None;
     };
 }
 
