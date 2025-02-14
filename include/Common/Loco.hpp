@@ -1,6 +1,8 @@
 #ifndef __COMMON_LOCO_INFORMATION_HPP__
 #define __COMMON_LOCO_INFORMATION_HPP__
 
+#include <vector>
+
 namespace Common
 {
     enum LocoFunctionsGroup
