@@ -23,13 +23,13 @@ TEST_CASE("Loco to json","[Loco_ToJson]")
         .FunctionIndicator=FunctionIndicator,
         .FunctionStatus=FunctionStatus };
 
-    auto result = ToJson(loco);
+    auto result = LocoSerializer::ToJson(loco);
 
     CHECK(result.at("Id").as_int64() == Id);
     CHECK(result.at("Address").as_int64() == Address);
-    CHECK(result.at("SpeedSteps").as_int64() == (int)SpeedSteps);
+    CHECK(result.at("SpeedSteps").as_string() == "128");
     CHECK(result.at("Direction").as_bool() == Direction);
-    CHECK(result.at("FunctionIndicator").as_int64() == (int)FunctionIndicator);
+    CHECK(result.at("FunctionIndicator").as_string() == "F5_F12");
 }
 
 TEST_CASE("Loco From json","[Loco_FromJson]")
@@ -50,7 +50,7 @@ TEST_CASE("Loco From json","[Loco_FromJson]")
     obj["Direction"] = Direction;
     obj["FunctionIndicator"] = "F13_F20";
 
-    Loco result = FromJson(obj);
+    Loco result = LocoSerializer::FromJson(obj);
 
     CHECK(result.Id == Id);
     CHECK(result.Address == Address);

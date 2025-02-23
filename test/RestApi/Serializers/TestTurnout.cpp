@@ -14,7 +14,7 @@ TEST_CASE("Turnout to json","[Turnout_ToJson]")
 
     Turnout turnout = {.Id = Id, .Address = Address, .SubAddress = SubAddress, .Pin = Pin, .Status = Status};
 
-    auto resultObject = ToJson(turnout);
+    auto resultObject = TurnoutSerializer::ToJson(turnout);
 
     CHECK(resultObject.at("Id").as_int64() == Id);
     CHECK(resultObject.at("Address").as_int64() == Address);
@@ -38,7 +38,7 @@ TEST_CASE("Turnout From json","[Turnout_FromJson]")
     turnoutObj["Pin"] = Pin;
     turnoutObj["Status"] = "Throw";
 
-    Turnout turnout = FromJson(turnoutObj);
+    Turnout turnout = TurnoutSerializer::FromJson(turnoutObj);
 
     CHECK(turnout.Id == Id);
     CHECK(turnout.Address == Address);

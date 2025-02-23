@@ -7,7 +7,7 @@ namespace RestApi::Serializer
 {
     using namespace Common;
 
-    boost::json::object ToJson(const Common::Sensor& sensor)
+    boost::json::object SensorSerializer::ToJson(const Common::Sensor& sensor)
     {
         boost::json::object obj;
         obj["Id"] = sensor.Id;
@@ -35,7 +35,7 @@ namespace RestApi::Serializer
         return obj;
     }
 
-    Common::Sensor FromJson(const boost::json::object &obj)
+    Common::Sensor SensorSerializer::FromJson(const boost::json::object &obj)
     {
         Common::Sensor sensor;
         sensor.Id = obj.at("Id").as_int64();

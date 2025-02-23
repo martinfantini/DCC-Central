@@ -2,7 +2,7 @@
 
 namespace RestApi::Serializer
 {
-    boost::json::object ToJson(const Common::Accessory &accessory)
+    boost::json::object AccessorySerializer::ToJson(const Common::Accessory &accessory)
     {
         boost::json::object obj;
         obj["Address"] = accessory.Address;
@@ -12,7 +12,7 @@ namespace RestApi::Serializer
         return obj;
     }
 
-    Common::Accessory FromJson(const boost::json::object &obj)
+    Common::Accessory AccessorySerializer::FromJson(const boost::json::object &obj)
     {
         Common::Accessory Accessory;
         Accessory.Address = obj.at("Address").as_int64();

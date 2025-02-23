@@ -70,7 +70,7 @@ namespace RestApi::Serializer
 {
     using namespace Common;
 
-    boost::json::object ToJson(const Common::Loco &loco)
+    boost::json::object LocoSerializer::ToJson(const Common::Loco &loco)
     {
         boost::json::object obj;
         obj["Id"] = loco.Id;
@@ -147,13 +147,13 @@ namespace RestApi::Serializer
         return obj;
     }
 
-    Common::Loco FromJson(const boost::json::object &obj)
+    Common::Loco LocoSerializer::FromJson(const boost::json::object &obj)
     {
         Common::Loco Loco_result;
         Loco_result.Id = obj.at("Id").as_int64();
         Loco_result.Address = obj.at("Address").as_int64();
         Loco_result.Speed = obj.at("Speed").as_int64();
-        Loco_result.Direction = obj.at("Direction").as_int64();
+        Loco_result.Direction = obj.at("Direction").as_bool();
 
         {
             static std::map<std::string, SpeedStepsLabel> helper_converter =

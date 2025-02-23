@@ -6,8 +6,12 @@
 
 namespace RestApi::Serializer
 {
-    boost::json::object ToJson(const Common::Accessory &accessory);
-    Common::Accessory FromJson(const boost::json::object &obj);
+    class AccessorySerializer
+    {
+        public:
+            static boost::json::object ToJson(const Common::Accessory &accessory);
+            static Common::Accessory FromJson(const boost::json::object &obj);
+    };
 }
 
 #endif

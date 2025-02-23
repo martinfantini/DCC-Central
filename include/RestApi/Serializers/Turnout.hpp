@@ -6,8 +6,12 @@
 
 namespace RestApi::Serializer
 {
-    boost::json::object ToJson(const Common::Turnout& loco);
-    Common::Turnout FromJson(const boost::json::object &obj);
+    class TurnoutSerializer
+    {
+        public:
+            static boost::json::object ToJson(const Common::Turnout& loco);
+            static Common::Turnout FromJson(const boost::json::object &obj);
+    };
 }
 
 #endif

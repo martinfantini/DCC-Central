@@ -12,7 +12,7 @@ TEST_CASE("Accessory to json","[Accessory_ToJson]")
     bool isOn = true;
 
     Accessory accessory = {.Address = Address, .SubAddress = SubAddress, .isActive=isActive, .isOn = isOn};
-    auto resultObject = ToJson(accessory);
+    auto resultObject = AccessorySerializer::ToJson(accessory);
 
     CHECK(resultObject.at("Address").as_int64() == Address);
     CHECK(resultObject.at("SubAddress").as_int64() == SubAddress);
@@ -34,7 +34,7 @@ TEST_CASE("Accessory From json","[Accessory_FromJson]")
     dataAccessory["IsActive"] = isActive;
     dataAccessory["IsOn"] = isOn;
 
-    Accessory resultAccessory = FromJson(dataAccessory);
+    Accessory resultAccessory = AccessorySerializer::FromJson(dataAccessory);
 
     CHECK(resultAccessory.Address == Address);
     CHECK(resultAccessory.SubAddress == SubAddress);

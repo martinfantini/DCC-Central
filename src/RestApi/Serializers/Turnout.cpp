@@ -7,7 +7,7 @@ namespace RestApi::Serializer
 {
     using namespace Common;
 
-    boost::json::object ToJson(const Common::Turnout& turnout)
+    boost::json::object TurnoutSerializer::ToJson(const Common::Turnout& turnout)
     {
         boost::json::object obj;
         obj["Id"] = turnout.Id;
@@ -36,7 +36,7 @@ namespace RestApi::Serializer
         return obj;
     }
 
-    Common::Turnout FromJson(const boost::json::object &obj)
+    Common::Turnout TurnoutSerializer::FromJson(const boost::json::object &obj)
     {
         Common::Turnout turnout;
         turnout.Id = obj.at("Id").as_int64();

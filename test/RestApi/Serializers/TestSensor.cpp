@@ -13,12 +13,12 @@ TEST_CASE("Sensor to json","[Sensor_ToJson]")
 
     Sensor sensor = {.Id = Id, .Pin = Pin, .PullUp = PullUp, .Status = Status};
 
-    auto resultObject = ToJson(sensor);
+    auto resultObject = SensorSerializer::ToJson(sensor);
 
     CHECK(resultObject.at("Id").as_int64() == Id);
     CHECK(resultObject.at("Pin").as_int64() == Pin);
     CHECK(resultObject.at("PullUp").as_bool() == PullUp);
-    CHECK(resultObject.at("Status").as_int64() == (int) Status);
+    CHECK(resultObject.at("Status").as_string() == "Busy");
 }
 
 TEST_CASE("Sensor From json","[Sensor_FromJson]")
@@ -34,7 +34,7 @@ TEST_CASE("Sensor From json","[Sensor_FromJson]")
     obj["PullUp"] = PullUp;
     obj["Status"] = "Close";
 
-    Sensor sensorResult = FromJson(obj);
+    Sensor sensorResult = SensorSerializer::FromJson(obj);
 
     CHECK(sensorResult.Id == Id);
     CHECK(sensorResult.Pin == Pin);
