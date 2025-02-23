@@ -70,7 +70,7 @@ namespace RestApi::Serializer
 {
     using namespace Common;
 
-    boost::json::object ToJson(const Loco &loco)
+    boost::json::object ToJson(const Common::Loco &loco)
     {
         boost::json::object obj;
         obj["Id"] = loco.Id;
@@ -147,9 +147,9 @@ namespace RestApi::Serializer
         return obj;
     }
 
-    Loco FromJson(const boost::json::object &obj)
+    Common::Loco FromJson(const boost::json::object &obj)
     {
-        Loco Loco_result;
+        Common::Loco Loco_result;
         Loco_result.Id = obj.at("Id").as_int64();
         Loco_result.Address = obj.at("Address").as_int64();
         Loco_result.Speed = obj.at("Speed").as_int64();

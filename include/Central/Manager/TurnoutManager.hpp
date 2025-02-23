@@ -2,8 +2,11 @@
 #define __CENTRAL_TURNOUT_MANAGER_HPP__
 
 #include <mutex>
+#include <unordered_map>
+#include <vector>
 #include <DccExParser/TurnoutInterface.hpp>
 #include <Common/TurnoutCache.hpp>
+#include <DccProtocol/DccCommandGenerator.hpp>
 
 namespace Central
 {
@@ -35,7 +38,7 @@ namespace Central
             // Status: 0: Close 1: Throw
             void updateStatusByPin(int Pin, bool state);
 
-            const std::vector<Common::Loco> GetTurnoutVector();
+            const std::vector<Common::Turnout> GetTurnoutVector();
 
         private:
 

@@ -1,8 +1,12 @@
-#include "Mananger/TurnoutManager.hpp"
-#include "Common/Turnout.hpp"
+#include <Manager/TurnoutManager.hpp>
+#include <Common/Turnout.hpp>
+
+#include <glog/logging.h>
 
 namespace Central
 {
+    using namespace Common;
+
     TurnoutManager::TurnoutManager(
             std::mutex& main_track_mutex,
             DccProtocol::DccCommandGenerator& dcc_CommandGenerator) :
@@ -33,14 +37,14 @@ namespace Central
             subAddress =  TurnoutCache->SubAddress;
             if (TurnoutCache->Status == StatusTurnout::Close)
             {
-                LOG(DEBUG) << "Id: " << Id << "Address: " << Address << ", SubAddress: " << subAddress << ", Status: Close";
+                LOG(INFO) << "Id: " << Id << "Address: " << Address << ", SubAddress: " << subAddress << ", Status: Close";
                 return;
             }
 
             TurnoutCache->Status = StatusTurnout::Close;
         }
 
-        LOG(DEBUG) << "Id: " << Id << "Address: " << Address << ", SubAddress: " << subAddress << ", Status: Close => Send Command";
+        LOG(INFO) << "Id: " << Id << "Address: " << Address << ", SubAddress: " << subAddress << ", Status: Close => Send Command";
 
         {
             const std::lock_guard<std::mutex> lock_cache(main_track_mutex);
@@ -66,13 +70,13 @@ namespace Central
             subAddress =  TurnoutCache->SubAddress;
             if (TurnoutCache->Status == StatusTurnout::Throw)
             {
-                LOG(DEBUG) << "Id: " << Id << "Address: " << Address << ", SubAddress: " << subAddress << ", Status: Throw";
+                LOG(INFO) << "Id: " << Id << "Address: " << Address << ", SubAddress: " << subAddress << ", Status: Throw";
                 return;
             }
             TurnoutCache->Status = StatusTurnout::Throw;
         }
 
-        LOG(DEBUG) << "Id: " << Id << "Address: " << Address << ", SubAddress: " << subAddress << ", Status: Throw => Send Command";
+        LOG(INFO) << "Id: " << Id << "Address: " << Address << ", SubAddress: " << subAddress << ", Status: Throw => Send Command";
 
         {
             const std::lock_guard<std::mutex> lock_cache(main_track_mutex);
@@ -112,7 +116,7 @@ namespace Central
         m_TurnoutCache.SetStatusByPin(Pin, State);
     }
 
-    const std::vector<Common::Loco> TurnoutManager::GetTurnoutVector()
+    const std::vector<Common::Turnout> TurnoutManager::GetTurnoutVector()
     {
         const std::lock_guard<std::mutex> lock_cache(turnout_cache_mutex);
         return m_TurnoutCache.TurnoutVector();

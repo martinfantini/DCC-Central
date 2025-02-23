@@ -1,6 +1,6 @@
 find_package(Boost COMPONENTS system json REQUIRED)
 
-add_library(${LIB_REST_API}
+add_library(${LIB_REST_API} STATIC
     Serializers/Accessory.cpp
     Serializers/Turnout.cpp
     Serializers/Sensor.cpp

@@ -1,29 +1,31 @@
-#include "Mananger/SensorManager.hpp"
-#include "Common/SensorCache.hpp"
+#include <Manager/SensorsManager.hpp>
+#include <Common/SensorCache.hpp>
 
 #include <glog/logging.h>
 
 namespace Central
 {
+    using namespace Common;
+
     int SensorsManager::countSensors()
     {
         const std::lock_guard<std::mutex> lock_cache(sensor_cache_mutex);
-        LOG(DEBUG) << "Count Sensors: " << m_SensorCache.size();
+        LOG(INFO) << "Count Sensors: " << m_SensorCache.size();
         return m_SensorCache.size();
     }
 
     void SensorsManager::addSensor(int sensorId, int virtualPin, bool isPullUp)
     {
         const std::lock_guard<std::mutex> lock_cache(sensor_cache_mutex);
-        LOG(DEBUG) << "Insert Sensor: Id: " << sensorId << ", VirtualPin: " << virtualPin << ", isPullUp: " << std::boolalpha << isPullUp;
+        LOG(INFO) << "Insert Sensor: Id: " << sensorId << ", VirtualPin: " << virtualPin << ", isPullUp: " << std::boolalpha << isPullUp;
         m_SensorCache.Insert({.Id = sensorId, .Pin = virtualPin, .PullUp = isPullUp});
     }
 
     void SensorsManager::removeSensor(int sensorId)
     {
         const std::lock_guard<std::mutex> lock_cache(sensor_cache_mutex);
-        LOG(DEBUG) << "Remove Sensor: Id: " << sensorId;
-        m_SensorCache.RemoveById(int sensorId);
+        LOG(INFO) << "Remove Sensor: Id: " << sensorId;
+        m_SensorCache.RemoveById(sensorId);
     }
 
     bool SensorsManager::getStatusSensor(int sensorId)
@@ -32,11 +34,11 @@ namespace Central
         auto sensor = m_SensorCache.GetSensorById(sensorId);
         if (sensor->Status == SensorStatusEnum::SensorStatusEnum_None || sensor->Status == SensorStatusEnum::Free)
         {
-            LOG(DEBUG) << "Free Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
+            LOG(INFO) << "Free Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
             return false;
         }
 
-        LOG(DEBUG) << "Busy Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
+        LOG(INFO) << "Busy Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
         return true;
     }
 
@@ -46,11 +48,11 @@ namespace Central
         auto sensor = m_SensorCache.GetSensorById(sensorId);
         if (Status)
         {
-            LOG(DEBUG) << "Set Busy Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
+            LOG(INFO) << "Set Busy Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
             sensor->Status == SensorStatusEnum::Busy;
         }
 
-        LOG(DEBUG) << "Set Free Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
+        LOG(INFO) << "Set Free Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
         sensor->Status == SensorStatusEnum::Free;
     }
 
@@ -60,10 +62,10 @@ namespace Central
         auto sensor = m_SensorCache.GetSensorByPin(pin);
         if (Status)
         {
-            LOG(DEBUG) << "Set Busy Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
+            LOG(INFO) << "Set Busy Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
             sensor->Status == SensorStatusEnum::Busy;
         }
-        LOG(DEBUG) << "Set Free Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
+        LOG(INFO) << "Set Free Sensor: Id: " << sensor->Id << ", Pin: " << sensor->Pin;
         sensor->Status == SensorStatusEnum::Free;
     }
 

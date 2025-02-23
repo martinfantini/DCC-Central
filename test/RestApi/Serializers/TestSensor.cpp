@@ -2,6 +2,7 @@
 #include <Serializers/Sensor.hpp>
 
 using namespace RestApi::Serializer;
+using namespace Common;
 
 TEST_CASE("Sensor to json","[Sensor_ToJson]")
 {

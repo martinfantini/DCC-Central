@@ -56,10 +56,10 @@ namespace Common
                 return nullptr;
             }
 
-            Loco* GetLocoById(const int id) const
+            Loco* GetLocoById(int Id) const
             {
                 auto& indexById = m_LocoMap.get<IndexById>();
-                auto iter = indexById.find(id);
+                auto iter = indexById.find(Id);
                 if (iter != indexById.end()) return &iter.get_node()->value();
                 return nullptr;
             }
@@ -74,16 +74,16 @@ namespace Common
 
             void EmergencyStop()
             {
-                for(Loco& loco : m_LocoMap)
-                    loco.SpeedSteps = 1;
+                for(auto first=m_LocoMap.begin(), last=m_LocoMap.end(); first!=last;)
+                    first.get_node()->value().Speed = 1;
             }
 
             void EmergencyStopById(int Id)
             {
                 auto& indexById = m_LocoMap.get<IndexById>();
-                auto iter = indexById.find(id);
+                auto iter = indexById.find(Id);
                 if (iter != indexById.end()) 
-                    return iter.get_node()->value().SpeedSteps = 1;
+                    iter.get_node()->value().Speed = 1;
             }
 
             void Insert(Loco Loco)
@@ -91,10 +91,10 @@ namespace Common
                 m_LocoMap.insert(Loco);
             }
 
-            void RemoveLocoById(int locoId)
+            void RemoveLocoById(int Id)
             {
                 auto& indexById = m_LocoMap.get<IndexById>();
-                auto iter = indexById.find(id);
+                auto iter = indexById.find(Id);
                 if (iter != indexById.end())
                 {
                     indexById.erase(iter);
@@ -109,8 +109,8 @@ namespace Common
             const std::vector<Loco> LocoVector()
             {
                 std::vector<Loco> loco_vector;
-                for(Loco& loco : m_LocoMap)
-                    loco_vector.push_back(loco);
+                for(auto first=m_LocoMap.begin(), last=m_LocoMap.end(); first!=last;)
+                    loco_vector.push_back(first.get_node()->value());
                 return loco_vector;
             }
     };

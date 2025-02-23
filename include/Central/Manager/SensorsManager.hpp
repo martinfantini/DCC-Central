@@ -21,7 +21,7 @@ namespace Central
 
             void setStatusSensor(int sensorId, bool Status) override;
 
-            void setStatusPinSensor(int pin, bool Status) override;
+            void setStatusPinSensor(int pin, bool Status);
 
             virtual const std::unordered_map<int, bool> getStatusSensors() override;
 

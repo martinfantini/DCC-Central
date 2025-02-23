@@ -1,7 +1,7 @@
-#include "CommandOptions.hpp"
-#include "XmlHelpers.hpp"
-#include "Configuration.hpp"
-#include "Logger.hpp"
+#include <Helpers/CommandOptions.hpp>
+#include <Helpers/Logger.hpp>
+#include <Configuration/XmlHelpers.hpp>
+#include <Configuration/Configuration.hpp>
 
 #include <glog/logging.h>
 

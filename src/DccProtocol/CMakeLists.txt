@@ -1,4 +1,4 @@
-add_library(${LIB_DCC_PROTOCOL}
+add_library(${LIB_DCC_PROTOCOL} STATIC
     DccCommandGenerator.cpp
     DccProgrammingCommandGenerator.cpp
 )

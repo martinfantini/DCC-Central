@@ -4,6 +4,7 @@
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/member.hpp>
+#include <boost/multi_index/composite_key.hpp>
 
 #include "Turnout.hpp"
 #include "IndexHelper.hpp"
@@ -21,9 +22,9 @@ namespace Common
                     boost::multi_index::hashed_unique<
                         boost::multi_index::tag<IndexByAddressSubAddress>,
                         boost::multi_index::composite_key<
-                            Loco,
-                            boost::multi_index::member<Turnout, int, &Loco::Address>,
-                            boost::multi_index::member<Turnout, int, &Loco::SubAddress>
+                            Turnout,
+                            boost::multi_index::member<Turnout, int, &Turnout::Address>,
+                            boost::multi_index::member<Turnout, int, &Turnout::SubAddress>
                         >
                     >
                 >
@@ -80,9 +81,9 @@ namespace Common
                 if (iter != indexById.end())
                 {
                     if (Status)
-                        iter->Status = StatusTurnout::Close;
+                        iter.get_node()->value().Status = StatusTurnout::Close;
                     else
-                        iter->Status = StatusTurnout::Throw;
+                        iter.get_node()->value().Status = StatusTurnout::Throw;
                 }
             }
 
@@ -90,8 +91,9 @@ namespace Common
             const std::unordered_map<int, bool> getStatus()
             {
                 std::unordered_map<int, bool> result_map;
-                for(Turnout& turnout : m_TurnoutCache)
+                for(auto first=m_TurnoutCache.begin(), last=m_TurnoutCache.end(); first!=last;)
                 {
+                    auto turnout = first.get_node()->value();
                     if(turnout.Status != StatusTurnout::StatusTurnout_None)
                     {
                         if(turnout.Status == StatusTurnout::Close)
@@ -100,14 +102,15 @@ namespace Common
                             result_map.emplace(turnout.Id, false);
                     }
                 }
-                return result;
+                return result_map;
             }
 
             // Status: 1: Close 0: Throw
             void SetStatusByPin(int Pin, bool Status)
             {
-                for(Turnout& turnout : m_TurnoutCache)
+                for(auto first=m_TurnoutCache.begin(), last=m_TurnoutCache.end(); first!=last;)
                 {
+                    auto& turnout = first.get_node()->value();
                     // this is the normal case, it is not configured
                     if(turnout.Pin == 0)
                         continue;
@@ -119,13 +122,14 @@ namespace Common
                         else
                             turnout.Status = StatusTurnout::Throw;
                     }
+                }
             }
 
             const std::vector<Turnout> TurnoutVector()
             {
                 std::vector<Turnout> turnout_vector;
-                for(Turnout& turnout : m_TurnoutCache)
-                    turnout_vector.push_beck(turnout);
+                for(auto first=m_TurnoutCache.begin(), last=m_TurnoutCache.end(); first!=last;)
+                    turnout_vector.push_back(first.get_node()->value());
                 return turnout_vector;
             }
     };

@@ -1,11 +1,11 @@
-#include "Configuration/XmlHelpers.cpp"
+#include <Configuration/XmlHelpers.hpp>
 
 #include <iostream>
 #include <regex>
 #include <filesystem>
 #include <cstring>
 
-#include "XmlTags.hpp"
+#include <Configuration/XmlTags.hpp>
 
 namespace Central::XmlHelpers
 {

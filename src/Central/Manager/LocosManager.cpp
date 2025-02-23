@@ -1,6 +1,6 @@
 
-#include "Mananger/LocoManager.hpp"
-#include "Common/LocoCache.hpp"
+#include <Manager/LocoManager.hpp>
+#include <Common/LocoCache.hpp>
 
 #include <glog/logging.h>
 
@@ -60,7 +60,7 @@ namespace Central
             return false;
         }
 
-        LOG(DEBUG) << "Loco Address " << cab << ", function number: " << function_number << " , On " << std::alphabool << on;
+        LOG(INFO) << "Loco Address " << cab << ", function number: " << function_number << " , On " << std::alphabool << on;
 
         {
             const std::lock_guard<std::mutex> lock(main_track_mutex);
@@ -81,7 +81,7 @@ namespace Central
             result.FunctionIndicator = (LocoFunctionsGroup) function_number;
         }
 
-        LOG(DEBUG) << "Loco Address " << cab << ", function indicator: " << result.FunctionIndicator;
+        LOG(INFO) << "Loco Address " << cab << ", function indicator: " << result.FunctionIndicator;
     }
 
     int LocoManager::searchLoco(int cab)
@@ -118,7 +118,7 @@ namespace Central
 
     void LocoManager::emergencyStopLoco(int locoId)
     {
-        LOG(DEBUG) << "Emergency Stop for LocoId: " << locoId;
+        LOG(INFO) << "Emergency Stop for LocoId: " << locoId;
 
         int Address = 0;
         {
@@ -138,7 +138,7 @@ namespace Central
 
     void LocoManager::emergencyStop()
     {
-        LOG(DEBUG) << "Emergency Stop";
+        LOG(INFO) << "Emergency Stop";
         {
             const std::lock_guard<std::mutex> lock(main_track_mutex);
             dcc_CommandGenerator.SetEmergencyStrop();

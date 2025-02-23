@@ -1,5 +1,5 @@
-#ifndef __CENTRAL_ACCESSORY_MANAGER_HPP__
-#define __CENTRAL_ACCESSORY_MANAGER_HPP__
+#ifndef __CENTRAL_TRACK_MANAGER_HPP__
+#define __CENTRAL_TRACK_MANAGER_HPP__
 
 #include <mutex>
 #include <DccExParser/TrackInterface.hpp>
@@ -29,14 +29,13 @@ namespace Central
             std::mutex& main_track_mutex;
 
             bool has_Main = false;
-            bool bool has_Programming = false;
+            bool has_Programming = false;
 
             bool enable_Main = true;
-            bool bool enable_Programming = true;
+            bool enable_Programming = true;
 
-            bool bool is_Main_On = false;
-            bool bool is_Programming_On = false;
+            bool is_Main_On = false;
+            bool is_Programming_On = false;
     };
 }
-
 #endif

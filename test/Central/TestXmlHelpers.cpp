@@ -2,8 +2,8 @@
 
 #define TEST_XML_HELPERS
 
-#include "XmlHelpers.hpp"
-#include "XmlTags.hpp"
+#include <Configuration/XmlHelpers.hpp>
+#include <Configuration/XmlTags.hpp>
 
 TEST_CASE("Test XMLReader class")
 {

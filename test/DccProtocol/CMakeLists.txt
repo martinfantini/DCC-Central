@@ -1,8 +1,6 @@
 find_package(pugixml REQUIRED)
 
 add_executable(${TEST_LIB_DCC_PROTOCOL}
-    ${SRC_DIRECTORIES}/DccProtocol/DccCommandGenerator.cpp
-    ${SRC_DIRECTORIES}/DccProtocol/DccProgrammingCommandGenerator.cpp
     # Tests
     TestDccCommandGenerator.cpp
     TestDccProgrammingGenerator.cpp
@@ -16,7 +14,10 @@ target_compile_definitions(${TEST_LIB_DCC_PROTOCOL}
 
 target_include_directories(${TEST_LIB_DCC_PROTOCOL} PRIVATE ${INCLUDE_DIRECTORIES}/DccProtocol)
 
-target_link_libraries(${TEST_LIB_DCC_PROTOCOL} PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(${TEST_LIB_DCC_PROTOCOL} 
+    PRIVATE Catch2::Catch2WithMain
+    PRIVATE ${LIB_DCC_PROTOCOL}
+)
 
 catch_discover_tests(${TEST_LIB_DCC_PROTOCOL})
 

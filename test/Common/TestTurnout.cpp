@@ -14,20 +14,20 @@ TEST_CASE("Test Turnout Map")
     }
 
     {
-        Turnout value = { .Id = 23, .Address = 23, .Pin = 2, .Status = StatusTurnout::Throw};
+        Turnout value = { .Id = 25, .Address = 23, .Pin = 2, .Status = StatusTurnout::Throw};
         TurnoutCache.Insert(std::move(value));
     }
 
-    SECTION("Test Search by Address")
+    SECTION("Test Search by Address and Subaddress")
     {
         auto found = TurnoutCache.GetTurnoutByAddressSubAddress(123);
         REQUIRE(found != nullptr);
         REQUIRE(found->Pin == 1);
     }
 
-    SECTION("Test Search by Pin")
+    SECTION("Test Search by Id")
     {
-        auto found = TurnoutCache.GetTurnoutByPin(2);
+        auto found = TurnoutCache.GetTurnoutById(25);
         REQUIRE(found != nullptr);
         REQUIRE(found->Address == 23);
     }    

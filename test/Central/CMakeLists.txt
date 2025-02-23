@@ -1,10 +1,10 @@
 find_package(pugixml REQUIRED)
 
 add_executable(${TEST_EXECUTABLE_CENTRAL_NAME}
-    ${SRC_DIRECTORIES}/Central/XmlHelpers.cpp
-    ${SRC_DIRECTORIES}/Central/Helpers.cpp
-    ${SRC_DIRECTORIES}/Central/Configuration.cpp
-    ${SRC_DIRECTORIES}/Central/Address.cpp
+    ${SRC_DIRECTORIES}/Central/Configuration/XmlHelpers.cpp
+    ${SRC_DIRECTORIES}/Central/Configuration/Configuration.cpp
+    ${SRC_DIRECTORIES}/Central/Helpers/Helpers.cpp
+    ${SRC_DIRECTORIES}/Central/Helpers/Address.cpp
     # Tests
     TestConfiguration.cpp
     TestXmlHelpers.cpp
@@ -20,8 +20,10 @@ target_include_directories(${TEST_EXECUTABLE_CENTRAL_NAME}
     PRIVATE ${INCLUDE_DIRECTORIES}/Common
 )
 
-target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} PRIVATE pugixml::shared)
+target_link_libraries(${TEST_EXECUTABLE_CENTRAL_NAME} 
+    PRIVATE Catch2::Catch2WithMain
+    PRIVATE pugixml::shared
+)
 
 catch_discover_tests(${TEST_EXECUTABLE_CENTRAL_NAME})
 

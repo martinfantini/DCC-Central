@@ -1,4 +1,4 @@
-#include "Mananger/InfoManager.hpp"
+#include <Manager/InfoManager.hpp>
 
 namespace Central
 {

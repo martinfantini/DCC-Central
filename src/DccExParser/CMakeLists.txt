@@ -1,5 +1,5 @@
 
-add_library(${LIB_DCC_EX_PARSER}
+add_library(${LIB_DCC_EX_PARSER} STATIC
     DccExBasicParser.cpp
     DccExCommandConverter.cpp
     Helpers.cpp

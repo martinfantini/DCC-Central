@@ -1,3 +1,5 @@
+find_package(Boost COMPONENTS system json REQUIRED)
+
 add_executable(${TEST_LIB_REST_API}
     Serializers/TestAccessory.cpp
     Serializers/TestLoco.cpp
@@ -5,12 +7,16 @@ add_executable(${TEST_LIB_REST_API}
     Serializers/TestTurnout.cpp
 )
 
-target_include_directories(${TEST_LIB_REST_API} PRIVATE ${INCLUDE_DIRECTORIES}/RestApi)
-
-target_link_libraries(${TEST_LIB_REST_API} 
-    PRIVATE ${LIB_REST_API}
-    PRIVATE Catch2::Catch2WithMain
+target_include_directories(${TEST_LIB_REST_API} 
+    PRIVATE ${INCLUDE_DIRECTORIES}/RestApi
+    PRIVATE ${INCLUDE_DIRECTORIES}
 )
+
+target_link_libraries(${TEST_LIB_REST_API}
+    PRIVATE Catch2::Catch2WithMain
+    PRIVATE ${LIB_REST_API}
+)
+
 
 catch_discover_tests(${TEST_LIB_REST_API})
 

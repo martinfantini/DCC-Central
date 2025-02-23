@@ -57,7 +57,6 @@ TEST_CASE("Loco From json","[Loco_FromJson]")
     CHECK(result.Speed == Speed);
     CHECK(result.SpeedSteps == SpeedSteps);
     CHECK(result.Direction == Direction);
-    CHECK(result.FunctionIndicator = FunctionIndicator);
-    CHECK(result.FunctionStatus = Id);
-    CHECK(std::equal(result.FunctionStatus.begin(), result.FunctionStatus.end(), FunctionStatus.begin(), FunctionStatus.end());
+    CHECK(result.FunctionIndicator == FunctionIndicator);
+    CHECK(std::equal(result.FunctionStatus.begin(), result.FunctionStatus.end(), FunctionStatus.begin(), FunctionStatus.end()));
 }

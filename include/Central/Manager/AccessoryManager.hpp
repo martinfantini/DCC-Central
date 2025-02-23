@@ -5,6 +5,7 @@
 
 #include <Common/Accessory.hpp>
 #include <DccExParser/AccessoryInterface.hpp>
+#include <DccProtocol/DccCommandGenerator.hpp>
 #include <utility>
 
 namespace Central
@@ -18,7 +19,7 @@ namespace Central
             virtual void setAccessory(int address, int subaddress, bool activate)  override;
             virtual void setAccessory(int address, int subaddress, bool activate, bool onOff)  override;
 
-            const Accessory_Set_Type& getAccessorySet();
+            const Common::Accessory_Set_Type& getAccessorySet();
 
             const std::pair<bool, Common::Accessory> getAccessory(int address, int subaddress = 0);
 

@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "Configuration.hpp"
+#include <Configuration/Configuration.hpp>
 
 TEST_CASE("Test global Configuration class")
 {

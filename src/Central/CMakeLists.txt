@@ -30,6 +30,11 @@ target_compile_definitions(${EXECUTABLE_CENTRAL_NAME}
 )
 
 # Link against library
-target_link_libraries(${EXECUTABLE_CENTRAL_NAME} PRIVATE Boost::program_options Boost::filesystem Boost::system)
-target_link_libraries(${EXECUTABLE_CENTRAL_NAME} PRIVATE pugixml::shared)
-target_link_libraries(${EXECUTABLE_CENTRAL_NAME} PRIVATE glog::glog)
+target_link_libraries(${EXECUTABLE_CENTRAL_NAME}
+    PRIVATE Boost::program_options Boost::filesystem Boost::system
+    PRIVATE pugixml::shared
+    PRIVATE glog::glog
+    PRIVATE ${LIB_REST_API}
+    PRIVATE ${LIB_DCC_PROTOCOL}
+    PRIVATE ${LIB_DCC_EX_PARSER}
+)

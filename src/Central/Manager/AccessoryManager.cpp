@@ -1,31 +1,32 @@
-#include "Mananger/AccessoryManager.hpp"
+#include <Manager/AccessoryManager.hpp>
 
 #include <glog/logging.h>
 
 namespace Central
 {
+    using namespace Common;
+    using namespace DccProtocol;
+
     void AccessoryManager::UpdateAccessoryMap(Common::Accessory accessory)
     {
+        const std::lock_guard<std::mutex> lock(accessory_set_mutex);
+        auto result = AccessorySet.find(accessory);
+        if (result ==  AccessorySet.end())
         {
-            const std::lock_guard<std::mutex> lock(accessory_set_mutex);
-            auto result = AccessorySet.find(accessory)
-            if (result ==  AccessorySet.end())
-            {
-                AccessorySet.insert(accessory);
-            }
-            else
-            {
-                AccessorySet.erase(result);
-                AccessorySet.insert(accessory);
-            }
+            AccessorySet.insert(accessory);
+        }
+        else
+        {
+            AccessorySet.erase(result);
+            AccessorySet.insert(accessory);
         }
     }
 
     void AccessoryManager::setAccessory(int address, bool activate)
     {
-        LOG(DEBUG) << "Address: " << address << " , Activate: " << std::boolalpha <<  activate;
+        LOG(INFO) << "Address: " << address << " , Activate: " << std::boolalpha <<  activate;
 
-        UpdateAccessoryMap({ .Address=address, .isActive=activate})
+        UpdateAccessoryMap({ .Address=address, .isActive=activate});
 
         {
             const std::lock_guard<std::mutex> lock(main_track_mutex);
@@ -41,9 +42,9 @@ namespace Central
             return;
         }
 
-        LOG(DEBUG) << "Address: " << address << ", SubAddress: " << subaddress <<", Activate: " << std::boolalpha <<  activate;
+        LOG(INFO) << "Address: " << address << ", SubAddress: " << subaddress <<", Activate: " << std::boolalpha <<  activate;
 
-        UpdateAccessoryMap({ .Address=address, .SubAddress=subaddress, .isActive=activate})
+        UpdateAccessoryMap({.Address=address, .SubAddress=subaddress, .isActive=activate});
 
         {
             const std::lock_guard<std::mutex> lock(main_track_mutex);
@@ -59,9 +60,9 @@ namespace Central
             return;
         }
 
-        LOG(DEBUG) << "Address: " << address << ", SubAddress: " << subaddress <<", Activate: " << std::boolalpha <<  activate << " onOff: " << std::boolalpha <<  onOff;
+        LOG(INFO) << "Address: " << address << ", SubAddress: " << subaddress <<", Activate: " << std::boolalpha <<  activate << " onOff: " << std::boolalpha <<  onOff;
 
-        UpdateAccessoryMap({ .Address=address, .SubAddress=subaddress , .isActive=activate, .isOn=onOff})
+        UpdateAccessoryMap({ .Address=address, .SubAddress=subaddress , .isActive=activate, .isOn=onOff});
 
         {
             const std::lock_guard<std::mutex> lock(main_track_mutex);
@@ -86,6 +87,6 @@ namespace Central
         auto found = AccessorySet.find({ .Address=address, .SubAddress=subaddress});
         if (found == AccessorySet.end())
             return {false, { .Address=address, .SubAddress=subaddress} };
-        return {true, *found}
+        return {true, *found};
     }
 }

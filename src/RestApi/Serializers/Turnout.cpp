@@ -1,7 +1,7 @@
-#include "Serializers/Turnout.hpp"
+#include <Serializers/Turnout.hpp>
 
-#include<map>
-#include<string>
+#include <map>
+#include <string>
 
 namespace RestApi::Serializer
 {
@@ -36,9 +36,9 @@ namespace RestApi::Serializer
         return obj;
     }
 
-    Turnout FromJson(const boost::json::object &obj)
+    Common::Turnout FromJson(const boost::json::object &obj)
     {
-        Turnout turnout;
+        Common::Turnout turnout;
         turnout.Id = obj.at("Id").as_int64();
         turnout.Address = obj.at("Address").as_int64();
         turnout.SubAddress = obj.at("SubAddress").as_int64();

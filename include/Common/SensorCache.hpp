@@ -81,8 +81,8 @@ namespace Common
             const std::vector<Sensor> SensorVector()
             {
                 std::vector<Sensor> sensor_vector;
-                for(Sensor& sensor : m_SensorMap)
-                    sensor_vector.push_back(sensor);
+                for(auto first=m_SensorMap.begin(), last=m_SensorMap.end(); first!=last;)
+                    sensor_vector.push_back(first.get_node()->value());
                 return sensor_vector;
             }
             
