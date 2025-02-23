@@ -16,7 +16,8 @@ namespace Common
     {
         int Id;
         int Address;
-        int Pin;
+        int SubAddress = 0;
+        int Pin = 0; // In the case it is not 0, the status toggle with the pin
         StatusTurnout Status = StatusTurnout::StatusTurnout_None;
     };
 }

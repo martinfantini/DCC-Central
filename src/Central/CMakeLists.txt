@@ -4,13 +4,19 @@ find_package(glog REQUIRED)
 
 add_executable(${EXECUTABLE_CENTRAL_NAME} 
     main.cpp
-    CommandOptions.cpp
-    XmlHelpers.cpp
-    Logger.cpp
-    Address.cpp
-    Configuration.cpp
-    Helpers.cpp
-    CentralManager.cpp
+    Configuration/XmlHelpers.cpp
+    Configuration/Configuration.cpp
+    Helpers/Address.cpp
+    Helpers/CommandOptions.cpp
+    Helpers/Helpers.cpp
+    Helpers/Logger.cpp
+    Manager/AccessoryManager.cpp
+    Manager/DccTrackManager.cpp
+    Manager/InfoManager.cpp
+    Manager/SensorsManager.cpp
+    Manager/TrackManager.cpp
+    Manager/TurnoutManager.cpp
+    RestApi/RestService.cpp
 )
 
 target_include_directories(${EXECUTABLE_CENTRAL_NAME} 

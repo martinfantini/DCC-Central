@@ -27,7 +27,7 @@ namespace DccExParser
             // to set the values of an actual loco
             virtual bool setLoco(int cab, int tspeed, bool forwardDirection) = 0;
             // to get the data from a loco, internal value
-            virtual bool getLoco(int cab, int& locoId ,int& tspeed, long& functions) = 0;
+            virtual bool getLoco(int cab, int& locoId ,int& tspeed, int& functions) = 0;
 
             virtual ~LocoInterface(){}
     };

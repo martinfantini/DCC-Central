@@ -88,7 +88,16 @@ namespace DccProtocol
          * @param gate
          * @param onoff
          */
-        void SetAccessory(int address, int port, bool gate, bool onoff);
+        void SetAccessory(int address, int port, bool gate = false, bool onoff = true);
+
+        /**
+         * @brief Set the Accessory object
+         *
+         * @param address
+         * @param gate
+         * @param onoff
+         */
+        void SetAccessory(int address, bool gate = false , bool onoff = true);
 
 #ifndef UNIT_TEST_PRIVATE_METHODS
     private:

@@ -17,7 +17,7 @@ namespace DccExParser::Helpers
     std::string print_DCC_Sensor_Configuration(DccExParser::SensorsInterface& _sensors);
     std::string print_DCC_Info(DccExParser::InfoInterface& _info);
     std::string print_DCC_Turnout(DccExParser::TurnoutInterface& _turnout);
-    std::string print_DCC_Loco_Info(int cab, int locoId ,int tspeed, long functions);
+    std::string print_DCC_Loco_Info(int cab, int locoId ,int tspeed, int functions);
 
     // printers obsolete current
     std::string print_DCC_Current_On_Main(DccExParser::DccTrackInterface& _dccTruck);

@@ -72,9 +72,46 @@ namespace Common
                 return nullptr;
             }
 
+            void EmergencyStop()
+            {
+                for(Loco& loco : m_LocoMap)
+                    loco.SpeedSteps = 1;
+            }
+
+            void EmergencyStopById(int Id)
+            {
+                auto& indexById = m_LocoMap.get<IndexById>();
+                auto iter = indexById.find(id);
+                if (iter != indexById.end()) 
+                    return iter.get_node()->value().SpeedSteps = 1;
+            }
+
             void Insert(Loco Loco)
             {
                 m_LocoMap.insert(Loco);
+            }
+
+            void RemoveLocoById(int locoId)
+            {
+                auto& indexById = m_LocoMap.get<IndexById>();
+                auto iter = indexById.find(id);
+                if (iter != indexById.end())
+                {
+                    indexById.erase(iter);
+                }
+            }
+
+            void ClearCache()
+            {
+                m_LocoMap.clear();
+            }
+
+            const std::vector<Loco> LocoVector()
+            {
+                std::vector<Loco> loco_vector;
+                for(Loco& loco : m_LocoMap)
+                    loco_vector.push_back(loco);
+                return loco_vector;
             }
     };
 }

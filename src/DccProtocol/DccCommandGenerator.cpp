@@ -193,6 +193,20 @@ namespace DccProtocol
         SendInternalDCC(instruction, 3);
     }
 
+    void DccCommandGenerator::SetAccessory(int address, bool gate, bool onoff)
+    {
+        if (address < 0 && address > 2047)
+            return;
+
+        std::vector<unsigned char> instruction;
+        unsigned char A7A2 = static_cast<unsigned char>((address & 0x00FF) >> 2);
+        unsigned char A10A8 = static_cast<unsigned char>((address & 0x0700) >> 4) ^ 0x70;
+        unsigned char A0A1 = static_cast<unsigned char>(address & 0x0003);
+        instruction.push_back(0x80 | A7A2);
+        instruction.push_back(0x80 | A10A8 | A0A1 | (onoff?0x08:0x00) | (gate?0x01:0x00));
+        SendInternalDCC(instruction, 3);
+    }
+
     void DccCommandGenerator::SetLocoFunction(int cab, int function, bool status, std::vector<unsigned char>& status_vector)
     {
         if (function > 28 || function < 1)

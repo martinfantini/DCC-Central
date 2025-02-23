@@ -5,6 +5,7 @@ namespace Common
 {
     struct IndexById{};
     struct IndexByAddress{};
+    struct IndexByAddressSubAddress{};
     struct IndexByIdAndAddress{};
     struct IndexByPin{};
 }

@@ -75,7 +75,7 @@ namespace DccExParser::Helpers
         return result;
     }
 
-    std::string print_DCC_Loco_Info(int _cab, int _locoId ,int _tspeed, long _functions)
+    std::string print_DCC_Loco_Info(int _cab, int _locoId ,int _tspeed, int _functions)
     {
         std::string result;
         result += "<l " + std::to_string(_locoId) + " ";

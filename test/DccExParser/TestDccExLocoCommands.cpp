@@ -75,7 +75,7 @@ TEST_CASE("Test DCC loco implemented commands")
                 return true;
             }
 
-            bool getLoco(int cab, int& locoId ,int& tspeed, long& functions)
+            bool getLoco(int cab, int& locoId ,int& tspeed, int& functions)
             {
                 return true;
             }

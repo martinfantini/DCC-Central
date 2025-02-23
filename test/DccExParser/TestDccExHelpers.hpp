@@ -116,7 +116,7 @@ class TestMockLocoInterface : public LocoInterface
             return true;
         }
 
-        virtual bool getLoco(int cab, int& locoId ,int& tspeed, long& functions)
+        virtual bool getLoco(int cab, int& locoId ,int& tspeed, int& functions)
         {
             return true;
         }

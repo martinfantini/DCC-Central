@@ -62,6 +62,30 @@ namespace Common
             {
                 m_SensorMap.insert(Sensor);
             }
+
+            int size()
+            {
+                return m_SensorMap.size();
+            }
+
+            void RemoveById(int id)
+            {
+                auto& indexById = m_SensorMap.get<IndexById>();
+                auto iter = indexById.find(id);
+                if (iter != indexById.end())
+                {
+                    indexById.erase(iter);
+                }
+            }
+
+            const std::vector<Sensor> SensorVector()
+            {
+                std::vector<Sensor> sensor_vector;
+                for(Sensor& sensor : m_SensorMap)
+                    sensor_vector.push_back(sensor);
+                return sensor_vector;
+            }
+            
     };
 }
 

@@ -12,6 +12,7 @@ namespace RestApi::Serializer
         boost::json::object obj;
         obj["Id"] = sensor.Id;
         obj["Pin"] = sensor.Pin;
+        obj["PullUp"] = sensor.PullUp;
 
         {
             std::map<SensorStatusEnum, std::string> helper_map
@@ -38,7 +39,8 @@ namespace RestApi::Serializer
     {
         Sensor sensor;
         sensor.Id = obj.at("Id").as_int64();
-        sensor.Pin = obj.at("Id").as_int64();
+        sensor.Pin = obj.at("Pin").as_int64();
+        sensor.PullUp = obj.at("PullUp").as_bool();
 
         {
             std::map<std::string, SensorStatusEnum> helper_map

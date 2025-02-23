@@ -16,6 +16,7 @@ namespace Common
     {
         int Id;
         int Pin;
+        bool PullUp = false;
         SensorStatusEnum Status = SensorStatusEnum::SensorStatusEnum_None;
     };
 }

@@ -1,7 +1,7 @@
-#include "Logger.hpp"
+#include "Helpers/Logger.hpp"
 
 #include <glog/logging.h>
-#include "Helpers.hpp"
+#include "Helpers/Helpers.hpp"
 
 namespace Central::Logger
 {

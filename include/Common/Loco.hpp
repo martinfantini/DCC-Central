@@ -12,13 +12,35 @@ namespace Common
         F5_F12,
         F13_F20,
         F21_F28,
+        LocoFunctionsGroup_Max, 
     };
+
+    static bool LocoHasFunction(LocoFunctionsGroup FunctionIndicator, int FunctionNumber)
+    {
+        if (FunctionIndicator == LocoFunctionsGroup::F1_F4)
+        {
+            return (FunctionNumber > 0 && FunctionNumber < 5);
+        }
+        else if (FunctionIndicator == LocoFunctionsGroup::F5_F12)
+        {
+            return (FunctionNumber > 0 && FunctionNumber < 13);
+        }
+        else if (FunctionIndicator == LocoFunctionsGroup::F13_F20)
+        {
+            return (FunctionNumber > 0 && FunctionNumber < 21);
+        }
+        else if (FunctionIndicator == LocoFunctionsGroup::F21_F28)
+        {
+            return (FunctionNumber > 0 && FunctionNumber < 29);
+        }
+        return false;
+    }
 
     enum SpeedStepsLabel
     {
         SpeedStepsLabel_None = 0,
-        Steps_28,
-        Steps_128,
+        Steps_28 = 28,
+        Steps_128 = 128,
     };
 
     struct Loco
@@ -36,7 +58,7 @@ namespace Common
         // indictor of the group
         LocoFunctionsGroup FunctionIndicator = LocoFunctionsGroup::LocoFunctionsGroup_None;
         // current group value
-        std::vector<unsigned char> FunctionStatus;
+        std::vector<unsigned char> FunctionStatus = { 0x00, 0x00, 0x00, 0x00 };
     };
 }
 

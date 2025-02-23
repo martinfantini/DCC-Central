@@ -20,7 +20,7 @@ TEST_CASE("Test Turnout Map")
 
     SECTION("Test Search by Address")
     {
-        auto found = TurnoutCache.GetTurnoutByAddress(123);
+        auto found = TurnoutCache.GetTurnoutByAddressSubAddress(123);
         REQUIRE(found != nullptr);
         REQUIRE(found->Pin == 1);
     }

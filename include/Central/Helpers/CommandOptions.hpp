@@ -1,8 +1,8 @@
 #ifndef __CENTRAL_COMMAND_OPTIONS_HPP__
 #define __CENTRAL_COMMAND_OPTIONS_HPP__
 
-#include<utility>
-#include<string>
+#include <utility>
+#include <string>
 
 namespace Central::CommandOptions
 {

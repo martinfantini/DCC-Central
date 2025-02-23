@@ -376,7 +376,7 @@ namespace DccExParser
                 {
                     case 1: // <t cab>  display state
                     {
-                        long _functions;
+                        int _functions;
                         if (!_command_interface.getLocosInterface().getLoco(_cab, _locoId, _tspeed, _functions))
                         {
                             _locoId = -1;

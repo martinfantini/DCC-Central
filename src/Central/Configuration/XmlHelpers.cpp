@@ -1,4 +1,4 @@
-#include "XmlHelpers.hpp"
+#include "Configuration/XmlHelpers.cpp"
 
 #include <iostream>
 #include <regex>

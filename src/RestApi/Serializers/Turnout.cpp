@@ -12,6 +12,7 @@ namespace RestApi::Serializer
         boost::json::object obj;
         obj["Id"] = turnout.Id;
         obj["Address"] = turnout.Address;
+        obj["SubAddress"] = turnout.SubAddress;
         obj["Pin"] = turnout.Pin;
 
         {
@@ -40,6 +41,7 @@ namespace RestApi::Serializer
         Turnout turnout;
         turnout.Id = obj.at("Id").as_int64();
         turnout.Address = obj.at("Address").as_int64();
+        turnout.SubAddress = obj.at("SubAddress").as_int64();
         turnout.Pin = obj.at("Pin").as_int64();
 
         {

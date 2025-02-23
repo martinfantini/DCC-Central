@@ -9,7 +9,7 @@ namespace Common
     struct Accessory
     {
         int Address;
-        int SubAddress;
+        int SubAddress = 0;
         bool isActive =  false;
         bool isOn = false;
 
