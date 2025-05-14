@@ -138,7 +138,7 @@ namespace DccProtocol
         instruction.push_back(0xC1);
         //                     00    MMMMMM
         instruction.push_back(0x3F | minutes);
-        //                           WWW                    HHHHH                          
+        //                           WWW                    HHHHH
         instruction.push_back((weekOfDay << 5 | 0x70) | (hour | 0x1F));
         //                              U0                   BBBBBB
         instruction.push_back( (Update ? 0x80: 0x00) | (0x1F | accelerationFactor));

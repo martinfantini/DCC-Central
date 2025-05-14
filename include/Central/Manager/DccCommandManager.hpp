@@ -21,15 +21,19 @@ namespace Central
     {
         public:
             DccCommandManager(DccCommandGenerator& dcc_CommandGenerator, DccProgrammingCommandGenerator& dcc_ProgrammingCommandGenerator):
+                m_LocosManager(main_track_mutex, dcc_CommandGenerator),
             {
-                m_LocosManager = LocosManager(main_track_mutex, dcc_CommandGenerator);
+
                 m_TrackManager = TrackManager(main_track_mutex, programming_track_mutex);
                 m_SensorsManager = SensorsManager();
-                m_TurnoutManager = TurnoutManager(main_track_mutex);
+                m_TurnoutManager = TurnoutManager(main_track_mutex, dcc_CommandGenerator);
                 m_InfoManager = InfoManager();
                 m_AccessoryManager = AccessoryManager(main_track_mutex, dcc_CommandGenerator);
                 m_DccTrackManager = DccTrackManager(main_track_mutex, programming_track_mutex);
             }
+
+
+            TurnoutManager(std::mutex& main_track_mutex, DccProtocol::DccCommandGenerator& dcc_CommandGenerator);
 
             LocosManager& getLocosInterface() override
             {

@@ -34,12 +34,14 @@ namespace Central::Helpers
         int SignalPin = 0;
         int EnablePin = 0;
         float SenseFactor = 0.0;
-        unsigned int TripMilliamps = 0;
+        unsigned int TripMilliAmperes = 0;
+        float MaxCurrent = 0.0;
     };
 
     std::ostream& operator<<(std::ostream& os, const Helpers::DCCPlus& _dccPlus);
     std::ostream& operator<<(std::ostream& os, const Helpers::RestApi& _restApi);
     std::ostream& operator<<(std::ostream& os, const Helpers::Logger& _logger);
+    std::ostream& operator<<(std::ostream& os, const Helpers::Track& _track);
 } // namespace Helpers
 
 #endif

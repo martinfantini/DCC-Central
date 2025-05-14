@@ -27,14 +27,15 @@ namespace Central::XmlTags
 
     namespace Track
     {
-        inline static const char* Track          = "Track";
-        inline static const char* Main           = "Main";
-        inline static const char* Programing     = "Programing";
-        inline static const char* PowerPin       = "PowerPin";
-        inline static const char* SignalPin      = "SignalPin";
-        inline static const char* EnablePin      = "EnablePin";
-        inline static const char* SenseFactor    = "SenseFactor";
-        inline static const char* TripMilliamps  = "TripMilliamps";
+        inline static const char* Track             = "Track";
+        inline static const char* Main              = "Main";
+        inline static const char* Programming       = "Programming";
+        inline static const char* PowerPin          = "PowerPin";
+        inline static const char* SignalPin         = "SignalPin";
+        inline static const char* EnablePin         = "EnablePin";
+        inline static const char* SenseFactor       = "SenseFactor";
+        inline static const char* TripMilliAmperes  = "TripMilliAmperes";
+        inline static const char* MaxCurrentInMilli = "MaxCurrentInMilli";
     }
 }
 #endif
