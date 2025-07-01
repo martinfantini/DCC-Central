@@ -8,6 +8,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(Version)
 
+option(BUILD_TESTING "To generate the unit tests" OFF)
+
 # Ser environment variables for all modules
 set(INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/include)
 set(SRC_DIRECTORIES ${CMAKE_SOURCE_DIR}/src)
@@ -52,18 +54,8 @@ message("Os Name: ${CMAKE_SYSTEM_NAME}")
 message("System Version: ${CMAKE_SYSTEM_VERSION}")
 
 if(BUILD_TESTING)
-    Include(FetchContent)
-    FetchContent_Declare(
-        Catch2
-        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG        v3.8.0 # or a later release
-    )
-
-    FetchContent_MakeAvailable(Catch2)
-
-    list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
-
     enable_testing()
+    add_subdirectory(externals/Catch2)
     add_subdirectory(test)
 
     if(CODE_COVERAGE)

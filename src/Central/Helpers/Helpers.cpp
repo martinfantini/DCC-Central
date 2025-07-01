@@ -39,7 +39,7 @@ namespace Central::Helpers
         os << "    Signal Pin: " << std::to_string(_track.SignalPin) << "\n";
         os << "    Enable Pin: " << std::to_string(_track.EnablePin) << "\n";
         os << "    Sense Factor: " << std::to_string(_track.SenseFactor) << "\n";
-        os << "    Trip Miliamps: " << std::to_string(_track.TripMilliamps) << "\n";
+        os << "    Trip Milliamperes: " << std::to_string(_track.TripMilliAmperes) << "\n";
         return os;
     }
 }

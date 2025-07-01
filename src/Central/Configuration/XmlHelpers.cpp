@@ -189,7 +189,7 @@ namespace Central::XmlHelpers
         }
 
         {
-            std::string _pin = node.child_value(XmlTags::Track::TripMilliamps);
+            std::string _pin = node.child_value(XmlTags::Track::TripMilliAmperes);
             if (!_pin.empty())
             {
                 _track.SenseFactor = atoi(_pin.c_str());
@@ -223,7 +223,7 @@ namespace Central::XmlHelpers
         }
 
         {
-            pugi::xml_node child = node.child(XmlTags::Track::Programing);
+            pugi::xml_node child = node.child(XmlTags::Track::Programming);
             if (child)
             {
                 auto result = ReadOneTrack(child);
