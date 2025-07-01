@@ -1,9 +1,3 @@
 [submodule "externals/Catch2"]
 	path = externals/Catch2
 	url = https://github.com/catchorg/Catch2.git
-[submodule "externals/pugixml"]
-	path = externals/pugixml
-	url = https://github.com/zeux/pugixml.git
-[submodule "externals/glog"]
-	path = externals/glog
-	url = https://github.com/google/glog
