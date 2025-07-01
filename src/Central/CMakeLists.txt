@@ -29,7 +29,7 @@ target_compile_definitions(${EXECUTABLE_CENTRAL_NAME}
 
 # Link against library
 target_link_libraries(${EXECUTABLE_CENTRAL_NAME}
-    PRIVATE Boost::program_options Boost::filesystem Boost::system Boost::multi_index
+    PRIVATE Boost::program_options Boost::filesystem Boost::system
     PRIVATE pugixml::pugixml
     PRIVATE glog::glog
     PRIVATE ${LIB_REST_API}
