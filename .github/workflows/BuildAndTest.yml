@@ -3,17 +3,19 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      BOOST_ROOT: ${{github.workspace}}/boost_1_88_0
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
       - name: Install Boost
-        run: curl -L https://archives.boost.io/release/1.88.0/source/boost_1_88_0.tar.gz | tar zx
-        shell: bash
+        uses: ./
+        id: install-boost
+        with:
+          boost_version: 1.88.0  
       - name: configure
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release -BUILD_TESTING=ON
+        env:
+          BOOST_ROOT: ${{steps.install-boost.outputs.BOOST_ROOT}}
       - name: build
         run: cmake --build build --parallel 2
       - name: test
