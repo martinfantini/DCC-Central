@@ -5,6 +5,8 @@
 #include <Configuration/XmlHelpers.hpp>
 #include <Configuration/XmlTags.hpp>
 
+#include <filesystem>
+
 TEST_CASE("Test XMLReader class")
 {
     using namespace Central;
@@ -88,7 +90,10 @@ TEST_CASE("Test XMLReader class")
 
     SECTION("Test Read Logger")
     {
-        std::string strPath = "/home/rmfantini/Projects/Ralf_Platine/DCC-Central/log/";
+        namespace fs = std::filesystem;
+
+        std::string strPath = "/tmp/log/";
+        fs::create_directories(strPath);
 
         pugi::xml_document doc;
         pugi::xml_node node_logger = doc.append_child(XmlTags::Logger::Logger);
