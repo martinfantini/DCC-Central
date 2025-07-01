@@ -10,7 +10,7 @@ target_include_directories(${TEST_LIB_CENTRAL_COMMON}
     PRIVATE ${INCLUDE_DIRECTORIES}/Common
 )
 
-target_link_libraries(${TEST_LIB_CENTRAL_COMMON} PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(${TEST_LIB_CENTRAL_COMMON} PRIVATE Catch2::Catch2WithMain Boost::multi_index)
 
 catch_discover_tests(${TEST_LIB_CENTRAL_COMMON})
 
