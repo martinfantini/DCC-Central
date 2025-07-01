@@ -1,10 +1,17 @@
 #ifndef __COMMON_SENSOR_CACHE_HPP__
 #define __COMMON_SENSOR_CACHE_HPP__
 
+#ifdef true
+#include <multi_index_container.hpp>
+#include <multi_index/hashed_index.hpp>
+#include <multi_index/composite_key.hpp>
+#include <multi_index/member.hpp>
+#else
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/composite_key.hpp>
 #include <boost/multi_index/member.hpp>
+#endif
 
 #include "Sensor.hpp"
 #include "IndexHelper.hpp"
