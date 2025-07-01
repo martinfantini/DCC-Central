@@ -1,3 +1,5 @@
+find_package(pugixml REQUIRED)
+
 add_executable(${TEST_EXECUTABLE_CENTRAL_NAME}
     ${SRC_DIRECTORIES}/Central/Configuration/XmlHelpers.cpp
     ${SRC_DIRECTORIES}/Central/Configuration/Configuration.cpp
