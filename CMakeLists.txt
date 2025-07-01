@@ -49,9 +49,11 @@ set(LIB_RASPBEERY_DMA libRaspberryDMA)
 generate_version(LIB_RASPBEERY_DMA_VERSION LIB_RASPBEERY_DMA_VERSION 0.0 0.1)
 message("The library " ${LIB_RASPBEERY_DMA} " version is " ${LIB_RASPBEERY_DMA_VERSION_HI} "." ${LIB_RASPBEERY_DMA_VERSION_LO})
 
-message("System Processoor: ${CMAKE_SYSTEM_PROCESSOR}")
+message("System Processor: ${CMAKE_SYSTEM_PROCESSOR}")
 message("Os Name: ${CMAKE_SYSTEM_NAME}")
 message("System Version: ${CMAKE_SYSTEM_VERSION}")
+
+add_subdirectory(externals/pugixml)
 
 if(BUILD_TESTING)
     enable_testing()
