@@ -1,6 +1,4 @@
-find_package(pugixml REQUIRED)
 find_package(Boost COMPONENTS program_options filesystem system REQUIRED)
-find_package(glog REQUIRED)
 
 add_executable(${EXECUTABLE_CENTRAL_NAME} 
     main.cpp
@@ -32,7 +30,7 @@ target_compile_definitions(${EXECUTABLE_CENTRAL_NAME}
 # Link against library
 target_link_libraries(${EXECUTABLE_CENTRAL_NAME}
     PRIVATE Boost::program_options Boost::filesystem Boost::system
-    PRIVATE pugixml::shared
+    PRIVATE pugixml::pugixml
     PRIVATE glog::glog
     PRIVATE ${LIB_REST_API}
     PRIVATE ${LIB_DCC_PROTOCOL}

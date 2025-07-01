@@ -1,5 +1,3 @@
-find_package(pugixml REQUIRED)
-
 add_executable(${TEST_LIB_DCC_PROTOCOL}
     # Tests
     TestDccCommandGenerator.cpp

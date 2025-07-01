@@ -4,3 +4,6 @@
 [submodule "externals/pugixml"]
 	path = externals/pugixml
 	url = https://github.com/zeux/pugixml.git
+[submodule "externals/glog"]
+	path = externals/glog
+	url = https://github.com/google/glog
