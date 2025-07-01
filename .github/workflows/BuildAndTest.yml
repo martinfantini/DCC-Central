@@ -8,10 +8,10 @@ jobs:
         with:
           submodules: recursive
       - name: Install Boost
-        uses: ./
+        uses: MarkusJx/install-boost@v2.4.5
         id: install-boost
         with:
-          boost_version: 1.88.0  
+          boost_version: 1.88.0
       - name: configure
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release -BUILD_TESTING=ON
         env:
