@@ -8,7 +8,7 @@ jobs:
         with:
           submodules: recursive
       - name: Install Boost
-        run: sudo apt-get update && sudo apt-get install -y libboost-all-dev libpugixml-dev libgoogle-glog-dev.
+        run: sudo apt-get update && sudo apt-get install -y libboost-all-dev libpugixml-dev libgoogle-glog-dev
       - name: configure
         run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
       - name: build
