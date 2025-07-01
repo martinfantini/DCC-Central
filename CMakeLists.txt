@@ -53,9 +53,6 @@ message("System Processor: ${CMAKE_SYSTEM_PROCESSOR}")
 message("Os Name: ${CMAKE_SYSTEM_NAME}")
 message("System Version: ${CMAKE_SYSTEM_VERSION}")
 
-add_subdirectory(externals/pugixml)
-add_subdirectory(externals/glog)
-
 if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(externals/Catch2)
